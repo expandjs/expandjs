@@ -18,10 +18,6 @@
     "lodash": "3.5.0",
     "q": "^1.2.0"
   },
-  "devDependencies": {
-    "browserify": "*",
-    "minifyify": "*"
-  },
   "scripts": {
     "build": "node bin/build",
     "browserify": "npm run build && browserify bin > dist/expandjs.js && npm run browserify-min",
