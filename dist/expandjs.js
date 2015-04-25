@@ -66,7 +66,7 @@ process.umask = function() { return 0; };
     "use strict";
 
     // Vars
-    var AbstractError, AlreadyDefinedError, AlreadyUsedError, ArgumentError, Class, Component, CustomError, Deferred, DeniedError, InvalidError, Mixin, NotFoundError, Promise, RejectedError, RequiredError, UnavailableError, UndefinedError, ValidationError, addAttribute, addAttributes, addClass, after, alignElement, and, append, appendChild, apply, ary, assert, assertArgument, assertOption, assign, at, attempt, before, browserify, call, camelCase, capitalize, chunk, clean, clone, cloneDeep, compact, concat, countBy, createElement, createElementNS, debounce, deburr, defaults, defineProperties, defineProperty, delay, difference, drop, dropRight, dropRightWhile, dropWhile, endsWith, escape, escapeRegExp, every, fileExtension, fileName, filter, filterElements, find, findDeep, findElement, findElements, findIndex, findKey, findLast, findLastElement, findLastIndex, findLastKey, findNextElement, findNextElements, findParentElement, findPreviousElement, findPreviousElements, findSiblingElement, findSiblingElements, first, fit, fixed, flatten, flattenDeep, flush, forEach, forEachRight, forIn, forInRight, forOwn, forOwnRight, freeze, functions, getAllNext, getAllNextElements, getAllPrevious, getAllPreviousElements, getAllSiblingElements, getAllSiblings, getAttribute, getAttributes, getBoundings, getChildren, getDistributedElement, getDistributedElements, getElement, getElementById, getElements, getHTML, getHeight, getMargin, getNext, getNextElement, getNode, getNodes, getPadding, getParentElement, getPrevious, getPreviousElement, getSiblingElements, getSiblings, getStyle, getStyles, getTag, getText, getWidth, groupBy, has, hasAttribute, hasChild, hasClass, includes, includesDeep, indexBy, indexOf, initial, insertAfter, insertBefore, intersection, invert, invoke, isAny, isArguments, isArray, isArrayable, isBase62, isBindable, isBoolean, isBrowser, isCamelCase, isCapitalize, isClean, isCollection, isContent, isCustomEvent, isDate, isDefined, isElement, isEmpty, isEnumerable, isEqual, isEquivalent, isError, isEscape, isEscapeRegExp, isEven, isEvent, isExotic, isFalse, isFinite, isFloat, isFunction, isHex, isIndex, isInfinite, isInput, isInstance, isInt, isKebabCase, isKeyCase, isLast, isLastIndex, isLowerCase, isNaN, isNative, isNegative, isNode, isNull, isNullable, isNumber, isNumeric, isObject, isObservable, isOdd, isPlainObject, isPolyfilled, isPositive, isPredicate, isPrevented, isPrimitive, isRegExp, isSelector, isStartCase, isString, isTemplate, isTrue, isUniq, isUpperCase, isVoid, isWithin, iterate, kebabCase, keyCase, keys, keysIn, last, lastIndexOf, listen, localize, lowerCase, map, mapOne, mapValues, match, matches, max, memoize, merge, min, mock, moveFirst, moveLast, nand, negate, nor, not, omit, onMutation, once, or, overwrite, pad, padLeft, padRight, pairs, parallel, partition, pick, pluck, prefix, prependChild, preventDefault, pull, pullAt, push, random, range, readable, redirect, reduce, reduceRight, reject, remove, removeAttribute, removeAttributes, removeChild, removeClass, removeStyle, removeStyles, renameElement, repeat, replaceNode, requestAnimationFrame, rest, round, sample, seal, setAttribute, setAttributes, setChildren, setHTML, setStyle, setStyles, setText, shrink, shuffle, size, slice, snakeCase, some, sortBy, split, startCase, startsWith, stop, stopPropagation, stretch, strip, suffix, take, takeRight, takeRightWhile, takeWhile, throttle, toArray, toBase62, toBoolean, toDOMIdentity, toDOMPredicate, toHex, toIndex, toInfinite, toInput, toInt, toIntFromBase62, toIntFromHex, toJSON, toNumber, toObject, toPosition, toQueryString, toRegExp, toString, toTemplate, toURL, toUseful, toValue, toggleAttribute, toggleClass, trim, trimLeft, trimRight, trunc, unescape, union, uniq, unlisten, unzip, updateElement, upperCase, value, valueIn, values, valuesIn, waterfall, where, willBleedBottom, willBleedHorizontally, willBleedLeft, willBleedRight, willBleedTop, willBleedVertically, withdraw, within, without, words, wrap, xnor, xor, zip, zipObject, 
+    var AbstractError, AlreadyDefinedError, AlreadyUsedError, ArgumentError, Class, CustomError, Deferred, DeniedError, Element, InvalidError, Mixin, NotFoundError, Promise, RejectedError, RequiredError, UnavailableError, UndefinedError, ValidationError, addAttribute, addAttributes, addClass, after, alignElement, and, append, appendChild, apply, ary, assert, assertArgument, assertOption, assign, at, attempt, before, browserify, call, camelCase, capitalize, chunk, clean, clone, cloneDeep, compact, concat, countBy, createElement, createElementNS, debounce, deburr, defaults, defineProperties, defineProperty, delay, difference, drop, dropRight, dropRightWhile, dropWhile, endsWith, escape, escapeRegExp, every, fileExtension, fileName, filter, filterElements, find, findDeep, findElement, findElements, findIndex, findKey, findLast, findLastElement, findLastIndex, findLastKey, findNextElement, findNextElements, findParentElement, findPreviousElement, findPreviousElements, findSiblingElement, findSiblingElements, first, fit, fixed, flatten, flattenDeep, flush, forEach, forEachRight, forIn, forInRight, forOwn, forOwnRight, freeze, functions, getAllNext, getAllNextElements, getAllPrevious, getAllPreviousElements, getAllSiblingElements, getAllSiblings, getAttribute, getAttributes, getBoundings, getChildren, getDistributedElement, getDistributedElements, getElement, getElementById, getElements, getHTML, getHeight, getMargin, getNext, getNextElement, getNode, getNodes, getPadding, getParentElement, getPrevious, getPreviousElement, getSiblingElements, getSiblings, getStyle, getStyles, getTag, getText, getWidth, groupBy, has, hasAttribute, hasChild, hasClass, includes, includesDeep, indexBy, indexOf, initial, insertAfter, insertBefore, intersection, invert, invoke, isAny, isArguments, isArray, isArrayable, isBase62, isBindable, isBoolean, isBrowser, isCamelCase, isCapitalize, isClean, isCollection, isContent, isCustomEvent, isDate, isDefined, isElement, isEmpty, isEnumerable, isEqual, isEquivalent, isError, isEscape, isEscapeRegExp, isEven, isEvent, isExotic, isFalse, isFinite, isFloat, isFunction, isHex, isIndex, isInfinite, isInput, isInstance, isInt, isKebabCase, isKeyCase, isLast, isLastIndex, isLowerCase, isNaN, isNative, isNegative, isNode, isNull, isNullable, isNumber, isNumeric, isObject, isObservable, isOdd, isPlainObject, isPolyfilled, isPositive, isPredicate, isPrevented, isPrimitive, isRegExp, isSelector, isStartCase, isString, isTemplate, isTrue, isUniq, isUpperCase, isVoid, isWithin, iterate, kebabCase, keyCase, keys, keysIn, last, lastIndexOf, listen, localize, lowerCase, map, mapOne, mapValues, match, matches, max, memoize, merge, min, mock, moveFirst, moveLast, nand, negate, nor, not, omit, onMutation, once, or, overwrite, pad, padLeft, padRight, pairs, parallel, partition, pick, pluck, prefix, prependChild, preventDefault, pull, pullAt, push, random, range, readable, redirect, reduce, reduceRight, reject, remove, removeAttribute, removeAttributes, removeChild, removeClass, removeStyle, removeStyles, renameElement, repeat, replaceNode, requestAnimationFrame, rest, round, sample, seal, setAttribute, setAttributes, setChildren, setHTML, setStyle, setStyles, setText, shrink, shuffle, size, slice, snakeCase, some, sortBy, split, startCase, startsWith, stop, stopPropagation, stretch, strip, suffix, take, takeRight, takeRightWhile, takeWhile, throttle, toArray, toBase62, toBoolean, toDOMIdentity, toDOMPredicate, toHex, toIndex, toInfinite, toInput, toInt, toIntFromBase62, toIntFromHex, toJSON, toNumber, toObject, toPosition, toQueryString, toRegExp, toString, toTemplate, toURL, toUseful, toValue, toggleAttribute, toggleClass, trim, trimLeft, trimRight, trunc, unescape, union, uniq, unlisten, unzip, updateElement, upperCase, value, valueIn, values, valuesIn, waterfall, where, willBleedBottom, willBleedHorizontally, willBleedLeft, willBleedRight, willBleedTop, willBleedVertically, withdraw, within, without, words, wrap, xnor, xor, zip, zipObject, 
         exp     = module.exports,
         lodash  = require("lodash"),
         q       = require("q");
@@ -278,8 +278,19 @@ process.umask = function() { return 0; };
         return Constructor;
     };
 
-    // COMPONENT
-    exp.Component = Component = function Component(prototype) {
+    // CUSTOMERROR
+    exp.CustomError = CustomError = function CustomError(name, key, message) { var err = Error.call(this, key + (message ? ' ' + message : '')); err.name = name; this.message = err.message; this.stack = err.stack; };
+
+    // DEFERRED
+    exp.Deferred = Deferred = function Deferred() {
+        return q.defer();
+    };
+
+    // DENIEDERROR
+    exp.DeniedError = DeniedError = function DeniedError(key) { CustomError.call(this, 'DeniedError', key, 'is denied'); };
+
+    // ELEMENT
+    exp.Element = Element = function Element(prototype) {
 
         // Asserting
         assertArgument(isObject(prototype), 1, 'Object');
@@ -301,17 +312,6 @@ process.umask = function() { return 0; };
         // Registering
         return Polymer(final);
     };
-
-    // CUSTOMERROR
-    exp.CustomError = CustomError = function CustomError(name, key, message) { var err = Error.call(this, key + (message ? ' ' + message : '')); err.name = name; this.message = err.message; this.stack = err.stack; };
-
-    // DEFERRED
-    exp.Deferred = Deferred = function Deferred() {
-        return q.defer();
-    };
-
-    // DENIEDERROR
-    exp.DeniedError = DeniedError = function DeniedError(key) { CustomError.call(this, 'DeniedError', key, 'is denied'); };
 
     // INVALIDERROR
     exp.InvalidError = InvalidError = function InvalidError(key) { CustomError.call(this, 'InvalidError', key, 'is not valid'); };
@@ -1427,7 +1427,7 @@ process.umask = function() { return 0; };
 
     // ISBASE62
     exp.isBase62 = isBase62 = function isBase62(value) {
-        return (isString(value) && /^[0-9A-Za-z]+$/.test(value));
+        return isString(value) && /^[0-9A-Za-z]+$/.test(value);
     };
 
     // ISBINDABLE
@@ -1569,7 +1569,7 @@ process.umask = function() { return 0; };
 
     // ISHEX
     exp.isHex = isHex = function isHex(value) {
-        return (isString(value) && /^[0-9A-Fa-f]+$/.test(value));
+        return isString(value) && /^[0-9A-Fa-f]+$/.test(value);
     };
 
     // ISINDEX
@@ -2496,17 +2496,9 @@ process.umask = function() { return 0; };
     // TOBASE62
     exp.toBase62 = toBase62 = function toBase62(target) {
         if (!isInt(target)) { return; }
-        if (target === 0) {return '0'; }
-
-        var charSet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
-            s = '';
-
-        while (target > 0) {
-            s = charSet[target % 62] + s;
-            target = Math.floor(target / 62);
-        }
-
-        return s;
+        var result = '', charSet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        while (target > 0) { result = charSet[target % 62] + result; target = Math.floor(target / 62); }
+        return result || '0';
     };
 
     // TOBOOLEAN
@@ -2533,8 +2525,7 @@ process.umask = function() { return 0; };
 
     // TOHEX
     exp.toHex = toHex = function toHex(target) {
-        if (!isInt(target)) { return; }
-        return target.toString(16).toUpperCase();
+        if (isInt(target)) { return target.toString(16).toUpperCase(); }
     };
 
     // TOINDEX
@@ -2565,26 +2556,15 @@ process.umask = function() { return 0; };
 
     // TOINTFROMBASE62
     exp.toIntFromBase62 = toIntFromBase62 = function toIntFromBase62(target, force) {
-        if (isBase62(target)) {
-            var charSet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
-                val = 0,
-                chars = target.split("").reverse();
-
-            chars.forEach(function (character, index) {
-                val += charSet.indexOf(character) * Math.pow(62, index);
-            });
-
-            return val;
-        }
-
-        if (force) { return 0; }
+        if (!isBase62(target)) { return force ? 0 : undefined; }
+        var result = 0, charSet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', chars = target.split("").reverse();
+        chars.forEach(function (char, index) { result += charSet.indexOf(char) * Math.pow(62, index); });
+        return result;
     };
 
     // TOINTFROMHEX
     exp.toIntFromHex = toIntFromHex = function toIntFromHex(target, force) {
-        if (isHex(target)) {
-            return parseInt(target, 16);
-        }
+        if (isHex(target)) { return parseInt(target, 16); }
         if (force) { return 0; }
     };
 
@@ -2951,8 +2931,8 @@ process.umask = function() { return 0; };
     if (browser) {
         global.XP = module.exports;
         global.XPClass = require("../lib/constructors/Class");
-        global.XPComponent = require("../lib/constructors/Component");
         global.XPDeferred = require("../lib/constructors/Deferred");
+        global.XPElement = require("../lib/constructors/Element");
         global.XPMixin = require("../lib/constructors/Mixin");
         global.XPPromise = require("../lib/constructors/Promise");
     }
@@ -2960,7 +2940,7 @@ process.umask = function() { return 0; };
 }(typeof window !== "undefined" ? window : global, typeof window !== "undefined"));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../lib/constructors/Class":21,"../lib/constructors/Component":22,"../lib/constructors/Deferred":23,"../lib/constructors/Mixin":24,"../lib/constructors/Promise":25,"lodash":60,"q":61}],3:[function(require,module,exports){
+},{"../lib/constructors/Class":21,"../lib/constructors/Deferred":22,"../lib/constructors/Element":23,"../lib/constructors/Mixin":24,"../lib/constructors/Promise":25,"lodash":60,"q":61}],3:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -3405,9 +3385,9 @@ process.umask = function() { return 0; };
      *      // => []
      *
      * @function toArray
-     * @param {*} target The value to be transformed
-     * @param {boolean} [force = false] Flag for forced transformation
-     * @returns {Array | undefined} Returns the array representation of `target`
+     * @param {*} target The value to be transformed.
+     * @param {boolean} [force = false] Flag for forced transformation.
+     * @returns {Array | undefined} Returns the array representation of `target`.
      */
     module.exports = function toArray(target, force) {
         if (isArray(target)) { return target; }
@@ -3449,9 +3429,9 @@ process.umask = function() { return 0; };
      *      // => 0
      *
      * @function toIndex
-     * @param {*} target The value to be transformed
-     * @param {boolean} [force = false] Flag for forced transformation
-     * @returns {number | undefined} Returns the index representation of `target`
+     * @param {*} target The value to be transformed.
+     * @param {boolean} [force = false] Flag for forced transformation.
+     * @returns {number | undefined} Returns the index representation of `target`.
      */
     module.exports = function toIndex(target, force) {
         if (isIndex(target = toInt(target))) { return target; }
@@ -3488,9 +3468,9 @@ process.umask = function() { return 0; };
      *      // => 0
      *
      * @function toInt
-     * @param {*} target The value to be transformed
-     * @param {boolean} [force = false] Flag for forced transformation
-     * @returns {number | undefined} Returns the integer representation of `target`
+     * @param {*} target The value to be transformed.
+     * @param {boolean} [force = false] Flag for forced transformation.
+     * @returns {number | undefined} Returns the integer representation of `target`.
      */
     module.exports = function toInt(target, force) {
         if (isFinite(target = parseInt(target, 10))) { return target; }
@@ -3526,8 +3506,8 @@ process.umask = function() { return 0; };
      *      // => '23rd'
      *
      * @function toPosition
-     * @param {number} target The value to be transformed
-     * @returns {string | undefined} Returns the position representation of `target`
+     * @param {number} target The value to be transformed.
+     * @returns {string | undefined} Returns the position representation of `target`.
      */
     module.exports = function toPosition(target) {
         if (!isIndex(target)) { return; }
@@ -4013,57 +3993,6 @@ process.umask = function() { return 0; };
 
 }());
 },{"../array/concat":3,"../array/pull":5,"../array/push":6,"../assert/assertArgument":11,"../collection/flush":18,"../constructors/Promise":25,"../function/waterfall":32,"../object/assign":33,"../object/defineProperties":34,"../object/forOwn":36,"../object/withdraw":40,"../tester/isArrayable":44,"../tester/isFunction":50,"../tester/isObject":56,"../tester/isString":58,"../tester/isVoid":59}],22:[function(require,module,exports){
-(function (global){
-/*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
-
-/**
- * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
- * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
- * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
- * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
- */
-(function (global) {
-    "use strict";
-
-    var assertArgument = require('../assert/assertArgument'),
-        isObject       = require('../tester/isObject'),
-        isString       = require('../tester/isString'),
-        Mixin          = require('../constructors/Mixin'),
-        withdraw       = require('../object/withdraw');
-
-    /**
-     * TODO DOC
-     *
-     * @class Component
-     * @param {Object} prototype
-     */
-    module.exports = function Component(prototype) {
-
-        // Asserting
-        assertArgument(isObject(prototype), 1, 'Object');
-
-        // Vars
-        var Polymer = global.Polymer,
-            mixins  = withdraw(prototype, 'mixins') || [],
-            final   = mixins.length ? {} : prototype;
-
-        // Checking
-        if (!Polymer) { return; }
-
-        // Pushing
-        if (mixins.length) { mixins.push(prototype); }
-
-        // Mixing
-        mixins.forEach(function (mixin) { Polymer.mixin(final, isString(mixin) ? new Mixin(mixin) : mixin); });
-
-        // Registering
-        return Polymer(final);
-    };
-
-}(typeof window !== "undefined" ? window : global));
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../assert/assertArgument":11,"../constructors/Mixin":24,"../object/withdraw":40,"../tester/isObject":56,"../tester/isString":58}],23:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -4088,7 +4017,58 @@ process.umask = function() { return 0; };
     };
 
 }());
-},{"q":61}],24:[function(require,module,exports){
+},{"q":61}],23:[function(require,module,exports){
+(function (global){
+/*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
+
+/**
+ * @license
+ * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
+ * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
+ */
+(function (global) {
+    "use strict";
+
+    var assertArgument = require('../assert/assertArgument'),
+        isObject       = require('../tester/isObject'),
+        isString       = require('../tester/isString'),
+        Mixin          = require('../constructors/Mixin'),
+        withdraw       = require('../object/withdraw');
+
+    /**
+     * TODO DOC
+     *
+     * @class Element
+     * @param {Object} prototype
+     */
+    module.exports = function Element(prototype) {
+
+        // Asserting
+        assertArgument(isObject(prototype), 1, 'Object');
+
+        // Vars
+        var Polymer = global.Polymer,
+            mixins  = withdraw(prototype, 'mixins') || [],
+            final   = mixins.length ? {} : prototype;
+
+        // Checking
+        if (!Polymer) { return; }
+
+        // Pushing
+        if (mixins.length) { mixins.push(prototype); }
+
+        // Mixing
+        mixins.forEach(function (mixin) { Polymer.mixin(final, isString(mixin) ? new Mixin(mixin) : mixin); });
+
+        // Registering
+        return Polymer(final);
+    };
+
+}(typeof window !== "undefined" ? window : global));
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"../assert/assertArgument":11,"../constructors/Mixin":24,"../object/withdraw":40,"../tester/isObject":56,"../tester/isString":58}],24:[function(require,module,exports){
 (function (global){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
@@ -4217,8 +4197,8 @@ process.umask = function() { return 0; };
 
 }());
 },{"../array/fit":4,"../assert/assertArgument":11,"../caster/toArray":12,"../constructors/deferred":26,"../tester/isArray":43,"../tester/isBindable":45,"../tester/isFunction":50}],26:[function(require,module,exports){
-arguments[4][23][0].apply(exports,arguments)
-},{"dup":23,"q":61}],27:[function(require,module,exports){
+arguments[4][22][0].apply(exports,arguments)
+},{"dup":22,"q":61}],27:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**

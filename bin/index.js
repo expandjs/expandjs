@@ -4,7 +4,7 @@
     "use strict";
 
     // Vars
-    var AbstractError, AlreadyDefinedError, AlreadyUsedError, ArgumentError, Class, Component, CustomError, Deferred, DeniedError, InvalidError, Mixin, NotFoundError, Promise, RejectedError, RequiredError, UnavailableError, UndefinedError, ValidationError, addAttribute, addAttributes, addClass, after, alignElement, and, append, appendChild, apply, ary, assert, assertArgument, assertOption, assign, at, attempt, before, browserify, call, camelCase, capitalize, chunk, clean, clone, cloneDeep, compact, concat, countBy, createElement, createElementNS, debounce, deburr, defaults, defineProperties, defineProperty, delay, difference, drop, dropRight, dropRightWhile, dropWhile, endsWith, escape, escapeRegExp, every, fileExtension, fileName, filter, filterElements, find, findDeep, findElement, findElements, findIndex, findKey, findLast, findLastElement, findLastIndex, findLastKey, findNextElement, findNextElements, findParentElement, findPreviousElement, findPreviousElements, findSiblingElement, findSiblingElements, first, fit, fixed, flatten, flattenDeep, flush, forEach, forEachRight, forIn, forInRight, forOwn, forOwnRight, freeze, functions, getAllNext, getAllNextElements, getAllPrevious, getAllPreviousElements, getAllSiblingElements, getAllSiblings, getAttribute, getAttributes, getBoundings, getChildren, getDistributedElement, getDistributedElements, getElement, getElementById, getElements, getHTML, getHeight, getMargin, getNext, getNextElement, getNode, getNodes, getPadding, getParentElement, getPrevious, getPreviousElement, getSiblingElements, getSiblings, getStyle, getStyles, getTag, getText, getWidth, groupBy, has, hasAttribute, hasChild, hasClass, includes, includesDeep, indexBy, indexOf, initial, insertAfter, insertBefore, intersection, invert, invoke, isAny, isArguments, isArray, isArrayable, isBase62, isBindable, isBoolean, isBrowser, isCamelCase, isCapitalize, isClean, isCollection, isContent, isCustomEvent, isDate, isDefined, isElement, isEmpty, isEnumerable, isEqual, isEquivalent, isError, isEscape, isEscapeRegExp, isEven, isEvent, isExotic, isFalse, isFinite, isFloat, isFunction, isHex, isIndex, isInfinite, isInput, isInstance, isInt, isKebabCase, isKeyCase, isLast, isLastIndex, isLowerCase, isNaN, isNative, isNegative, isNode, isNull, isNullable, isNumber, isNumeric, isObject, isObservable, isOdd, isPlainObject, isPolyfilled, isPositive, isPredicate, isPrevented, isPrimitive, isRegExp, isSelector, isStartCase, isString, isTemplate, isTrue, isUniq, isUpperCase, isVoid, isWithin, iterate, kebabCase, keyCase, keys, keysIn, last, lastIndexOf, listen, localize, lowerCase, map, mapOne, mapValues, match, matches, max, memoize, merge, min, mock, moveFirst, moveLast, nand, negate, nor, not, omit, onMutation, once, or, overwrite, pad, padLeft, padRight, pairs, parallel, partition, pick, pluck, prefix, prependChild, preventDefault, pull, pullAt, push, random, range, readable, redirect, reduce, reduceRight, reject, remove, removeAttribute, removeAttributes, removeChild, removeClass, removeStyle, removeStyles, renameElement, repeat, replaceNode, requestAnimationFrame, rest, round, sample, seal, setAttribute, setAttributes, setChildren, setHTML, setStyle, setStyles, setText, shrink, shuffle, size, slice, snakeCase, some, sortBy, split, startCase, startsWith, stop, stopPropagation, stretch, strip, suffix, take, takeRight, takeRightWhile, takeWhile, throttle, toArray, toBase62, toBoolean, toDOMIdentity, toDOMPredicate, toHex, toIndex, toInfinite, toInput, toInt, toIntFromBase62, toIntFromHex, toJSON, toNumber, toObject, toPosition, toQueryString, toRegExp, toString, toTemplate, toURL, toUseful, toValue, toggleAttribute, toggleClass, trim, trimLeft, trimRight, trunc, unescape, union, uniq, unlisten, unzip, updateElement, upperCase, value, valueIn, values, valuesIn, waterfall, where, willBleedBottom, willBleedHorizontally, willBleedLeft, willBleedRight, willBleedTop, willBleedVertically, withdraw, within, without, words, wrap, xnor, xor, zip, zipObject, 
+    var AbstractError, AlreadyDefinedError, AlreadyUsedError, ArgumentError, Class, CustomError, Deferred, DeniedError, Element, InvalidError, Mixin, NotFoundError, Promise, RejectedError, RequiredError, UnavailableError, UndefinedError, ValidationError, addAttribute, addAttributes, addClass, after, alignElement, and, append, appendChild, apply, ary, assert, assertArgument, assertOption, assign, at, attempt, before, browserify, call, camelCase, capitalize, chunk, clean, clone, cloneDeep, compact, concat, countBy, createElement, createElementNS, debounce, deburr, defaults, defineProperties, defineProperty, delay, difference, drop, dropRight, dropRightWhile, dropWhile, endsWith, escape, escapeRegExp, every, fileExtension, fileName, filter, filterElements, find, findDeep, findElement, findElements, findIndex, findKey, findLast, findLastElement, findLastIndex, findLastKey, findNextElement, findNextElements, findParentElement, findPreviousElement, findPreviousElements, findSiblingElement, findSiblingElements, first, fit, fixed, flatten, flattenDeep, flush, forEach, forEachRight, forIn, forInRight, forOwn, forOwnRight, freeze, functions, getAllNext, getAllNextElements, getAllPrevious, getAllPreviousElements, getAllSiblingElements, getAllSiblings, getAttribute, getAttributes, getBoundings, getChildren, getDistributedElement, getDistributedElements, getElement, getElementById, getElements, getHTML, getHeight, getMargin, getNext, getNextElement, getNode, getNodes, getPadding, getParentElement, getPrevious, getPreviousElement, getSiblingElements, getSiblings, getStyle, getStyles, getTag, getText, getWidth, groupBy, has, hasAttribute, hasChild, hasClass, includes, includesDeep, indexBy, indexOf, initial, insertAfter, insertBefore, intersection, invert, invoke, isAny, isArguments, isArray, isArrayable, isBase62, isBindable, isBoolean, isBrowser, isCamelCase, isCapitalize, isClean, isCollection, isContent, isCustomEvent, isDate, isDefined, isElement, isEmpty, isEnumerable, isEqual, isEquivalent, isError, isEscape, isEscapeRegExp, isEven, isEvent, isExotic, isFalse, isFinite, isFloat, isFunction, isHex, isIndex, isInfinite, isInput, isInstance, isInt, isKebabCase, isKeyCase, isLast, isLastIndex, isLowerCase, isNaN, isNative, isNegative, isNode, isNull, isNullable, isNumber, isNumeric, isObject, isObservable, isOdd, isPlainObject, isPolyfilled, isPositive, isPredicate, isPrevented, isPrimitive, isRegExp, isSelector, isStartCase, isString, isTemplate, isTrue, isUniq, isUpperCase, isVoid, isWithin, iterate, kebabCase, keyCase, keys, keysIn, last, lastIndexOf, listen, localize, lowerCase, map, mapOne, mapValues, match, matches, max, memoize, merge, min, mock, moveFirst, moveLast, nand, negate, nor, not, omit, onMutation, once, or, overwrite, pad, padLeft, padRight, pairs, parallel, partition, pick, pluck, prefix, prependChild, preventDefault, pull, pullAt, push, random, range, readable, redirect, reduce, reduceRight, reject, remove, removeAttribute, removeAttributes, removeChild, removeClass, removeStyle, removeStyles, renameElement, repeat, replaceNode, requestAnimationFrame, rest, round, sample, seal, setAttribute, setAttributes, setChildren, setHTML, setStyle, setStyles, setText, shrink, shuffle, size, slice, snakeCase, some, sortBy, split, startCase, startsWith, stop, stopPropagation, stretch, strip, suffix, take, takeRight, takeRightWhile, takeWhile, throttle, toArray, toBase62, toBoolean, toDOMIdentity, toDOMPredicate, toHex, toIndex, toInfinite, toInput, toInt, toIntFromBase62, toIntFromHex, toJSON, toNumber, toObject, toPosition, toQueryString, toRegExp, toString, toTemplate, toURL, toUseful, toValue, toggleAttribute, toggleClass, trim, trimLeft, trimRight, trunc, unescape, union, uniq, unlisten, unzip, updateElement, upperCase, value, valueIn, values, valuesIn, waterfall, where, willBleedBottom, willBleedHorizontally, willBleedLeft, willBleedRight, willBleedTop, willBleedVertically, withdraw, within, without, words, wrap, xnor, xor, zip, zipObject, 
         exp     = module.exports,
         lodash  = require("lodash"),
         q       = require("q");
@@ -216,8 +216,19 @@
         return Constructor;
     };
 
-    // COMPONENT
-    exp.Component = Component = function Component(prototype) {
+    // CUSTOMERROR
+    exp.CustomError = CustomError = function CustomError(name, key, message) { var err = Error.call(this, key + (message ? ' ' + message : '')); err.name = name; this.message = err.message; this.stack = err.stack; };
+
+    // DEFERRED
+    exp.Deferred = Deferred = function Deferred() {
+        return q.defer();
+    };
+
+    // DENIEDERROR
+    exp.DeniedError = DeniedError = function DeniedError(key) { CustomError.call(this, 'DeniedError', key, 'is denied'); };
+
+    // ELEMENT
+    exp.Element = Element = function Element(prototype) {
 
         // Asserting
         assertArgument(isObject(prototype), 1, 'Object');
@@ -239,17 +250,6 @@
         // Registering
         return Polymer(final);
     };
-
-    // CUSTOMERROR
-    exp.CustomError = CustomError = function CustomError(name, key, message) { var err = Error.call(this, key + (message ? ' ' + message : '')); err.name = name; this.message = err.message; this.stack = err.stack; };
-
-    // DEFERRED
-    exp.Deferred = Deferred = function Deferred() {
-        return q.defer();
-    };
-
-    // DENIEDERROR
-    exp.DeniedError = DeniedError = function DeniedError(key) { CustomError.call(this, 'DeniedError', key, 'is denied'); };
 
     // INVALIDERROR
     exp.InvalidError = InvalidError = function InvalidError(key) { CustomError.call(this, 'InvalidError', key, 'is not valid'); };
@@ -1365,7 +1365,7 @@
 
     // ISBASE62
     exp.isBase62 = isBase62 = function isBase62(value) {
-        return (isString(value) && /^[0-9A-Za-z]+$/.test(value));
+        return isString(value) && /^[0-9A-Za-z]+$/.test(value);
     };
 
     // ISBINDABLE
@@ -1507,7 +1507,7 @@
 
     // ISHEX
     exp.isHex = isHex = function isHex(value) {
-        return (isString(value) && /^[0-9A-Fa-f]+$/.test(value));
+        return isString(value) && /^[0-9A-Fa-f]+$/.test(value);
     };
 
     // ISINDEX
@@ -2434,17 +2434,9 @@
     // TOBASE62
     exp.toBase62 = toBase62 = function toBase62(target) {
         if (!isInt(target)) { return; }
-        if (target === 0) {return '0'; }
-
-        var charSet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
-            s = '';
-
-        while (target > 0) {
-            s = charSet[target % 62] + s;
-            target = Math.floor(target / 62);
-        }
-
-        return s;
+        var result = '', charSet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        while (target > 0) { result = charSet[target % 62] + result; target = Math.floor(target / 62); }
+        return result || '0';
     };
 
     // TOBOOLEAN
@@ -2471,8 +2463,7 @@
 
     // TOHEX
     exp.toHex = toHex = function toHex(target) {
-        if (!isInt(target)) { return; }
-        return target.toString(16).toUpperCase();
+        if (isInt(target)) { return target.toString(16).toUpperCase(); }
     };
 
     // TOINDEX
@@ -2503,26 +2494,15 @@
 
     // TOINTFROMBASE62
     exp.toIntFromBase62 = toIntFromBase62 = function toIntFromBase62(target, force) {
-        if (isBase62(target)) {
-            var charSet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
-                val = 0,
-                chars = target.split("").reverse();
-
-            chars.forEach(function (character, index) {
-                val += charSet.indexOf(character) * Math.pow(62, index);
-            });
-
-            return val;
-        }
-
-        if (force) { return 0; }
+        if (!isBase62(target)) { return force ? 0 : undefined; }
+        var result = 0, charSet = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', chars = target.split("").reverse();
+        chars.forEach(function (char, index) { result += charSet.indexOf(char) * Math.pow(62, index); });
+        return result;
     };
 
     // TOINTFROMHEX
     exp.toIntFromHex = toIntFromHex = function toIntFromHex(target, force) {
-        if (isHex(target)) {
-            return parseInt(target, 16);
-        }
+        if (isHex(target)) { return parseInt(target, 16); }
         if (force) { return 0; }
     };
 
@@ -2889,8 +2869,8 @@
     if (browser) {
         global.XP = module.exports;
         global.XPClass = require("../lib/constructors/Class");
-        global.XPComponent = require("../lib/constructors/Component");
         global.XPDeferred = require("../lib/constructors/Deferred");
+        global.XPElement = require("../lib/constructors/Element");
         global.XPMixin = require("../lib/constructors/Mixin");
         global.XPPromise = require("../lib/constructors/Promise");
     }
