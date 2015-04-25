@@ -1,0 +1,30 @@
+{
+  "name": "expandjs",
+  "license": "BSD-3-Clause",
+  "description": "This is a set of functions, designed to enhance your JavaScript programming experience.",
+  "version": "0.8.0",
+  "homepage": "https://github.com/ExpandJS/expandjs",
+  "author": "ExpandJS <dev@expandjs.com> (http://www.expandjs.com)",
+  "contributors": [
+    "Giuliano Rullo <g.rullo@expandjs.com>",
+    "Maurizio Stefàno <m.stefano@expandjs.com>",
+    "Robert Manolea <r.manolea@expandjs.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ExpandJS/expandjs.git"
+  },
+  "dependencies": {
+    "lodash": "3.5.0",
+    "q": "^1.2.0"
+  },
+  "devDependencies": {
+    "browserify": "*",
+    "minifyify": "*"
+  },
+  "scripts": {
+    "build": "node bin/build",
+    "browserify": "npm run build && browserify bin > dist/expandjs.js && npm run browserify-min",
+    "browserify-min": "npm run build && browserify -d bin -p [minifyify --map expandjs.min.map --output dist/expandjs.min.map] > dist/expandjs.min.js"
+  }
+}
