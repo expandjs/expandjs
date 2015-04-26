@@ -2962,15 +2962,15 @@ process.umask = function() { return 0; };
      * Concatenates multiple arrays between them, using the first one as an
      * entry point, and returns the result.
      *
-     *      var num1 = [1, 2, 3],
-     *          num2 = [4, 5, 6],
-     *          num3 = [7, 8, 9];
+     *     var num1 = [1, 2, 3],
+     *         num2 = [4, 5, 6],
+     *         num3 = [7, 8, 9];
      *
-     *      XP.concat(num1, num2, num3);
-     *      // => [1, 2, 3, 4, 5, 6, 7, 8, 9]
+     *     XP.concat(num1, num2, num3);
+     *     // => [1, 2, 3, 4, 5, 6, 7, 8, 9]
      *
-     *      console.log(num1);
-     *      // => [1, 2, 3, 4, 5, 6, 7, 8, 9]
+     *     console.log(num1);
+     *     // => [1, 2, 3, 4, 5, 6, 7, 8, 9]
      *
      * @function concat
      * @param {Array} array The entry point array to be modified
@@ -3009,19 +3009,19 @@ process.umask = function() { return 0; };
      * A filler can be specified, used in case the new array is longer than
      * the old one and needs a default value for the new elements in the array.
      *
-     *      var arr = [1, 2, 3];
+     *     var arr = [1, 2, 3];
      *
-     *      XP.fit(arr, 5);
-     *      // => [1, 2, 3, undefined, undefined]
+     *     XP.fit(arr, 5);
+     *     // => [1, 2, 3, undefined, undefined]
      *
-     *      console.log(arr);
-     *      // => [1, 2, 3, undefined, undefined]
+     *     console.log(arr);
+     *     // => [1, 2, 3, undefined, undefined]
      *
-     *      XP.fit(arr, 2);
-     *      // => [1, 2]
+     *     XP.fit(arr, 2);
+     *     // => [1, 2]
      *
-     *      XP.fit(arr, 4, 10);
-     *      // => [1, 2, 10, 10]
+     *     XP.fit(arr, 4, 10);
+     *     // => [1, 2, 10, 10]
      *
      * @function fit
      * @param {Array} array The array to modify
@@ -3104,20 +3104,20 @@ process.umask = function() { return 0; };
      * A string can also be passed instead of an array, and the value will be
      * added at the end of the string. This time the whole string will be returned.
      *
-     *      var arr = [1, 2],
-     *          str = 'abc';
+     *     var arr = [1, 2],
+     *         str = 'abc';
      *
-     *      XP.push(arr, 3)
-     *      // => 3
+     *     XP.push(arr, 3)
+     *     // => 3
      *
-     *      console.log(arr);
-     *      // => [1, 2, 3];
+     *     console.log(arr);
+     *     // => [1, 2, 3];
      *
-     *      XP.push(str, 'def');
-     *      // => 'abcdef'
+     *     XP.push(str, 'def');
+     *     // => 'abcdef'
      *
-     *      XP.push('abc', {});
-     *      // => 'abc'
+     *     XP.push('abc', {});
+     *     // => 'abc'
      *
      * @function push
      * @param {Array | string} array The array/string to be modified
@@ -3152,16 +3152,16 @@ process.umask = function() { return 0; };
     /**
      * Shrinks the size of `array` to a desired length, from left to right, returning the result.
      *
-     *      var arr = [1, 2, 3];
+     *     var arr = [1, 2, 3];
      *
-     *      XP.shrink(arr, 1);
-     *      // => [1]
+     *     XP.shrink(arr, 1);
+     *     // => [1]
      *
-     *      console.log(arr);
-     *      // => [1]
+     *     console.log(arr);
+     *     // => [1]
      *
-     *      XP.shrink(arr, 5);
-     *      // => [1]
+     *     XP.shrink(arr, 5);
+     *     // => [1]
      *
      * @function shrink
      * @param {Array} array The array to be modified
@@ -3197,16 +3197,16 @@ process.umask = function() { return 0; };
     /**
      * Creates a slice of `array` from `start` up to, but not including, `end`.
      *
-     *      var arr = [1, 2, 3, 4, 5];
+     *     var arr = [1, 2, 3, 4, 5];
      *
-     *      XP.slice(arr, 2);
-     *      // => [3, 4, 5]
+     *     XP.slice(arr, 2);
+     *     // => [3, 4, 5]
      *
-     *      XP.slice(arr, 2, 4);
-     *      // => [3, 4]
+     *     XP.slice(arr, 2, 4);
+     *     // => [3, 4]
      *
-     *      XP.slice(arr, 7, 2);
-     *      // => []
+     *     XP.slice(arr, 7, 2);
+     *     // => []
      *
      * @function slice
      * @param {*} array The array to slice.
@@ -3317,16 +3317,16 @@ process.umask = function() { return 0; };
     /**
      * Throws an ArgumentError if `value` is falsy and the assertion fails.
      *
-     *      var func = function (first) {
-     *              XP.assertArgument(XP.isNumber(first) && first < 10, 1, 'a number lower than 10');
-     *              return 'The passed value is: ' + first;
-     *          }
+     *     var func = function (first) {
+     *         XP.assertArgument(XP.isNumber(first) && first < 10, 1, 'a number lower than 10');
+     *         return 'The passed value is: ' + first;
+     *     };
      *
-     *      func(5)
-     *      // => 'The passed value is: 5';
+     *     func(5)
+     *     // => 'The passed value is: 5';
      *
-     *      func(15)
-     *      // => ArgumentError: 1st argument must be must be a number lower than 10
+     *     func(15)
+     *     // => ArgumentError: 1st argument must be must be a number lower than 10
      *
      * @function assertArgument
      * @param {*} value The assert value to be chekced.
@@ -3360,29 +3360,28 @@ process.umask = function() { return 0; };
      * Returns an array representation of `target`. A second parameter can be passed
      * to force the representation, in case it's not natively possible to do so.
      *
-     *      var func = function () {
-     *          var args = XP.toArray(arguments),
-     *              result = [];
+     *     var func = function () {
+     *         var args = XP.toArray(arguments),
+     *             result = [];
      *
-     *          args.forEach(function (arg) {
-     *              result.push(arg * 3);
-     *          });
+     *         args.forEach(function (arg) {
+     *             result.push(arg * 3);
+     *         });
      *
-     *          return result;
-     *      }
+     *         return result;
+     *     };
      *
-     *      func(1)
-     *      // => [3]
+     *     func(1);
+     *     // => [3]
      *
-     *      func(2, 3, 4)
-     *      // => [6, 9, 12]
+     *     func(2, 3, 4);
+     *     // => [6, 9, 12]
      *
+     *     XP.toArray(123);
+     *     // => undefined
      *
-     *      XP.toArray(123)
-     *      // => undefined
-     *
-     *      XP.toArray(123, true)
-     *      // => []
+     *     XP.toArray(123, true);
+     *     // => []
      *
      * @function toArray
      * @param {*} target The value to be transformed.
@@ -3648,10 +3647,10 @@ process.umask = function() { return 0; };
     /**
      * Removes all own properties of a collection and returns the flushed collection.
      *
-     *      var obj = {first: 1, second: 2}
+     *     var obj = {first: 1, second: 2}
      *
-     *      XP.flush(obj)
-     *      // => {}
+     *     XP.flush(obj)
+     *     // => {}
      *
      * @function flush
      * @param {Array | Element | Object} collection The collection to modify
@@ -3688,19 +3687,18 @@ process.umask = function() { return 0; };
      * properties, or their enumerability, configurability, or writability,
      * from being changed. In essence the object is made effectively immutable.
      *
-     *      var obj = {
-     *        first: 1,
-     *        second: 2
-     *      };
+     *     var obj = {
+     *         first: 1,
+     *         second: 2
+     *     };
      *
-     *      XP.freeze(obj)
-     *      // => {first: 1, second: 2}
+     *     XP.freeze(obj);
+     *     // => {first: 1, second: 2}
      *
-     *      obj.third = 3;
-     *      obj['forth'] = 4;
+     *     obj.third = 3;
      *
-     *      console.log(obj);
-     *      // => {first: 1, second: 2}
+     *     console.log(obj);
+     *     // => {first: 1, second: 2}
      *
      * @function freeze
      * @param {Array | Function | Object} collection The collection to be frozen
@@ -3733,19 +3731,19 @@ process.umask = function() { return 0; };
      *  marking all existing properties as non-configurable. Values of present
      *  properties can still be changed as long as they are writable.
      *
-     *      var obj = {
-     *          first: 1,
-     *          second: 2
-     *      }
+     *     var obj = {
+     *         first: 1,
+     *         second: 2
+     *     };
      *
-     *      XP.seal(obj)
-     *      // => {first: 1, second: 2}
+     *     XP.seal(obj);
+     *     // => {first: 1, second: 2}
      *
-     *      obj.second = 'two';
-     *      obj.third = 3;
+     *     obj.second = 'two';
+     *     obj.third  = 3;
      *
-     *      console.log(obj);
-     *      // => {first: 1, second: 'two'}
+     *     console.log(obj);
+     *     // => {first: 1, second: 'two'}
      *
      * @function seal
      * @param {Array | Function | Object} collection The collection to be sealed
@@ -4489,20 +4487,20 @@ arguments[4][22][0].apply(exports,arguments)
      * Defines new or modifies existing properties directly on an object
      * and returns the modified object.
      *
-     *      var obj = {};
+     *     var obj = {};
      *
-     *      XP.defineProperties(obj, {
-     *         a: {
-     *             value: 12,
-     *             enumerable: true,
-     *             configurable: true
-     *         },
-     *         b: {
-     *             set: function (val) { return val; },
-     *             then: function () { console.log('The value has been set'); },
-     *             enumerable: true,
-     *             configurable: true
-     *         }
+     *     XP.defineProperties(obj, {
+     *        a: {
+     *            value: 12,
+     *            enumerable: true,
+     *            configurable: true
+     *        },
+     *        b: {
+     *            set: function (val) { return val; },
+     *            then: function () { console.log('The value has been set'); },
+     *            enumerable: true,
+     *            configurable: true
+     *        }
      *     });
      *     // => {a: 12, b: (...)}
      *
@@ -4553,26 +4551,26 @@ arguments[4][22][0].apply(exports,arguments)
      * property on an object, and returns the modified object. The options relative
      * to the new properties can be specified in the third parameter.
      *
-     *      var obj = {};
+     *     var obj = {};
      *
-     *      XP.defineProperty(obj, 'a', {
-     *          value: 12,
-     *          enumerable: true,
-     *          configurable: true
-     *      });
-     *      // => {a: 12}
+     *     XP.defineProperty(obj, 'a', {
+     *         value: 12,
+     *         enumerable: true,
+     *         configurable: true
+     *     });
+     *     // => {a: 12}
      *
-     *      XP.defineProperty(obj, 'b', {
-     *          set: function (val) { return val; },
-     *          then: function () { console.log('The value has been set'); },
-     *          enumerable: true,
-     *          configurable: true
-     *      });
-     *      // => {a: 12, b: (...)}
+     *     XP.defineProperty(obj, 'b', {
+     *         set: function (val) { return val; },
+     *         then: function () { console.log('The value has been set'); },
+     *         enumerable: true,
+     *         configurable: true
+     *     });
+     *     // => {a: 12, b: (...)}
      *
-     *      obj.b = 34;
-     *      // => 'The value has been set'
-     *      // => 34
+     *     obj.b = 34;
+     *     // => 'The value has been set'
+     *     // => 34
      *
      * @function defineProperty
      * @param {Function | Object} target
