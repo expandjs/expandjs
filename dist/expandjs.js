@@ -2940,7 +2940,7 @@ process.umask = function() { return 0; };
 }(typeof window !== "undefined" ? window : global, typeof window !== "undefined"));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../lib/constructors/Class":21,"../lib/constructors/Deferred":22,"../lib/constructors/Element":23,"../lib/constructors/Mixin":24,"../lib/constructors/Promise":25,"lodash":60,"q":61}],3:[function(require,module,exports){
+},{"../lib/constructors/Class":21,"../lib/constructors/Deferred":22,"../lib/constructors/Element":23,"../lib/constructors/Mixin":24,"../lib/constructors/Promise":25,"lodash":59,"q":60}],3:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -2984,7 +2984,7 @@ process.umask = function() { return 0; };
     };
 
 }());
-},{"../array/slice":8,"../assert/assertArgument":11,"../caster/toArray":12,"../tester/isDefined":47}],4:[function(require,module,exports){
+},{"../array/slice":8,"../assert/assertArgument":11,"../caster/toArray":12,"../tester/isDefined":46}],4:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -3036,7 +3036,7 @@ process.umask = function() { return 0; };
     };
 
 }());
-},{"../array/shrink":7,"../array/stretch":9,"../assert/assertArgument":11,"../caster/toArray":12,"../tester/isIndex":51}],5:[function(require,module,exports){
+},{"../array/shrink":7,"../array/stretch":9,"../assert/assertArgument":11,"../caster/toArray":12,"../tester/isIndex":50}],5:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -3080,7 +3080,7 @@ process.umask = function() { return 0; };
     };
 
 }());
-},{"../array/concat":3,"../array/slice":8,"../assert/assertArgument":11,"../caster/toArray":12,"lodash":60}],6:[function(require,module,exports){
+},{"../array/concat":3,"../array/slice":8,"../assert/assertArgument":11,"../caster/toArray":12,"lodash":59}],6:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -3132,7 +3132,7 @@ process.umask = function() { return 0; };
     };
 
 }());
-},{"../assert/assertArgument":11,"../tester/isArray":43,"../tester/isInput":52,"../tester/isString":58}],7:[function(require,module,exports){
+},{"../assert/assertArgument":11,"../tester/isArray":42,"../tester/isInput":51,"../tester/isString":57}],7:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -3176,7 +3176,7 @@ process.umask = function() { return 0; };
     };
 
 }());
-},{"../assert/assertArgument":11,"../caster/toArray":12,"../tester/isIndex":51}],8:[function(require,module,exports){
+},{"../assert/assertArgument":11,"../caster/toArray":12,"../tester/isIndex":50}],8:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -3221,7 +3221,7 @@ process.umask = function() { return 0; };
     };
 
 }());
-},{"../assert/assertArgument":11,"../tester/isIndex":51,"../tester/isVoid":59,"lodash":60}],9:[function(require,module,exports){
+},{"../assert/assertArgument":11,"../tester/isIndex":50,"../tester/isVoid":58,"lodash":59}],9:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -3256,7 +3256,7 @@ process.umask = function() { return 0; };
     };
 
 }());
-},{"../assert/assertArgument":11,"../caster/toArray":12,"../tester/isIndex":51}],10:[function(require,module,exports){
+},{"../assert/assertArgument":11,"../caster/toArray":12,"../tester/isIndex":50}],10:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -3298,7 +3298,7 @@ process.umask = function() { return 0; };
     };
 
 }());
-},{"../tester/isFunction":50}],11:[function(require,module,exports){
+},{"../tester/isFunction":49}],11:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -3338,7 +3338,7 @@ process.umask = function() { return 0; };
     };
 
 }());
-},{"../assert/assert":10,"../error/ArgumentError":27}],12:[function(require,module,exports){
+},{"../assert/assert":10,"../error/ArgumentError":26}],12:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -3395,7 +3395,7 @@ process.umask = function() { return 0; };
     };
 
 }());
-},{"../array/slice":8,"../tester/isArray":43,"../tester/isArrayable":44,"../tester/isNullable":55}],13:[function(require,module,exports){
+},{"../array/slice":8,"../tester/isArray":42,"../tester/isArrayable":43,"../tester/isNullable":54}],13:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -3438,7 +3438,7 @@ process.umask = function() { return 0; };
     };
 
 }());
-},{"../caster/toInt":14,"../tester/isIndex":51}],14:[function(require,module,exports){
+},{"../caster/toInt":14,"../tester/isIndex":50}],14:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -3477,7 +3477,7 @@ process.umask = function() { return 0; };
     };
 
 }());
-},{"../tester/isFinite":49}],15:[function(require,module,exports){
+},{"../tester/isFinite":48}],15:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -3518,7 +3518,7 @@ process.umask = function() { return 0; };
     };
 
 }());
-},{"../tester/isIndex":51}],16:[function(require,module,exports){
+},{"../tester/isIndex":50}],16:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -3568,7 +3568,7 @@ process.umask = function() { return 0; };
     };
 
 }());
-},{"../assert/assertArgument":11,"../caster/toArray":12,"../tester/isCollection":46,"../tester/isPredicate":57,"lodash":60}],17:[function(require,module,exports){
+},{"../assert/assertArgument":11,"../caster/toArray":12,"../tester/isCollection":45,"../tester/isPredicate":56,"lodash":59}],17:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -3623,7 +3623,7 @@ process.umask = function() { return 0; };
     };
 
 }());
-},{"../assert/assertArgument":11,"../caster/toArray":12,"../caster/toIndex":13,"../tester/isCollection":46,"../tester/isIndex":51,"../tester/isPredicate":57,"lodash":60}],18:[function(require,module,exports){
+},{"../assert/assertArgument":11,"../caster/toArray":12,"../caster/toIndex":13,"../tester/isCollection":45,"../tester/isIndex":50,"../tester/isPredicate":56,"lodash":59}],18:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -3665,7 +3665,7 @@ process.umask = function() { return 0; };
     };
 
 }());
-},{"../assert/assertArgument":11,"../caster/toArray":12,"../object/forOwn":36,"../tester/isArray":43,"../tester/isCollection":46,"../tester/isElement":48,"../tester/isObject":56}],19:[function(require,module,exports){
+},{"../assert/assertArgument":11,"../caster/toArray":12,"../object/forOwn":35,"../tester/isArray":42,"../tester/isCollection":45,"../tester/isElement":47,"../tester/isObject":55}],19:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -3710,7 +3710,7 @@ process.umask = function() { return 0; };
     };
 
 }());
-},{"../assert/assertArgument":11,"../tester/isBindable":45}],20:[function(require,module,exports){
+},{"../assert/assertArgument":11,"../tester/isBindable":44}],20:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -3755,7 +3755,7 @@ process.umask = function() { return 0; };
     };
 
 }());
-},{"../assert/assertArgument":11,"../tester/isBindable":45}],21:[function(require,module,exports){
+},{"../assert/assertArgument":11,"../tester/isBindable":44}],21:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -3990,7 +3990,7 @@ process.umask = function() { return 0; };
     };
 
 }());
-},{"../array/concat":3,"../array/pull":5,"../array/push":6,"../assert/assertArgument":11,"../collection/flush":18,"../constructors/Promise":25,"../function/waterfall":32,"../object/assign":33,"../object/defineProperties":34,"../object/forOwn":36,"../object/withdraw":40,"../tester/isArrayable":44,"../tester/isFunction":50,"../tester/isObject":56,"../tester/isString":58,"../tester/isVoid":59}],22:[function(require,module,exports){
+},{"../array/concat":3,"../array/pull":5,"../array/push":6,"../assert/assertArgument":11,"../collection/flush":18,"../constructors/Promise":25,"../function/waterfall":31,"../object/assign":32,"../object/defineProperties":33,"../object/forOwn":35,"../object/withdraw":39,"../tester/isArrayable":43,"../tester/isFunction":49,"../tester/isObject":55,"../tester/isString":57,"../tester/isVoid":58}],22:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -4015,7 +4015,7 @@ process.umask = function() { return 0; };
     };
 
 }());
-},{"q":61}],23:[function(require,module,exports){
+},{"q":60}],23:[function(require,module,exports){
 (function (global){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
@@ -4066,7 +4066,7 @@ process.umask = function() { return 0; };
 
 }(typeof window !== "undefined" ? window : global));
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../assert/assertArgument":11,"../constructors/Mixin":24,"../object/withdraw":40,"../tester/isObject":56,"../tester/isString":58}],24:[function(require,module,exports){
+},{"../assert/assertArgument":11,"../constructors/Mixin":24,"../object/withdraw":39,"../tester/isObject":55,"../tester/isString":57}],24:[function(require,module,exports){
 (function (global){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
@@ -4129,7 +4129,7 @@ process.umask = function() { return 0; };
 
 }(typeof window !== "undefined" ? window : global));
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../assert/assertArgument":11,"../object/withdraw":40,"../tester/isObject":56,"../tester/isString":58,"../tester/isVoid":59}],25:[function(require,module,exports){
+},{"../assert/assertArgument":11,"../object/withdraw":39,"../tester/isObject":55,"../tester/isString":57,"../tester/isVoid":58}],25:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -4143,7 +4143,7 @@ process.umask = function() { return 0; };
     "use strict";
 
     var assertArgument = require('../assert/assertArgument'),
-        Deferred       = require('../constructors/deferred'),
+        Deferred       = require('../constructors/Deferred'),
         fit            = require('../array/fit'),
         isArray        = require('../tester/isArray'),
         isBindable     = require('../tester/isBindable'),
@@ -4194,9 +4194,7 @@ process.umask = function() { return 0; };
     };
 
 }());
-},{"../array/fit":4,"../assert/assertArgument":11,"../caster/toArray":12,"../constructors/deferred":26,"../tester/isArray":43,"../tester/isBindable":45,"../tester/isFunction":50}],26:[function(require,module,exports){
-arguments[4][22][0].apply(exports,arguments)
-},{"dup":22,"q":61}],27:[function(require,module,exports){
+},{"../array/fit":4,"../assert/assertArgument":11,"../caster/toArray":12,"../constructors/Deferred":22,"../tester/isArray":42,"../tester/isBindable":44,"../tester/isFunction":49}],26:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -4227,7 +4225,7 @@ arguments[4][22][0].apply(exports,arguments)
     module.exports.prototype = Object.create(CustomError.prototype, {constructor: {configurable: true, value: module.exports, writable: true}, name: {value: 'ArgumentError', writable: true}});
 
 }());
-},{"../caster/toPosition":15,"../error/CustomError":28}],28:[function(require,module,exports){
+},{"../caster/toPosition":15,"../error/CustomError":27}],27:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -4256,7 +4254,7 @@ arguments[4][22][0].apply(exports,arguments)
     module.exports.prototype = Object.create(Error.prototype, {constructor: {configurable: true, value: module.exports, writable: true}, name: {value: 'CustomError', writable: true}});
 
 }());
-},{}],29:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -4285,7 +4283,7 @@ arguments[4][22][0].apply(exports,arguments)
     module.exports.prototype = Object.create(CustomError.prototype, {constructor: {configurable: true, value: module.exports, writable: true}, name: {value: 'InvalidError', writable: true}});
 
 }());
-},{"../error/CustomError":28}],30:[function(require,module,exports){
+},{"../error/CustomError":27}],29:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -4322,7 +4320,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{"../assert/assertArgument":11,"../tester/isFunction":50,"../tester/isIndex":51,"../tester/isVoid":59,"lodash":60}],31:[function(require,module,exports){
+},{"../assert/assertArgument":11,"../tester/isFunction":49,"../tester/isIndex":50,"../tester/isVoid":58,"lodash":59}],30:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -4349,7 +4347,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{}],32:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -4427,7 +4425,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{"../array/slice":8,"../assert/assertArgument":11,"../caster/toArray":12,"../function/mock":31,"../object/values":39,"../tester/isArray":43,"../tester/isCollection":46,"../tester/isFunction":50,"../tester/isVoid":59}],33:[function(require,module,exports){
+},{"../array/slice":8,"../assert/assertArgument":11,"../caster/toArray":12,"../function/mock":30,"../object/values":38,"../tester/isArray":42,"../tester/isCollection":45,"../tester/isFunction":49,"../tester/isVoid":58}],32:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -4464,7 +4462,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{"../assert/assertArgument":11,"../collection/filter":16,"../function/ary":30,"../tester/isObject":56,"lodash":60}],34:[function(require,module,exports){
+},{"../assert/assertArgument":11,"../collection/filter":16,"../function/ary":29,"../tester/isObject":55,"lodash":59}],33:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -4521,7 +4519,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{"../assert/assertArgument":11,"../object/defineProperty":35,"../object/forOwn":36,"../tester/isFunction":50,"../tester/isObject":56}],35:[function(require,module,exports){
+},{"../assert/assertArgument":11,"../object/defineProperty":34,"../object/forOwn":35,"../tester/isFunction":49,"../tester/isObject":55}],34:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -4640,7 +4638,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{"../assert/assertArgument":11,"../collection/freeze":19,"../collection/seal":20,"../constructors/Promise":25,"../error/InvalidError":29,"../object/assign":33,"../object/has":37,"../object/value":38,"../tester/isFunction":50,"../tester/isObject":56,"../tester/isString":58}],36:[function(require,module,exports){
+},{"../assert/assertArgument":11,"../collection/freeze":19,"../collection/seal":20,"../constructors/Promise":25,"../error/InvalidError":28,"../object/assign":32,"../object/has":36,"../object/value":37,"../tester/isFunction":49,"../tester/isObject":55,"../tester/isString":57}],35:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -4686,7 +4684,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{"../assert/assertArgument":11,"../tester/isFunction":50,"../tester/isObject":56,"lodash":60}],37:[function(require,module,exports){
+},{"../assert/assertArgument":11,"../tester/isFunction":49,"../tester/isObject":55,"lodash":59}],36:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -4724,7 +4722,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{"../assert/assertArgument":11,"../tester/isBindable":45,"../tester/isString":58,"lodash":60}],38:[function(require,module,exports){
+},{"../assert/assertArgument":11,"../tester/isBindable":44,"../tester/isString":57,"lodash":59}],37:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -4771,7 +4769,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{"../assert/assertArgument":11,"../object/has":37,"../tester/isObject":56,"../tester/isString":58}],39:[function(require,module,exports){
+},{"../assert/assertArgument":11,"../object/has":36,"../tester/isObject":55,"../tester/isString":57}],38:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -4811,7 +4809,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{"../assert/assertArgument":11,"../tester/isObject":56,"lodash":60}],40:[function(require,module,exports){
+},{"../assert/assertArgument":11,"../tester/isObject":55,"lodash":59}],39:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -4855,7 +4853,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{"../assert/assertArgument":11,"../object/has":37,"../tester/isObject":56,"../tester/isString":58}],41:[function(require,module,exports){
+},{"../assert/assertArgument":11,"../object/has":36,"../tester/isObject":55,"../tester/isString":57}],40:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -4889,7 +4887,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{"../operator/xor":42}],42:[function(require,module,exports){
+},{"../operator/xor":41}],41:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -4921,7 +4919,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{}],43:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -4960,7 +4958,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{"../operator/xnor":41,"../tester/isVoid":59,"lodash":60}],44:[function(require,module,exports){
+},{"../operator/xnor":40,"../tester/isVoid":58,"lodash":59}],43:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -4999,7 +4997,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{"../operator/xnor":41,"../tester/isIndex":51,"../tester/isVoid":59}],45:[function(require,module,exports){
+},{"../operator/xnor":40,"../tester/isIndex":50,"../tester/isVoid":58}],44:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -5042,7 +5040,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{"../tester/isArray":43,"../tester/isFunction":50,"../tester/isObject":56,"../tester/isVoid":59}],46:[function(require,module,exports){
+},{"../tester/isArray":42,"../tester/isFunction":49,"../tester/isObject":55,"../tester/isVoid":58}],45:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -5080,7 +5078,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{"../tester/isArrayable":44,"../tester/isObject":56}],47:[function(require,module,exports){
+},{"../tester/isArrayable":43,"../tester/isObject":55}],46:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -5111,7 +5109,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{}],48:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -5151,7 +5149,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{"../collection/find":17,"../operator/xnor":41,"../tester/isVoid":59,"lodash":60}],49:[function(require,module,exports){
+},{"../collection/find":17,"../operator/xnor":40,"../tester/isVoid":58,"lodash":59}],48:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -5190,7 +5188,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{"../operator/xnor":41,"../tester/isVoid":59,"lodash":60}],50:[function(require,module,exports){
+},{"../operator/xnor":40,"../tester/isVoid":58,"lodash":59}],49:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -5223,7 +5221,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{"lodash":60}],51:[function(require,module,exports){
+},{"lodash":59}],50:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -5262,7 +5260,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{"../tester/isInt":53}],52:[function(require,module,exports){
+},{"../tester/isInt":52}],51:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -5301,7 +5299,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{"../tester/isFinite":49,"../tester/isString":58}],53:[function(require,module,exports){
+},{"../tester/isFinite":48,"../tester/isString":57}],52:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -5343,7 +5341,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{"../operator/xnor":41,"../tester/isFinite":49,"../tester/isVoid":59}],54:[function(require,module,exports){
+},{"../operator/xnor":40,"../tester/isFinite":48,"../tester/isVoid":58}],53:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -5376,7 +5374,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{"lodash":60}],55:[function(require,module,exports){
+},{"lodash":59}],54:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -5413,7 +5411,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{"../tester/isString":58,"../tester/isVoid":59}],56:[function(require,module,exports){
+},{"../tester/isString":57,"../tester/isVoid":58}],55:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -5457,7 +5455,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{"../operator/xnor":41,"../tester/isArray":43,"../tester/isFunction":50,"../tester/isVoid":59,"lodash":60}],57:[function(require,module,exports){
+},{"../operator/xnor":40,"../tester/isArray":42,"../tester/isFunction":49,"../tester/isVoid":58,"lodash":59}],56:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -5500,7 +5498,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{"../tester/isFunction":50,"../tester/isObject":56,"../tester/isString":58}],58:[function(require,module,exports){
+},{"../tester/isFunction":49,"../tester/isObject":55,"../tester/isString":57}],57:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -5536,7 +5534,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{"../operator/xnor":41,"../tester/isVoid":59,"lodash":60}],59:[function(require,module,exports){
+},{"../operator/xnor":40,"../tester/isVoid":58,"lodash":59}],58:[function(require,module,exports){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 /**
@@ -5573,7 +5571,7 @@ arguments[4][22][0].apply(exports,arguments)
     };
 
 }());
-},{"../tester/isDefined":47,"../tester/isNull":54}],60:[function(require,module,exports){
+},{"../tester/isDefined":46,"../tester/isNull":53}],59:[function(require,module,exports){
 (function (global){
 /**
  * @license
@@ -17176,7 +17174,7 @@ arguments[4][22][0].apply(exports,arguments)
 }.call(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],61:[function(require,module,exports){
+},{}],60:[function(require,module,exports){
 (function (process){
 // vim:ts=4:sts=4:sw=4:
 /*!
