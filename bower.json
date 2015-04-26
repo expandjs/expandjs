@@ -1,7 +1,7 @@
 {
   "name": "expandjs",
   "license": "BSD-3-Clause",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "description": "This module is used to import the ExpandJS utilities.",
   "homepage": "http://www.expandjs.com",
   "authors": [
