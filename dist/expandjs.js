@@ -2945,7 +2945,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -2989,7 +2989,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -3041,7 +3041,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -3085,7 +3085,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -3137,7 +3137,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -3181,7 +3181,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -3226,7 +3226,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -3261,7 +3261,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -3303,7 +3303,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -3343,7 +3343,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -3400,7 +3400,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -3443,7 +3443,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -3482,7 +3482,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -3523,7 +3523,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -3573,7 +3573,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -3628,7 +3628,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -3670,7 +3670,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -3715,7 +3715,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -3760,7 +3760,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -3995,7 +3995,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -4021,7 +4021,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -4072,7 +4072,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -4134,7 +4134,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -4199,7 +4199,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -4230,7 +4230,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -4259,7 +4259,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -4288,7 +4288,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -4325,7 +4325,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -4352,7 +4352,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -4430,7 +4430,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -4467,7 +4467,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -4524,7 +4524,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -4643,7 +4643,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -4689,7 +4689,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -4727,7 +4727,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -4774,7 +4774,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -4814,7 +4814,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -4858,7 +4858,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -4892,7 +4892,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -4924,7 +4924,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -4963,7 +4963,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -5002,7 +5002,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -5045,7 +5045,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -5083,7 +5083,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -5114,7 +5114,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -5154,7 +5154,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -5193,7 +5193,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -5226,7 +5226,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -5265,7 +5265,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -5304,7 +5304,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -5346,7 +5346,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -5379,7 +5379,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -5416,7 +5416,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -5460,7 +5460,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -5503,7 +5503,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
@@ -5539,7 +5539,7 @@ process.umask = function() { return 0; };
 
 /**
  * @license
- * Copyright (c) 2015 The expand.js authors. All rights reserved.
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
  * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
  * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
  * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
