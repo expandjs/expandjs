@@ -3253,6 +3253,18 @@ process.umask = function() { return 0; };
     /**
      * Stretches the size of `array` to a desired length, filling the new elements with `undefiend`.
      * A third parameter can be passed as filler value for the new element.
+     *
+     * ```js
+     *     var arr = [1, 2, 3];
+     *
+     *     XP.stretch(arr, 5);
+     *     // => [1, 2, 3, undefined, undefined]
+     *
+     *     console.log(arr);
+     *     // => [1, 2, 3, undefined, undefined]
+     *
+     *     XP.stretch(arr, 1);
+     *     // => [1, 2, 3, undefined, undefined]
      *```
      *
      * @function stretch
@@ -3760,10 +3772,11 @@ process.umask = function() { return 0; };
         isBindable     = require('../tester/isBindable');
 
     /**
-     *  Seals an object, preventing new properties from being added to it and
-     *  marking all existing properties as non-configurable. Values of present
-     *  properties can still be changed as long as they are writable.
+     * Seals an object, preventing new properties from being added to it and
+     * marking all existing properties as non-configurable. Values of present
+     * properties can still be changed as long as they are writable.
      *
+     * ```js
      *     var obj = {
      *         first: 1,
      *         second: 2
