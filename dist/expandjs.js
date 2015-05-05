@@ -2962,6 +2962,7 @@ process.umask = function() { return 0; };
      * Concatenates multiple arrays between them, using the first one as an
      * entry point, and returns the result.
      *
+     * ```js
      *     var num1 = [1, 2, 3],
      *         num2 = [4, 5, 6],
      *         num3 = [7, 8, 9];
@@ -2971,6 +2972,7 @@ process.umask = function() { return 0; };
      *
      *     console.log(num1);
      *     // => [1, 2, 3, 4, 5, 6, 7, 8, 9]
+     *```
      *
      * @function concat
      * @param {Array} array The entry point array to be modified
@@ -3009,6 +3011,7 @@ process.umask = function() { return 0; };
      * A filler can be specified, used in case the new array is longer than
      * the old one and needs a default value for the new elements in the array.
      *
+     * ```js
      *     var arr = [1, 2, 3];
      *
      *     XP.fit(arr, 5);
@@ -3022,6 +3025,7 @@ process.umask = function() { return 0; };
      *
      *     XP.fit(arr, 4, 10);
      *     // => [1, 2, 10, 10]
+     *```
      *
      * @function fit
      * @param {Array} array The array to modify
@@ -3058,6 +3062,7 @@ process.umask = function() { return 0; };
     /**
      * Removes all provided values from `array` using `SameValueZero` for equality comparisons.
      *
+     * ```js
      *     var arr = [1, 2, 3, 2, 5];
      *
      *     XP.pull(arr, 2);
@@ -3068,6 +3073,7 @@ process.umask = function() { return 0; };
      *
      *     XP.pull(arr, 3, 5);
      *     // => [1]
+     *```
      *
      * @function pull
      * @param {Array} array The array to modify.
@@ -3104,6 +3110,7 @@ process.umask = function() { return 0; };
      * A string can also be passed instead of an array, and the value will be
      * added at the end of the string. This time the whole string will be returned.
      *
+     * ```js
      *     var arr = [1, 2],
      *         str = 'abc';
      *
@@ -3118,6 +3125,7 @@ process.umask = function() { return 0; };
      *
      *     XP.push('abc', {});
      *     // => 'abc'
+     *```
      *
      * @function push
      * @param {Array | string} array The array/string to be modified
@@ -3152,6 +3160,7 @@ process.umask = function() { return 0; };
     /**
      * Shrinks the size of `array` to a desired length, from left to right, returning the result.
      *
+     * ```js
      *     var arr = [1, 2, 3];
      *
      *     XP.shrink(arr, 1);
@@ -3162,6 +3171,7 @@ process.umask = function() { return 0; };
      *
      *     XP.shrink(arr, 5);
      *     // => [1]
+     *```
      *
      * @function shrink
      * @param {Array} array The array to be modified
@@ -3197,6 +3207,7 @@ process.umask = function() { return 0; };
     /**
      * Creates a slice of `array` from `start` up to, but not including, `end`.
      *
+     * ```js
      *     var arr = [1, 2, 3, 4, 5];
      *
      *     XP.slice(arr, 2);
@@ -3207,6 +3218,7 @@ process.umask = function() { return 0; };
      *
      *     XP.slice(arr, 7, 2);
      *     // => []
+     *```
      *
      * @function slice
      * @param {*} array The array to slice.
@@ -3241,6 +3253,7 @@ process.umask = function() { return 0; };
     /**
      * Stretches the size of `array` to a desired length, filling the new elements with `undefiend`.
      * A third parameter can be passed as filler value for the new element.
+     *```
      *
      * @function stretch
      * @param {Array} array The array to modify.
@@ -3274,6 +3287,7 @@ process.umask = function() { return 0; };
     /**
      * Invokes `func` if `value` is falsy and the assertion fails.
      *
+     * ```js
      *          var score        = 0,
      *              maxScore     = 10,
      *              errorHandler = function () {
@@ -3287,6 +3301,7 @@ process.umask = function() { return 0; };
      *          score = 12;
      *          XP.assert(score < maxScore, errorHandler);
      *          // => Error: The score is off the charts!!
+     *```
      *
      * @function assert
      * @param {*} value The assert value to be checked.
@@ -3317,6 +3332,7 @@ process.umask = function() { return 0; };
     /**
      * Throws an ArgumentError if `value` is falsy and the assertion fails.
      *
+     * ```js
      *     var func = function (first) {
      *         XP.assertArgument(XP.isNumber(first) && first < 10, 1, 'a number lower than 10');
      *         return 'The passed value is: ' + first;
@@ -3327,6 +3343,7 @@ process.umask = function() { return 0; };
      *
      *     func(15)
      *     // => ArgumentError: 1st argument must be must be a number lower than 10
+     *```
      *
      * @function assertArgument
      * @param {*} value The assert value to be chekced.
@@ -3360,6 +3377,7 @@ process.umask = function() { return 0; };
      * Returns an array representation of `target`. A second parameter can be passed
      * to force the representation, in case it's not natively possible to do so.
      *
+     * ```js
      *     var func = function () {
      *         var args = XP.toArray(arguments),
      *             result = [];
@@ -3382,6 +3400,7 @@ process.umask = function() { return 0; };
      *
      *     XP.toArray(123, true);
      *     // => []
+     *```
      *
      * @function toArray
      * @param {*} target The value to be transformed.
@@ -3415,6 +3434,7 @@ process.umask = function() { return 0; };
      * Returns an index representation of `target`. A second parameter can be passed
      * to force the representation, in case it's not natively possible to do so.
      *
+     * ```js
      *      XP.toIndex('1')
      *      // => 1
      *
@@ -3426,6 +3446,7 @@ process.umask = function() { return 0; };
      *
      *      XP.toIndex({}, true)
      *      // => 0
+     *```
      *
      * @function toIndex
      * @param {*} target The value to be transformed.
@@ -3457,6 +3478,7 @@ process.umask = function() { return 0; };
      * Returns an integer representation of `target`. A second parameter can be passed
      * to force the representation, in case it's not natively possible to do so.
      *
+     * ```js
      *      XP.toInt('10')
      *      // => 10
      *
@@ -3465,6 +3487,7 @@ process.umask = function() { return 0; };
      *
      *      XP.toInt({}, true)
      *      // => 0
+     *```
      *
      * @function toInt
      * @param {*} target The value to be transformed.
@@ -3495,6 +3518,7 @@ process.umask = function() { return 0; };
     /**
      * Returns a position representation of `target`.
      *
+     * ```js
      *      XP.toPosition(1)
      *      // => '1st'
      *
@@ -3503,6 +3527,7 @@ process.umask = function() { return 0; };
      *
      *      XP.toPosition(23)
      *      // => '23rd'
+     *```
      *
      * @function toPosition
      * @param {number} target The value to be transformed.
@@ -3541,6 +3566,7 @@ process.umask = function() { return 0; };
      * Iterates over elements of `collection`, returning an array of all elements `predicate` returns truthy for.
      * The predicate is bound to `thisArg` and invoked with three arguments; (value, index|key, collection).
      *
+     * ```js
      *     XP.filter([4, 5, 6], function(n) { return n % 2 == 0; });
      *     // => [4, 6]
      *
@@ -3554,6 +3580,7 @@ process.umask = function() { return 0; };
      *
      *     XP.filter(users, 'active', false);
      *     // => [{user: 'fred', age: 40, active: false}]
+     *```
      *
      * @function filter
      * @param {Array | Object} collection The collection to iterate over.
@@ -3593,6 +3620,7 @@ process.umask = function() { return 0; };
      * Iterates over elements of `collection`, returning the first element `predicate` returns truthy for.
      * The predicate is bound to `thisArg` and invoked with three arguments; (value, index|key, collection).
      *
+     * ```js
      *     var users = [
      *         {user: 'barney', age: 36, active: true},
      *         {user: 'fred', age: 40, active: false},
@@ -3607,6 +3635,7 @@ process.umask = function() { return 0; };
      *
      *     XP.find(users, 'active', false);
      *     // => {user: 'fred', age: 40, active: false}
+     *```
      *
      * @function find
      * @param {Array | Object} collection The collection to search.
@@ -3647,10 +3676,12 @@ process.umask = function() { return 0; };
     /**
      * Removes all own properties of a collection and returns the flushed collection.
      *
+     * ```js
      *     var obj = {first: 1, second: 2}
      *
      *     XP.flush(obj)
      *     // => {}
+     *```
      *
      * @function flush
      * @param {Array | Element | Object} collection The collection to modify
@@ -3687,6 +3718,7 @@ process.umask = function() { return 0; };
      * properties, or their enumerability, configurability, or writability,
      * from being changed. In essence the object is made effectively immutable.
      *
+     * ```js
      *     var obj = {
      *         first: 1,
      *         second: 2
@@ -3699,6 +3731,7 @@ process.umask = function() { return 0; };
      *
      *     console.log(obj);
      *     // => {first: 1, second: 2}
+     *```
      *
      * @function freeze
      * @param {Array | Function | Object} collection The collection to be frozen
@@ -3744,6 +3777,7 @@ process.umask = function() { return 0; };
      *
      *     console.log(obj);
      *     // => {first: 1, second: 'two'}
+     *```
      *
      * @function seal
      * @param {Array | Function | Object} collection The collection to be sealed
@@ -4213,8 +4247,10 @@ process.umask = function() { return 0; };
     /**
      * Creates a custom error with the `ArgumentError` type and a predefined message.
      *
+     * ```js
      *      console.log(new ArgumentError(1, 'object or string'));
      *      // => ArgumentError{message: '1st argument must be object or string', stack: '...'}
+     *```
      *
      * @function ArgumentError
      * @param {number} position The position of the argument
@@ -4241,8 +4277,10 @@ process.umask = function() { return 0; };
     /**
      * Creates a custom error with a predefined message.
      *
+     * ```js
      *      console.log(new CustomError('myError', 'myVar', 'caused an error'));
      *      // => CustomError{message: 'myVar caused and error', stack: 'myError: myVar caused an error...'}
+     *```
      *
      * @function CustomError
      * @param {string} name The name of the error to be shown in the stack.
@@ -4272,8 +4310,10 @@ process.umask = function() { return 0; };
     /**
      * Creates a custom error with the `InvalidError` type and a predefined message.
      *
+     * ```js
      *      console.log(new InvalidError('myVar'));
      *      // => InvalidError{message: 'myVar is not valid', stack: '...'}
+     *```
      *
      * @function InvalidError
      * @param {string} key The key to be used in the message
@@ -4305,8 +4345,10 @@ process.umask = function() { return 0; };
     /**
      * Creates a function that accepts up to `n` arguments ignoring any additional arguments.
      *
+     * ```js
      *     XP.map(['6', '8', '10'], XP.ary(parseInt, 1));
      *     // => [6, 8, 10]
+     *```
      *
      * @function ary
      * @param {Function} func The function to cap arguments for.
@@ -4336,8 +4378,10 @@ process.umask = function() { return 0; };
     /**
      * Creates an empty function
      *
+     * ```js
      *      XP.mock()
      *      // => function () {}
+     *```
      *
      * @function mock
      * @returns {Function}
@@ -4376,6 +4420,7 @@ process.umask = function() { return 0; };
      * an error to the callback, the next function is not executed and
      * the main callback is immediately called with the error.
      *
+     * ```js
      *      XP.waterfall([
      *          function(next){
      *              next(null, 'one', 'two');
@@ -4395,6 +4440,7 @@ process.umask = function() { return 0; };
      *      // => 'one' 'two'
      *      // => 'three'
      *      // => 'done'
+     *```
      *
      * @function waterfall
      * @param {Array | Object} funcs The array of functions to be invoked
@@ -4448,8 +4494,10 @@ process.umask = function() { return 0; };
      * Assigns own enumerable properties of source object(s) to the destination object.
      * Subsequent sources overwrite property assignments of previous sources.
      *
+     * ```js
      *     XP.assign({user: 'barney'}, {age: 40}, {user: 'fred'});
      *     // => {user: 'fred', age: 40}
+     *```
      *
      * @function assign
      * @param {Object} object The destination object.
@@ -4485,6 +4533,7 @@ process.umask = function() { return 0; };
      * Defines new or modifies existing properties directly on an object
      * and returns the modified object.
      *
+     * ```js
      *     var obj = {};
      *
      *     XP.defineProperties(obj, {
@@ -4505,6 +4554,7 @@ process.umask = function() { return 0; };
      *     obj.b = 34;
      *     // => 'The value has been set'
      *     // => 34
+     *```
      *
      * @function defineProperties
      * @param {Function | Object} target The object to modify
@@ -4549,6 +4599,7 @@ process.umask = function() { return 0; };
      * property on an object, and returns the modified object. The options relative
      * to the new properties can be specified in the third parameter.
      *
+     * ```js
      *     var obj = {};
      *
      *     XP.defineProperty(obj, 'a', {
@@ -4569,6 +4620,7 @@ process.umask = function() { return 0; };
      *     obj.b = 34;
      *     // => 'The value has been set'
      *     // => 34
+     *```
      *
      * @function defineProperty
      * @param {Function | Object} target
@@ -4661,6 +4713,7 @@ process.umask = function() { return 0; };
      * The `iteratee` is bound to `thisArg` and invoked with three arguments; (value, key, object).
      * Iterator functions may exit iteration early by explicitly returning `false`.
      *
+     * ```js
      *     function Foo() {
      *         this.a = 1;
      *         this.b = 2;
@@ -4670,6 +4723,7 @@ process.umask = function() { return 0; };
      *
      *     XP.forOwn(new Foo, function(value, key) { console.log(key); });
      *     // => logs 'a' and 'b' (iteration order is not guaranteed)
+     *```
      *
      * @function forOwn
      * @param {Object} object The object to iterate over.
@@ -4705,10 +4759,12 @@ process.umask = function() { return 0; };
     /**
      * Checks if `key` exists as a direct property of `object` instead of an inherited property.
      *
+     * ```js
      *     var object = {a: 1, b: 2, c: 3 };
      *
      *     XP.has(object, 'b');
      *     // => true
+     *```
      *
      * @function has
      * @param {Array | Function | Object} object The object to inspect.
@@ -4745,6 +4801,7 @@ process.umask = function() { return 0; };
      * can be defined as a default value to be returned, in case the
      * specified property in `key` is not found.
      *
+     * ```js
      *      obj = {first: 1, second: 2}
      *
      *      XP.value(obj, 'first')
@@ -4755,6 +4812,7 @@ process.umask = function() { return 0; };
      *
      *      XP.value(obj, 'third', 'Unknown value')
      *      // => 'Unknown value'
+     *```
      *
      * @function value
      * @param {Object} object
@@ -4789,6 +4847,7 @@ process.umask = function() { return 0; };
     /**
      * Creates an array of the own enumerable property values of `object`.
      *
+     * ```js
      *     function Foo() {
      *         this.a = 1;
      *         this.b = 2;
@@ -4798,6 +4857,7 @@ process.umask = function() { return 0; };
      *
      *     XP.values(new Foo);
      *     // => [1, 2] (iteration order is not guaranteed)
+     *```
      *
      * @function values
      * @param {Object} object The object to query.
@@ -4830,6 +4890,7 @@ process.umask = function() { return 0; };
     /**
      * Deletes an own property from `object` and returns the value of the deleted property.
      *
+     * ```js
      *      obj = {first: 1, second: 2}
      *      XP.widthdraw(obj, 'first')
      *      // => 1
@@ -4838,6 +4899,7 @@ process.umask = function() { return 0; };
      *      XP.widthdraw(obj, 'third')
      *      // => undefined
      *      //obj = {second: 2}
+     *```
      *
      * @function withdraw
      * @param {Object} object
@@ -4871,11 +4933,13 @@ process.umask = function() { return 0; };
     /**
      * XNOR logical operator. Returns true if the passed values are either both truthy or both falsy.
      *
+     * ```js
      *      XP.xnor('abc', 2)
      *      // => true
      *
      *      XP.xnor('a', 0)
      *      // => false
+     *```
      *
      * @function xnor
      * @param {*} a First logical expression
@@ -4903,11 +4967,13 @@ process.umask = function() { return 0; };
     /**
      * XOR logical operator. Returns true if one passed values is truthy while the other is falsy.
      *
+     * ```js
      *      XP.xor('a', 0)
      *      // => true
      *
      *      XP.xor('abc', 2)
      *      // => false
+     *```
      *
      * @function xor
      * @param {*} a First logical expression
@@ -4939,6 +5005,7 @@ process.umask = function() { return 0; };
     /**
      * Checks if `value` is instance of `Array`.
      *
+     * ```js
      *     XP.isArray([1, 2, 3]);
      *     // => true
      *
@@ -4947,6 +5014,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isArray(function() { return arguments; }());
      *     // => false
+     *```
      *
      * @function isArray
      * @param {*} value The value to check.
@@ -4978,6 +5046,7 @@ process.umask = function() { return 0; };
     /**
      * Checks if `value` is an arrayable object. (`Array`, `Arguments` etc.)
      *
+     * ```js
      *     XP.isArrayable([1, 2, 3]);
      *     // => true
      *
@@ -4986,6 +5055,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isArrayable([], true);
      *     // => false
+     *```
      *
      * @function isArrayable
      * @param {*} value The value to check.
@@ -5018,6 +5088,7 @@ process.umask = function() { return 0; };
     /**
      * Checks if `value` is bindable. (`Array`, `Function`, `Object`, `null`, `undefined`)
      *
+     * ```js
      *     XP.isBindable([1, 2, 3]);
      *     // => true
      *
@@ -5029,6 +5100,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isBindable('hello');
      *     // => false
+     *```
      *
      * @function isBindable
      * @param {*} value The value to check.
@@ -5059,6 +5131,7 @@ process.umask = function() { return 0; };
     /**
      * Checks if `value` is collection. (`Arrayable`, `Object`)
      *
+     * ```js
      *     XP.isCollection(/abc/)
      *     // => true
      *
@@ -5067,6 +5140,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isCollection([], true)
      *     // => false
+     *```
      *
      * @function isCollection
      * @param {*} value The value to check.
@@ -5094,11 +5168,13 @@ process.umask = function() { return 0; };
     /**
      * Checks if `value` is not `undefined`.
      *
+     * ```js
      *     XP.isDefined(null);
      *     // => true
      *
      *     XP.isDefined(undefined);
      *     // => false
+     *```
      *
      * @function isDefined
      * @param {*} value The value to check.
@@ -5130,11 +5206,13 @@ process.umask = function() { return 0; };
     /**
      * Checks if `value` is instance of `HTMLElement`.
      *
+     * ```js
      *     XP.isElement(document.body);
      *     // => true
      *
      *     XP.isElement('<body>');
      *     // => false
+     *```
      *
      * @function isElement
      * @param {*} value The value to check.
@@ -5169,6 +5247,7 @@ process.umask = function() { return 0; };
     /**
      * Checks if `value` is a finite primitive number.
      *
+     * ```js
      *     XP.isFinite(10);
      *     // => true
      *
@@ -5177,6 +5256,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isFinite(Infinity);
      *     // => false
+     *```
      *
      * @function isFinite
      * @param {*} value The value to check.
@@ -5206,11 +5286,13 @@ process.umask = function() { return 0; };
     /**
      * Checks if `value` is instance of `Function`.
      *
+     * ```js
      *     XP.isFunction(XP.filter);
      *     // => true
      *
      *     XP.isFunction(/abc/);
      *     // => false
+     *```
      *
      * @function isFunction
      * @param {*} value The value to check.
@@ -5239,6 +5321,7 @@ process.umask = function() { return 0; };
     /**
      * Checks if `value` is an index.
      *
+     * ```js
      *     XP.isIndex(0);
      *     // => true
      *
@@ -5250,6 +5333,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isIndex(-1);
      *     // => false
+     *```
      *
      * @function isIndex
      * @param {*} value The value to check.
@@ -5280,6 +5364,7 @@ process.umask = function() { return 0; };
      * Checks if `target` is an input value (string or finite numbers). A second
      * parameter can be passed to assure that the passed string is not empty.
      *
+     * ```js
      *     XP.isInput('string');
      *     // => true
      *
@@ -5288,6 +5373,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isInput(123);
      *     // => true
+     *```
      *
      * @function isInput
      * @param {*} target
@@ -5319,6 +5405,7 @@ process.umask = function() { return 0; };
     /**
      * Checks if `value` is int.
      *
+     * ```js
      *     XP.isInt(1);
      *     // => true
      *
@@ -5330,6 +5417,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isInt(1.5);
      *     // => false
+     *```
      *
      * @function isInt
      * @param {*} value The value to check.
@@ -5359,11 +5447,13 @@ process.umask = function() { return 0; };
     /**
      * Checks if `value` is `null`.
      *
+     * ```js
      *     XP.isNull(null);
      *     // => true
      *
      *     XP.isNull(void 0);
      *     // => false
+     *```
      *
      * @function isNull
      * @param {*} value The value to check.
@@ -5393,6 +5483,7 @@ process.umask = function() { return 0; };
     /**
      * Checks if `value` is nullable. (`undefined`, `null`, empty `string`)
      *
+     * ```js
      *     XP.isNullable('');
      *     // => true
      *
@@ -5401,6 +5492,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isNullable(false);
      *     // => false
+     *```
      *
      * @function isNullable
      * @param {*} value The value to check.
@@ -5433,6 +5525,7 @@ process.umask = function() { return 0; };
     /**
      * Checks if `value` instance of `Object`.
      *
+     * ```js
      *     XP.isObject({});
      *     // => true
      *
@@ -5444,6 +5537,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isObject(1);
      *     // => false
+     *```
      *
      * @function isObject
      * @param {*} value The value to check.
@@ -5475,6 +5569,7 @@ process.umask = function() { return 0; };
     /**
      * Checks if `value` is predicate. (`Function`, `Object`, `string`)
      *
+     * ```js
      *     function Foo(n) { return n > 0; }
      *
      *     XP.isPredicate(Foo);
@@ -5488,6 +5583,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isPredicate(true);
      *     // => false
+     *```
      *
      * @function isPredicate
      * @param {*} value The value to check.
@@ -5518,11 +5614,13 @@ process.umask = function() { return 0; };
     /**
      * Checks if `value` is `string`.
      *
+     * ```js
      *     XP.isString('abc');
      *     // => true
      *
      *     XP.isString(1);
      *     // => false
+     *```
      *
      * @function isString
      * @param {*} value The value to check.
@@ -5553,6 +5651,7 @@ process.umask = function() { return 0; };
     /**
      * Checks if `value` is void. (`null`, `undefined`)
      *
+     * ```js
      *     XP.isVoid(null);
      *     // => true
      *
@@ -5561,6 +5660,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isVoid(0);
      *     // => false
+     *```
      *
      * @function isVoid
      * @param {*} value The value to check.
