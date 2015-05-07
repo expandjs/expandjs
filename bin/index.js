@@ -403,8 +403,8 @@
         // Recalculating
         if (willBleedRight(boundings, margin)) { boundings.left = position === 'aside' ? boundings.left - (targetBoundings.width + boundings.width) : domWidth - (margin.left + boundings.width + margin.right); }
         if (willBleedLeft(boundings, margin)) { boundings.left = position === 'aside' && !willBleedHorizontally(boundings, margin) ? domWidth - (margin.left + boundings.width + margin.right) : 0; }
-        if (willBleedBottom(boundings, margin)) { boundings.top = position === 'baseline' ? boundings.top - (boundings.height + targetBoundings.height) : domHeight - (margin.top + boundings.height + margin.bottom); }
-        if (willBleedTop(boundings, margin)) { boundings.top = position === 'baseline' && !willBleedVertically(boundings, margin) ? domHeight - (margin.top + boundings.height + margin.bottom) : 0; }
+        if (willBleedBottom(boundings, margin)) { boundings.top = domHeight - (margin.top + boundings.height + margin.bottom); }
+        if (willBleedTop(boundings, margin)) { boundings.top = 0; }
 
         // Styling
         setStyles(element, {left: boundings.left + 'px', right: willBleedRight(boundings, margin) ? '0px' : null});
