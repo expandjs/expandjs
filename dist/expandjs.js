@@ -2972,7 +2972,7 @@ process.umask = function() { return 0; };
      *
      *     console.log(num1);
      *     // => [1, 2, 3, 4, 5, 6, 7, 8, 9]
-     *```
+     * ```
      *
      * @function concat
      * @param {Array} array The entry point array to be modified
@@ -3025,7 +3025,7 @@ process.umask = function() { return 0; };
      *
      *     XP.fit(arr, 4, 10);
      *     // => [1, 2, 10, 10]
-     *```
+     * ```
      *
      * @function fit
      * @param {Array} array The array to modify
@@ -3073,7 +3073,7 @@ process.umask = function() { return 0; };
      *
      *     XP.pull(arr, 3, 5);
      *     // => [1]
-     *```
+     * ```
      *
      * @function pull
      * @param {Array} array The array to modify.
@@ -3125,7 +3125,7 @@ process.umask = function() { return 0; };
      *
      *     XP.push('abc', {});
      *     // => 'abc'
-     *```
+     * ```
      *
      * @function push
      * @param {Array | string} array The array/string to be modified
@@ -3171,7 +3171,7 @@ process.umask = function() { return 0; };
      *
      *     XP.shrink(arr, 5);
      *     // => [1]
-     *```
+     * ```
      *
      * @function shrink
      * @param {Array} array The array to be modified
@@ -3218,7 +3218,7 @@ process.umask = function() { return 0; };
      *
      *     XP.slice(arr, 7, 2);
      *     // => []
-     *```
+     * ```
      *
      * @function slice
      * @param {*} array The array to slice.
@@ -3265,7 +3265,7 @@ process.umask = function() { return 0; };
      *
      *     XP.stretch(arr, 1);
      *     // => [1, 2, 3, undefined, undefined]
-     *```
+     * ```
      *
      * @function stretch
      * @param {Array} array The array to modify.
@@ -3313,7 +3313,7 @@ process.umask = function() { return 0; };
      *          score = 12;
      *          XP.assert(score < maxScore, errorHandler);
      *          // => Error: The score is off the charts!!
-     *```
+     * ```
      *
      * @function assert
      * @param {*} value The assert value to be checked.
@@ -3355,7 +3355,7 @@ process.umask = function() { return 0; };
      *
      *     func(15)
      *     // => ArgumentError: 1st argument must be must be a number lower than 10
-     *```
+     * ```
      *
      * @function assertArgument
      * @param {*} value The assert value to be chekced.
@@ -3412,7 +3412,7 @@ process.umask = function() { return 0; };
      *
      *     XP.toArray(123, true);
      *     // => []
-     *```
+     * ```
      *
      * @function toArray
      * @param {*} target The value to be transformed.
@@ -3458,7 +3458,7 @@ process.umask = function() { return 0; };
      *
      *      XP.toIndex({}, true)
      *      // => 0
-     *```
+     * ```
      *
      * @function toIndex
      * @param {*} target The value to be transformed.
@@ -3499,7 +3499,7 @@ process.umask = function() { return 0; };
      *
      *      XP.toInt({}, true)
      *      // => 0
-     *```
+     * ```
      *
      * @function toInt
      * @param {*} target The value to be transformed.
@@ -3539,7 +3539,7 @@ process.umask = function() { return 0; };
      *
      *      XP.toPosition(23)
      *      // => '23rd'
-     *```
+     * ```
      *
      * @function toPosition
      * @param {number} target The value to be transformed.
@@ -3592,7 +3592,7 @@ process.umask = function() { return 0; };
      *
      *     XP.filter(users, 'active', false);
      *     // => [{user: 'fred', age: 40, active: false}]
-     *```
+     * ```
      *
      * @function filter
      * @param {Array | Object} collection The collection to iterate over.
@@ -3647,7 +3647,7 @@ process.umask = function() { return 0; };
      *
      *     XP.find(users, 'active', false);
      *     // => {user: 'fred', age: 40, active: false}
-     *```
+     * ```
      *
      * @function find
      * @param {Array | Object} collection The collection to search.
@@ -3693,7 +3693,7 @@ process.umask = function() { return 0; };
      *
      *     XP.flush(obj)
      *     // => {}
-     *```
+     * ```
      *
      * @function flush
      * @param {Array | Element | Object} collection The collection to modify
@@ -3743,7 +3743,7 @@ process.umask = function() { return 0; };
      *
      *     console.log(obj);
      *     // => {first: 1, second: 2}
-     *```
+     * ```
      *
      * @function freeze
      * @param {Array | Function | Object} collection The collection to be frozen
@@ -3790,7 +3790,7 @@ process.umask = function() { return 0; };
      *
      *     console.log(obj);
      *     // => {first: 1, second: 'two'}
-     *```
+     * ```
      *
      * @function seal
      * @param {Array | Function | Object} collection The collection to be sealed
@@ -4263,7 +4263,7 @@ process.umask = function() { return 0; };
      * ```js
      *      console.log(new ArgumentError(1, 'object or string'));
      *      // => ArgumentError{message: '1st argument must be object or string', stack: '...'}
-     *```
+     * ```
      *
      * @function ArgumentError
      * @param {number} position The position of the argument
@@ -4293,7 +4293,7 @@ process.umask = function() { return 0; };
      * ```js
      *      console.log(new CustomError('myError', 'myVar', 'caused an error'));
      *      // => CustomError{message: 'myVar caused and error', stack: 'myError: myVar caused an error...'}
-     *```
+     * ```
      *
      * @function CustomError
      * @param {string} name The name of the error to be shown in the stack.
@@ -4326,7 +4326,7 @@ process.umask = function() { return 0; };
      * ```js
      *      console.log(new InvalidError('myVar'));
      *      // => InvalidError{message: 'myVar is not valid', stack: '...'}
-     *```
+     * ```
      *
      * @function InvalidError
      * @param {string} key The key to be used in the message
@@ -4361,7 +4361,7 @@ process.umask = function() { return 0; };
      * ```js
      *     XP.map(['6', '8', '10'], XP.ary(parseInt, 1));
      *     // => [6, 8, 10]
-     *```
+     * ```
      *
      * @function ary
      * @param {Function} func The function to cap arguments for.
@@ -4394,7 +4394,7 @@ process.umask = function() { return 0; };
      * ```js
      *      XP.mock()
      *      // => function () {}
-     *```
+     * ```
      *
      * @function mock
      * @returns {Function}
@@ -4453,7 +4453,7 @@ process.umask = function() { return 0; };
      *      // => 'one' 'two'
      *      // => 'three'
      *      // => 'done'
-     *```
+     * ```
      *
      * @function waterfall
      * @param {Array | Object} funcs The array of functions to be invoked
@@ -4510,7 +4510,7 @@ process.umask = function() { return 0; };
      * ```js
      *     XP.assign({user: 'barney'}, {age: 40}, {user: 'fred'});
      *     // => {user: 'fred', age: 40}
-     *```
+     * ```
      *
      * @function assign
      * @param {Object} object The destination object.
@@ -4567,7 +4567,7 @@ process.umask = function() { return 0; };
      *     obj.b = 34;
      *     // => 'The value has been set'
      *     // => 34
-     *```
+     * ```
      *
      * @function defineProperties
      * @param {Function | Object} target The object to modify
@@ -4633,7 +4633,7 @@ process.umask = function() { return 0; };
      *     obj.b = 34;
      *     // => 'The value has been set'
      *     // => 34
-     *```
+     * ```
      *
      * @function defineProperty
      * @param {Function | Object} target
@@ -4736,7 +4736,7 @@ process.umask = function() { return 0; };
      *
      *     XP.forOwn(new Foo, function(value, key) { console.log(key); });
      *     // => logs 'a' and 'b' (iteration order is not guaranteed)
-     *```
+     * ```
      *
      * @function forOwn
      * @param {Object} object The object to iterate over.
@@ -4777,7 +4777,7 @@ process.umask = function() { return 0; };
      *
      *     XP.has(object, 'b');
      *     // => true
-     *```
+     * ```
      *
      * @function has
      * @param {Array | Function | Object} object The object to inspect.
@@ -4825,7 +4825,7 @@ process.umask = function() { return 0; };
      *
      *      XP.value(obj, 'third', 'Unknown value')
      *      // => 'Unknown value'
-     *```
+     * ```
      *
      * @function value
      * @param {Object} object
@@ -4870,7 +4870,7 @@ process.umask = function() { return 0; };
      *
      *     XP.values(new Foo);
      *     // => [1, 2] (iteration order is not guaranteed)
-     *```
+     * ```
      *
      * @function values
      * @param {Object} object The object to query.
@@ -4912,7 +4912,7 @@ process.umask = function() { return 0; };
      *      XP.widthdraw(obj, 'third')
      *      // => undefined
      *      //obj = {second: 2}
-     *```
+     * ```
      *
      * @function withdraw
      * @param {Object} object
@@ -4952,7 +4952,7 @@ process.umask = function() { return 0; };
      *
      *      XP.xnor('a', 0)
      *      // => false
-     *```
+     * ```
      *
      * @function xnor
      * @param {*} a First logical expression
@@ -4986,7 +4986,7 @@ process.umask = function() { return 0; };
      *
      *      XP.xor('abc', 2)
      *      // => false
-     *```
+     * ```
      *
      * @function xor
      * @param {*} a First logical expression
@@ -5027,7 +5027,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isArray(function() { return arguments; }());
      *     // => false
-     *```
+     * ```
      *
      * @function isArray
      * @param {*} value The value to check.
@@ -5068,7 +5068,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isArrayable([], true);
      *     // => false
-     *```
+     * ```
      *
      * @function isArrayable
      * @param {*} value The value to check.
@@ -5113,7 +5113,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isBindable('hello');
      *     // => false
-     *```
+     * ```
      *
      * @function isBindable
      * @param {*} value The value to check.
@@ -5153,7 +5153,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isCollection([], true)
      *     // => false
-     *```
+     * ```
      *
      * @function isCollection
      * @param {*} value The value to check.
@@ -5187,7 +5187,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isDefined(undefined);
      *     // => false
-     *```
+     * ```
      *
      * @function isDefined
      * @param {*} value The value to check.
@@ -5225,7 +5225,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isElement('<body>');
      *     // => false
-     *```
+     * ```
      *
      * @function isElement
      * @param {*} value The value to check.
@@ -5269,7 +5269,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isFinite(Infinity);
      *     // => false
-     *```
+     * ```
      *
      * @function isFinite
      * @param {*} value The value to check.
@@ -5305,7 +5305,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isFunction(/abc/);
      *     // => false
-     *```
+     * ```
      *
      * @function isFunction
      * @param {*} value The value to check.
@@ -5346,7 +5346,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isIndex(-1);
      *     // => false
-     *```
+     * ```
      *
      * @function isIndex
      * @param {*} value The value to check.
@@ -5386,7 +5386,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isInput(123);
      *     // => true
-     *```
+     * ```
      *
      * @function isInput
      * @param {*} target
@@ -5430,7 +5430,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isInt(1.5);
      *     // => false
-     *```
+     * ```
      *
      * @function isInt
      * @param {*} value The value to check.
@@ -5466,7 +5466,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isNull(void 0);
      *     // => false
-     *```
+     * ```
      *
      * @function isNull
      * @param {*} value The value to check.
@@ -5505,7 +5505,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isNullable(false);
      *     // => false
-     *```
+     * ```
      *
      * @function isNullable
      * @param {*} value The value to check.
@@ -5550,7 +5550,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isObject(1);
      *     // => false
-     *```
+     * ```
      *
      * @function isObject
      * @param {*} value The value to check.
@@ -5596,7 +5596,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isPredicate(true);
      *     // => false
-     *```
+     * ```
      *
      * @function isPredicate
      * @param {*} value The value to check.
@@ -5633,7 +5633,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isString(1);
      *     // => false
-     *```
+     * ```
      *
      * @function isString
      * @param {*} value The value to check.
@@ -5673,7 +5673,7 @@ process.umask = function() { return 0; };
      *
      *     XP.isVoid(0);
      *     // => false
-     *```
+     * ```
      *
      * @function isVoid
      * @param {*} value The value to check.
