@@ -2867,12 +2867,13 @@
 
     // Browserify
     if (browser) {
-        global.XP = module.exports;
-        global.XPClass = require("../lib/constructors/Class");
-        global.XPDeferred = require("../lib/constructors/Deferred");
-        global.XPElement = require("../lib/constructors/Element");
-        global.XPMixin = require("../lib/constructors/Mixin");
-        global.XPPromise = require("../lib/constructors/Promise");
+        global._ = lodash;
+        global.XP = exp;
+        global.XPClass = exp.Class;
+        global.XPDeferred = exp.Deferred;
+        global.XPElement = exp.Element;
+        global.XPMixin = exp.Mixin;
+        global.XPPromise = exp.Promise;
     }
 
 }(typeof window !== "undefined" ? window : global, typeof window !== "undefined"));

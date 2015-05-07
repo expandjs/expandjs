@@ -82,11 +82,12 @@
         text += '\n';
         text += '    // Browserify\n';
         text += '    if (browser) {\n';
-        text += '        global.XP = module.exports;\n';
+        text += '        global._ = lodash;\n';
+        text += '        global.XP = exp;\n';
 
         // Build: constructors
         constructorsNames.forEach(function (name) {
-            text += '        global.XP' + name + ' = require("../lib/constructors/' + name + '");\n';
+            text += '        global.XP' + name + ' = exp.' + name + ';\n';
         });
 
         // Build: footer
