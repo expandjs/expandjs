@@ -4,7 +4,7 @@
   "description": "This is a set of functions, designed to enhance your JavaScript programming experience.",
   "version": "0.8.9",
   "homepage": "https://github.com/ExpandJS/expandjs",
-  "author": "ExpandJS <dev@expandjs.com> (http://www.expandjs.com)",
+  "author": "ExpandJS <dev@expandjs.com> (http://expandjs.com)",
   "contributors": [
     "Giuliano Rullo <g.rullo@expandjs.com>",
     "Maurizio Stefàno <m.stefano@expandjs.com>",
