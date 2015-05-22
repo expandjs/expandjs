@@ -9,6 +9,13 @@
     "Maurizio Stefàno <m.stefano@expandjs.com>",
     "Robert Manolea <r.manolea@expandjs.com>"
   ],
+  "keywords": [
+    "expandjs",
+    "stdlib",
+    "nodejs",
+    "web app",
+    "javascript"
+  ],
   "main": [
     "expandjs.html"
   ],
