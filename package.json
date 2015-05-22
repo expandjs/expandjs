@@ -22,5 +22,10 @@
     "build": "node bin/build",
     "browserify": "npm run build && browserify bin > dist/expandjs.js && npm run browserify-min",
     "browserify-min": "npm run build && browserify -d bin -p [minifyify --map expandjs.min.map --output dist/expandjs.min.map] > dist/expandjs.min.js"
-  }
+  },
+  "keywords": [
+      "expandjs",
+      "web app",
+      "stdlib"
+  ]
 }
