@@ -15342,10 +15342,12 @@ return Q;
 
         // Asserting
         assertArgument(isObject(prototype), 1, 'Object');
+        assertOption(isString(prototype.is), 'is', 'string');
 
         // Vars
         var Polymer = global.Polymer,
             mixins  = withdraw(prototype, 'mixins') || [],
+            name    = withdraw(prototype, 'is'),
             final   = mixins.length ? {} : prototype;
 
         // Checking
@@ -15358,7 +15360,7 @@ return Q;
         mixins.forEach(function (mixin) { Polymer.mixin(final, isString(mixin) ? new Mixin(mixin) : mixin); });
 
         // Registering
-        return Polymer(final);
+        return Polymer(name, final);
     };
 
     // INVALIDERROR
@@ -16716,8 +16718,8 @@ return Q;
 
     // ISNUMERIC
     exp.isNumeric = isNumeric = function isNumeric(value, notNegative) {
-        var number = toNumber(value);
-        return isFinite(number) && value === toString(number) && (isVoid(notNegative) || xnor(number >= 0, notNegative));
+        var result = toNumber(value);
+        return isDefined(result) && (isNumber(value) || value === result.toString()) && (isVoid(notNegative) || xnor(result >= 0, notNegative));
     };
 
     // ISOBJECT
