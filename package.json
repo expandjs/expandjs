@@ -19,8 +19,8 @@
     "q": "^1.2.0"
   },
   "scripts": {
-    "build": "node bin/build && browserify bin > dist/expandjs.js --standalone XP && npm run build:min",
-    "build:min": "browserify -d bin -p [minifyify --map expandjs.min.map --output dist/expandjs.min.map] > dist/expandjs.min.js --standalone XP"
+    "build": "node bin/build && browserify bin --standalone XP > dist/expandjs.js && npm run build:min",
+    "build:min": "browserify -d bin --standalone XP -p [minifyify --map expandjs.min.map --output dist/expandjs.min.map] > dist/expandjs.min.js"
   },
   "keywords": [
       "expandjs",
