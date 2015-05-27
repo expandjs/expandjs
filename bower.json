@@ -20,11 +20,6 @@
     "expandjs.html"
   ],
   "ignore": [
-    "**/.*",
-    "bin",
-    "index.js",
-    "lib",
-    "node_modules",
-    "package.json"
+    "**/.*"
   ]
 }
