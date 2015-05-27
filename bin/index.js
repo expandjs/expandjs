@@ -2890,7 +2890,6 @@
     // Browserify
     if (browser) {
         global._ = lodash;
-        global.XP = exp;
         global.XPClass = exp.Class;
         global.XPDeferred = exp.Deferred;
         global.XPElement = exp.Element;

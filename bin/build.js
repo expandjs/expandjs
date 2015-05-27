@@ -84,7 +84,6 @@
         text += '    // Browserify\n';
         text += '    if (browser) {\n';
         text += '        global._ = lodash;\n';
-        text += '        global.XP = exp;\n';
 
         // Build: constructors
         constructorsNames.forEach(function (name) {
