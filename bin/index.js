@@ -4,7 +4,7 @@
     "use strict";
 
     // Vars
-    var AbstractError, AlreadyDefinedError, AlreadyUsedError, ArgumentError, Class, CustomError, Deferred, DeniedError, Element, InvalidError, Mixin, NotFoundError, Promise, RejectedError, RequiredError, UnavailableError, UndefinedError, ValidationError, addAttribute, addAttributes, addClass, after, alignElement, and, append, appendChild, apply, ary, assert, assertArgument, assertOption, assign, at, attempt, before, call, camelCase, capitalize, capture, chunk, clean, clone, cloneDeep, compact, concat, countBy, createElement, createElementNS, debounce, deburr, defaults, defineProperties, defineProperty, delay, difference, drop, dropRight, dropRightWhile, dropWhile, endsWith, escape, escapeRegExp, every, fileExtension, fileName, filter, filterElements, find, findDeep, findElement, findElements, findIndex, findKey, findLast, findLastElement, findLastIndex, findLastKey, findNextElement, findNextElements, findParentElement, findPreviousElement, findPreviousElements, findSiblingElement, findSiblingElements, first, fit, fixed, flatten, flattenDeep, flush, forEach, forEachRight, forIn, forInRight, forOwn, forOwnRight, freeze, functions, getAllNext, getAllNextElements, getAllPrevious, getAllPreviousElements, getAllSiblingElements, getAllSiblings, getAttribute, getAttributes, getBoundings, getChildren, getDistributedElement, getDistributedElements, getElement, getElementById, getElements, getHTML, getHeight, getMargin, getNext, getNextElement, getNode, getNodes, getPadding, getParentElement, getPrevious, getPreviousElement, getSiblingElements, getSiblings, getStyle, getStyles, getTag, getText, getWidth, groupBy, has, hasAttribute, hasChild, hasClass, includes, includesDeep, indexBy, indexOf, initial, insertAfter, insertBefore, intersection, invert, invoke, isAny, isArguments, isArray, isArrayable, isBase62, isBindable, isBoolean, isBrowser, isCamelCase, isCapitalize, isClean, isCollection, isContent, isCustomEvent, isDate, isDefined, isElement, isEmpty, isEnumerable, isEqual, isEquivalent, isError, isEscape, isEscapeRegExp, isEven, isEvent, isExotic, isFalse, isFinite, isFloat, isFunction, isHex, isIndex, isInfinite, isInput, isInstance, isInt, isKebabCase, isKeyCase, isLast, isLastIndex, isLowerCase, isNaN, isNative, isNegative, isNode, isNull, isNullable, isNumber, isNumeric, isObject, isObservable, isOdd, isPlainObject, isPolyfilled, isPositive, isPredicate, isPrevented, isPrimitive, isRegExp, isSelector, isStartCase, isString, isTemplate, isTrue, isUniq, isUpperCase, isVoid, isWithin, iterate, kebabCase, keyCase, keys, keysIn, last, lastIndexOf, listen, localize, lowerCase, map, mapOne, mapValues, match, matches, max, memoize, merge, min, mock, moveFirst, moveLast, nand, negate, nor, not, omit, onMutation, once, or, overwrite, pad, padLeft, padRight, pairs, parallel, parseBase62, parseHex, parseJSON, parseURL, partition, pick, pluck, prefix, prependChild, preventDefault, pull, pullAt, push, random, range, readable, redirect, reduce, reduceRight, reject, remove, removeAttribute, removeAttributes, removeChild, removeClass, removeStyle, removeStyles, renameElement, repeat, replaceNode, requestAnimationFrame, rest, round, sample, seal, setAttribute, setAttributes, setChildren, setHTML, setStyle, setStyles, setText, shrink, shuffle, size, slice, snakeCase, some, sortBy, split, startCase, startsWith, stop, stopPropagation, stretch, strip, suffix, take, takeRight, takeRightWhile, takeWhile, throttle, toArray, toBase62, toBoolean, toDOMIdentity, toDOMPredicate, toElapsedTime, toHex, toIndex, toInfinite, toInput, toInt, toJSON, toNumber, toObject, toPosition, toQueryString, toRegExp, toString, toTemplate, toURL, toUseful, toValue, toggleAttribute, toggleClass, trim, trimLeft, trimRight, trunc, unescape, union, uniq, unlisten, unzip, updateElement, upperCase, value, valueIn, values, valuesIn, waterfall, where, willBleedBottom, willBleedHorizontally, willBleedLeft, willBleedRight, willBleedTop, willBleedVertically, withdraw, within, without, words, wrap, xnor, xor, zip, zipObject, 
+    var AbstractError, AlreadyDefinedError, AlreadyUsedError, ArgumentError, Class, CustomError, Deferred, DeniedError, InvalidError, NotFoundError, Promise, RejectedError, RequiredError, UnavailableError, UndefinedError, ValidationError, addAttribute, addAttributes, addClass, after, alignElement, and, append, appendChild, apply, ary, assert, assertArgument, assertOption, assign, at, attempt, before, call, camelCase, capitalize, capture, chunk, clean, clone, cloneDeep, compact, concat, countBy, createElement, createElementNS, debounce, deburr, defaults, defineProperties, defineProperty, delay, difference, drop, dropRight, dropRightWhile, dropWhile, endsWith, escape, escapeRegExp, every, fileExtension, fileName, filter, filterElements, find, findDeep, findElement, findElements, findIndex, findKey, findLast, findLastElement, findLastIndex, findLastKey, findNextElement, findNextElements, findParentElement, findPreviousElement, findPreviousElements, findSiblingElement, findSiblingElements, first, fit, fixed, flatten, flattenDeep, flush, forEach, forEachRight, forIn, forInRight, forOwn, forOwnRight, freeze, functions, getAllNext, getAllNextElements, getAllPrevious, getAllPreviousElements, getAllSiblingElements, getAllSiblings, getAttribute, getAttributes, getBoundings, getChildren, getDistributedElement, getDistributedElements, getElement, getElementById, getElements, getHTML, getHeight, getMargin, getNext, getNextElement, getNode, getNodes, getPadding, getParentElement, getPrevious, getPreviousElement, getSiblingElements, getSiblings, getStyle, getStyles, getTag, getText, getWidth, groupBy, has, hasAttribute, hasChild, hasClass, includes, includesDeep, indexBy, indexOf, initial, insertAfter, insertBefore, intersection, invert, invoke, isAny, isArguments, isArray, isArrayable, isBase62, isBindable, isBoolean, isBrowser, isCamelCase, isCapitalize, isClean, isCollection, isContent, isCustomEvent, isDate, isDefined, isElement, isEmpty, isEnumerable, isEqual, isEquivalent, isError, isEscape, isEscapeRegExp, isEven, isEvent, isExotic, isFalse, isFinite, isFloat, isFunction, isHex, isIndex, isInfinite, isInput, isInstance, isInt, isKebabCase, isKeyCase, isLast, isLastIndex, isLowerCase, isNaN, isNative, isNegative, isNode, isNull, isNullable, isNumber, isNumeric, isObject, isObservable, isOdd, isPlainObject, isPolyfilled, isPositive, isPredicate, isPrevented, isPrimitive, isRegExp, isSelector, isStartCase, isString, isTemplate, isTrue, isUniq, isUpperCase, isVoid, isWithin, iterate, kebabCase, keyCase, keys, keysIn, last, lastIndexOf, listen, localize, lowerCase, map, mapOne, mapValues, match, matches, max, memoize, merge, min, mock, moveFirst, moveLast, nand, negate, nor, not, omit, onMutation, once, or, overwrite, pad, padLeft, padRight, pairs, parallel, parseBase62, parseHex, parseJSON, parseURL, partition, pick, pluck, prefix, prependChild, preventDefault, pull, pullAt, push, random, range, readable, redirect, reduce, reduceRight, reject, remove, removeAttribute, removeAttributes, removeChild, removeClass, removeStyle, removeStyles, renameElement, repeat, replaceNode, requestAnimationFrame, rest, round, sample, seal, setAttribute, setAttributes, setChildren, setHTML, setStyle, setStyles, setText, shrink, shuffle, size, slice, snakeCase, some, sortBy, split, startCase, startsWith, stop, stopPropagation, stretch, strip, suffix, take, takeRight, takeRightWhile, takeWhile, throttle, toArray, toBase62, toBoolean, toDOMIdentity, toDOMPredicate, toElapsedTime, toHex, toIndex, toInfinite, toInput, toInt, toJSON, toNumber, toObject, toPosition, toQueryString, toRegExp, toString, toTemplate, toURL, toUseful, toValue, toggleAttribute, toggleClass, trim, trimLeft, trimRight, trunc, unescape, union, uniq, unlisten, unzip, updateElement, upperCase, value, valueIn, values, valuesIn, waterfall, where, willBleedBottom, willBleedHorizontally, willBleedLeft, willBleedRight, willBleedTop, willBleedVertically, withdraw, within, without, words, wrap, xnor, xor, zip, zipObject, 
         exp     = module.exports,
         lodash  = require("lodash"),
         q       = require("q"),
@@ -228,69 +228,8 @@
     // DENIEDERROR
     exp.DeniedError = DeniedError = function DeniedError(key) { CustomError.call(this, 'DeniedError', key, 'is denied'); };
 
-    // ELEMENT
-    exp.Element = Element = function Element(prototype) {
-
-        // Asserting
-        assertArgument(isObject(prototype), 1, 'Object');
-        assertOption(isString(prototype.is), 'is', 'string');
-
-        // Vars
-        var Polymer = global.Polymer,
-            mixins  = withdraw(prototype, 'mixins') || [],
-            name    = withdraw(prototype, 'is'),
-            final   = mixins.length ? {} : prototype;
-
-        // Checking
-        if (!Polymer) { return; }
-
-        // Pushing
-        if (mixins.length) { mixins.push(prototype); }
-
-        // Mixing
-        mixins.forEach(function (mixin) { Polymer.mixin(final, isString(mixin) ? new Mixin(mixin) : mixin); });
-
-        // Registering
-        return Polymer(name, final);
-    };
-
     // INVALIDERROR
     exp.InvalidError = InvalidError = function InvalidError(key) { CustomError.call(this, 'InvalidError', key, 'is not valid'); };
-
-    // MIXIN
-    exp.Mixin = Mixin = function Mixin(name, prototype) {
-
-        // Asserting
-        assertArgument(isString(name, true), 1, 'string');
-        assertArgument(isVoid(prototype) || isObject(prototype), 2, 'Object');
-
-        // Vars
-        var Polymer     = global.Polymer,
-            Constructor = module.exports.Mixin || module.exports,
-            cached      = Constructor.cached = Constructor.cached || {},
-            mixins      = withdraw(prototype || {}, 'mixins') || [],
-            final       = mixins.length ? {} : prototype;
-
-        // Checking
-        if (!Polymer || !prototype) { return cached[name]; }
-
-        // Pushing
-        if (mixins.length) { mixins.push(prototype); }
-
-        // Mixing
-        mixins.forEach(function (mixin) { Polymer.mixin(final, isString(mixin) ? new Constructor(mixin) : mixin); });
-
-        // Deleting
-        delete final.computed;
-        delete final.eventDelegates;
-        delete final.observe;
-        delete final.publish;
-
-        // Caching
-        cached[name] = final;
-
-        return final;
-    };
 
     // NOTFOUNDERROR
     exp.NotFoundError = NotFoundError = function NotFoundError(key) { CustomError.call(this, 'NotFoundError', key, 'is not found'); };
@@ -396,7 +335,7 @@
             domWidth        = getWidth(),
             margin          = getMargin(element),
             boundings       = getBoundings(element),
-            targetBoundings = getBoundings(target || global.document.body),
+            targetBoundings = getBoundings(target || global.document.documentElement),
             newBoundings;
 
         // Calculating
@@ -1407,9 +1346,9 @@
 
     // ISCONTENT
     exp.isContent = isContent = function isContent(value, notEmpty) {
-        return isElement(value) && value.tagName.toLowerCase() === 'content' && (isVoid(notEmpty) || xnor(find(value.getDistributedNodes(), function (node) {
-            return (node.nodeType === 1 && node.tagName.toLowerCase() !== 'template') || node.nodeType !== 3 || trim(node.textContent, '\r\n ');
-        }), notEmpty));
+        if (!isElement(value) || (value.node || value).tagName.toLowerCase() !== 'content') { return false; }
+        if (!isVoid(notEmpty) && xor(notEmpty, find(value.getDistributedNodes(), function (node) { return (node.nodeType === 1 && node.tagName.toLowerCase() !== 'template') || node.nodeType !== 3 || trim(node.textContent, '\r\n ');}))) { return false; }
+        return true;
     };
 
     // ISCUSTOMEVENT
@@ -1429,10 +1368,9 @@
 
     // ISELEMENT
     exp.isElement = isElement = function isElement(value, notEmpty) {
-        value = (value && value.__impl4cf1e782hg__) || value;
-        return lodash.isElement(value) && (isVoid(notEmpty) || xnor(notEmpty, find(value.childNodes, function (node) {
-            return node.nodeType !== 1 || node.tagName.toLowerCase() !== 'template';
-        })));
+        if (!lodash.isElement(value) && !isPolyfilled(value)) { return false; }
+        if (!isVoid(notEmpty) && xor(notEmpty, find(value.childNodes, function (node) { return node.nodeType !== 1 || node.tagName.toLowerCase() !== 'template'; }))) { return false; }
+        return true;
     };
 
     // ISEMPTY
@@ -1628,7 +1566,9 @@
 
     // ISPOLYFILLED
     exp.isPolyfilled = isPolyfilled = function isPolyfilled(value) {
-        return !!(value && (value.__impl4cf1e782hg__ || value.__wrapper8e3dd93a60__));
+        if (value && lodash.has(value, 'node') && lodash.has(Object.getPrototypeOf(value), '_queryElement')) { return true; } // Shady DOM
+        if (value && (value.__impl4cf1e782hg__ || value.__wrapper8e3dd93a60__)) { return true; } // Shadow DOM
+        return false;
     };
 
     // ISPOSITIVE
@@ -1673,7 +1613,7 @@
 
     // ISTEMPLATE
     exp.isTemplate = isTemplate = function isTemplate(value) {
-        return isElement(value) && value.tagName.toLowerCase() === 'template';
+        return isElement(value) && (value.node || value).tagName.toLowerCase() === 'template';
     };
 
     // ISTRUE
@@ -1822,8 +1762,8 @@
     exp.matches = matches = function matches(element, selector) {
         assertArgument(isElement(element), 1, 'Element');
         assertArgument(isVoid(selector) || isString(selector), 2, 'string');
-        var matcher = element.matches || element.webkitMatchesSelector || element.mozMatchesSelector || element.msMatchesSelector || element.oMatchesSelector;
-        return !selector || matcher.call(element, selector);
+        var node = element.node || element, matcher = node.matches || node.webkitMatchesSelector || node.mozMatchesSelector || node.msMatchesSelector || node.oMatchesSelector;
+        return !selector || matcher.call(node, selector);
     };
 
     // MAX
@@ -1913,7 +1853,7 @@
             delay(function () { callback(mutations); });
             observer.disconnect();
         });
-        observer.observe(node, opt || {childList: true});
+        observer.observe(node, opt || {attributes: false, characterData: false, childList: true, subtree: true});
         return observer;
     };
 
@@ -1929,12 +1869,12 @@
     };
 
     // OVERWRITE
-    exp.overwrite = overwrite = function overwrite(collection, other) {
-        assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
-        assertArgument(isArray(collection) ? isArrayable(other) : isObject(other), 2, isArray(collection) ? 'Arrayable' : 'Object');
-        if (isArray(collection)) { forEach(other, function (val, i) { collection[i] = val; }); if (collection.length > other.length) { collection.splice(other.length, collection.length - other.length); } }
-        if (isObject(collection)) { forOwn(collection, function (val, key) { if (!isEnumerable(key, other)) { delete collection[key]; } }); forOwn(other, function (val, key) { collection[key] = val; }); }
-        return collection;
+    exp.overwrite = overwrite = function overwrite(array, other, splice) {
+        assertArgument(isArray(array), 1, 'Array');
+        assertArgument(isArrayable(other), 2, 'Arrayable');
+        var differs = array.length !== other.length || mapOne(array, function (val, i) { return val !== other[i] ? true : undefined; });
+        if (differs) { Array.prototype.splice.apply(array, concat([0, array.length], other)); }
+        return array;
     };
 
     // PAD
@@ -2070,9 +2010,9 @@
     };
 
     // PULL
-    exp.pull = pull = function pull(array, values) {
+    exp.pull = pull = function pull(array, value) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
-        return lodash.pull.apply(lodash, concat([array], slice(arguments, 1)));
+        return lodash.pull(array, value);
     };
 
     // PULLAT
@@ -2909,8 +2849,6 @@
         global._ = lodash;
         global.XPClass = exp.Class;
         global.XPDeferred = exp.Deferred;
-        global.XPElement = exp.Element;
-        global.XPMixin = exp.Mixin;
         global.XPPromise = exp.Promise;
     }
 
