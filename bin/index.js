@@ -4,7 +4,7 @@
     "use strict";
 
     // Vars
-    var AbstractError, AlreadyDefinedError, AlreadyUsedError, ArgumentError, Class, CustomError, Deferred, DeniedError, InvalidError, NotFoundError, Promise, RejectedError, RequiredError, UnavailableError, UndefinedError, ValidationError, addAttribute, addAttributes, addClass, after, alignElement, and, append, appendChild, apply, ary, assert, assertArgument, assertOption, assign, at, attempt, before, call, camelCase, capitalize, capture, chunk, clean, clone, cloneDeep, compact, concat, countBy, createElement, createElementNS, debounce, deburr, defaults, defineProperties, defineProperty, delay, difference, drop, dropRight, dropRightWhile, dropWhile, endsWith, escape, escapeRegExp, every, fileExtension, fileName, filter, filterElements, find, findDeep, findElement, findElements, findIndex, findKey, findLast, findLastElement, findLastIndex, findLastKey, findNextElement, findNextElements, findParentElement, findPreviousElement, findPreviousElements, findSiblingElement, findSiblingElements, first, fit, fixed, flatten, flattenDeep, flush, forEach, forEachRight, forIn, forInRight, forOwn, forOwnRight, freeze, functions, getAllNext, getAllNextElements, getAllPrevious, getAllPreviousElements, getAllSiblingElements, getAllSiblings, getAttribute, getAttributes, getBoundings, getChildren, getDistributedElement, getDistributedElements, getElement, getElementById, getElements, getHTML, getHeight, getMargin, getNext, getNextElement, getNode, getNodes, getPadding, getParentElement, getPrevious, getPreviousElement, getSiblingElements, getSiblings, getStyle, getStyles, getTag, getText, getWidth, groupBy, has, hasAttribute, hasChild, hasClass, includes, includesDeep, indexBy, indexOf, initial, insertAfter, insertBefore, intersection, invert, invoke, isAny, isArguments, isArray, isArrayable, isBase62, isBindable, isBoolean, isBrowser, isCamelCase, isCapitalize, isClean, isCollection, isContent, isCustomEvent, isDate, isDefined, isElement, isEmpty, isEnumerable, isEqual, isEquivalent, isError, isEscape, isEscapeRegExp, isEven, isEvent, isExotic, isFalse, isFinite, isFloat, isFunction, isHex, isIndex, isInfinite, isInput, isInstance, isInt, isKebabCase, isKeyCase, isLast, isLastIndex, isLowerCase, isNaN, isNative, isNegative, isNode, isNull, isNullable, isNumber, isNumeric, isObject, isObservable, isOdd, isPlainObject, isPolyfilled, isPositive, isPredicate, isPrevented, isPrimitive, isRegExp, isSelector, isStartCase, isString, isTemplate, isTrue, isUniq, isUpperCase, isVoid, isWithin, iterate, kebabCase, keyCase, keys, keysIn, last, lastIndexOf, listen, localize, lowerCase, map, mapOne, mapValues, match, matches, max, memoize, merge, min, mock, moveFirst, moveLast, nand, negate, nor, not, omit, onMutation, once, or, overwrite, pad, padLeft, padRight, pairs, parallel, parseBase62, parseHex, parseJSON, parseURL, partition, pick, pluck, prefix, prependChild, preventDefault, pull, pullAt, push, random, range, readable, redirect, reduce, reduceRight, reject, remove, removeAttribute, removeAttributes, removeChild, removeClass, removeStyle, removeStyles, renameElement, repeat, replaceNode, requestAnimationFrame, rest, round, sample, seal, setAttribute, setAttributes, setChildren, setHTML, setStyle, setStyles, setText, shrink, shuffle, size, slice, snakeCase, some, sortBy, split, startCase, startsWith, stop, stopPropagation, stretch, strip, suffix, take, takeRight, takeRightWhile, takeWhile, throttle, toArray, toBase62, toBoolean, toDOMIdentity, toDOMPredicate, toElapsedTime, toHex, toIndex, toInfinite, toInput, toInt, toJSON, toNumber, toObject, toPosition, toQueryString, toRegExp, toString, toTemplate, toURL, toUseful, toValue, toggleAttribute, toggleClass, trim, trimLeft, trimRight, trunc, unescape, union, uniq, unlisten, unzip, updateElement, upperCase, value, valueIn, values, valuesIn, waterfall, where, willBleedBottom, willBleedHorizontally, willBleedLeft, willBleedRight, willBleedTop, willBleedVertically, withdraw, within, without, words, wrap, xnor, xor, zip, zipObject, 
+    var AbstractError, AlreadyDefinedError, AlreadyUsedError, ArgumentError, Class, CustomError, Deferred, DeniedError, InvalidError, NotFoundError, Promise, RejectedError, RequiredError, UnavailableError, UndefinedError, ValidationError, addAttribute, addAttributes, addClass, after, alignElement, and, append, appendChild, apply, ary, assert, assertArgument, assertOption, assign, at, attempt, before, call, camelCase, capitalize, capture, chunk, clean, clone, cloneDeep, compact, concat, countBy, createElement, createElementNS, debounce, deburr, defaults, defineProperties, defineProperty, delay, difference, drop, dropRight, dropRightWhile, dropWhile, endsWith, escape, escapeRegExp, every, fileExtension, fileName, filter, filterElements, find, findDeep, findElement, findElements, findIndex, findKey, findLast, findLastElement, findLastIndex, findLastKey, findNextElement, findNextElements, findParentElement, findPreviousElement, findPreviousElements, findSiblingElement, findSiblingElements, first, fit, fixed, flatten, flattenDeep, flush, forEach, forEachRight, forIn, forInRight, forOwn, forOwnRight, freeze, functions, getAllNext, getAllNextElements, getAllPrevious, getAllPreviousElements, getAllSiblingElements, getAllSiblings, getAttribute, getAttributes, getBoundings, getChildren, getDistributedElement, getDistributedElements, getElement, getElementById, getElements, getHTML, getHeight, getMargin, getNext, getNextElement, getNode, getNodes, getPadding, getParentElement, getPrevious, getPreviousElement, getSiblingElements, getSiblings, getStyle, getStyles, getTag, getText, getWidth, groupBy, has, hasAttribute, hasChild, hasClass, includes, includesDeep, indexBy, indexOf, initial, intersection, invert, invoke, isAny, isArguments, isArray, isArrayable, isBase62, isBindable, isBoolean, isBrowser, isCamelCase, isCapitalize, isClean, isCollection, isContent, isCustomEvent, isDate, isDefined, isElement, isEmpty, isEnumerable, isEqual, isEquivalent, isError, isEscape, isEscapeRegExp, isEven, isEvent, isExotic, isFalse, isFinite, isFloat, isFunction, isHex, isIndex, isInfinite, isInput, isInstance, isInt, isKebabCase, isKeyCase, isLast, isLastIndex, isLowerCase, isNaN, isNative, isNegative, isNode, isNull, isNullable, isNumber, isNumeric, isObject, isObservable, isOdd, isPlainObject, isPolyfilled, isPositive, isPredicate, isPrevented, isPrimitive, isRegExp, isSelector, isShady, isStartCase, isString, isTemplate, isTrue, isUniq, isUpperCase, isVoid, isWithin, iterate, kebabCase, keyCase, keys, keysIn, last, lastIndexOf, listen, localize, lowerCase, map, mapOne, mapValues, match, matches, max, memoize, merge, min, mock, moveFirst, moveLast, nand, negate, nor, not, omit, onMutation, once, or, overwrite, pad, padLeft, padRight, pairs, parallel, parseBase62, parseHex, parseJSON, parseURL, partition, pick, pluck, prefix, prependChild, preventDefault, pull, pullAt, push, random, range, readable, redirect, reduce, reduceRight, reject, remove, removeAttribute, removeAttributes, removeChild, removeClass, removeStyle, removeStyles, renameElement, repeat, replaceNode, requestAnimationFrame, rest, round, sample, seal, setAttribute, setAttributes, setChildren, setHTML, setStyle, setStyles, setText, shrink, shuffle, size, slice, snakeCase, some, sortBy, split, startCase, startsWith, stop, stopPropagation, stretch, strip, suffix, take, takeRight, takeRightWhile, takeWhile, throttle, toArray, toBase62, toBoolean, toDOMIdentity, toDOMPredicate, toElapsedTime, toHex, toIndex, toInfinite, toInput, toInt, toJSON, toNumber, toObject, toPosition, toQueryString, toRegExp, toString, toTemplate, toURL, toUseful, toValue, toggleAttribute, toggleClass, trim, trimLeft, trimRight, trunc, unescape, union, uniq, unlisten, unzip, updateElement, upperCase, value, valueIn, values, valuesIn, waterfall, where, willBleedBottom, willBleedHorizontally, willBleedLeft, willBleedRight, willBleedTop, willBleedVertically, withdraw, within, without, words, wrap, xnor, xor, zip, zipObject, 
         exp     = module.exports,
         lodash  = require("lodash"),
         q       = require("q"),
@@ -1250,22 +1250,6 @@
         return lodash.initial(array);
     };
 
-    // INSERTAFTER
-    exp.insertAfter = insertAfter = function insertAfter(node, target) {
-        assertArgument(isVoid(node) || isNode(node), 1, 'Node');
-        assertArgument(isVoid(target) || isNode(target), 2, 'Node');
-        if (node && target) { node.parentNode.insertBefore(target, node.nextSibling); }
-        return target;
-    };
-
-    // INSERTBEFORE
-    exp.insertBefore = insertBefore = function insertBefore(node, target) {
-        assertArgument(isVoid(node) || isNode(node), 1, 'Node');
-        assertArgument(isVoid(target) || isNode(target), 2, 'Node');
-        if (node && target) { node.parentNode.insertBefore(target, node); }
-        return target;
-    };
-
     // INTERSECTION
     exp.intersection = intersection = function intersection(arrays) {
         return lodash.intersection.apply(lodash, map(filter(arguments, ary(isArrayable, 1)), ary(toArray, 1)));
@@ -1352,8 +1336,8 @@
     };
 
     // ISCUSTOMEVENT
-    exp.isCustomEvent = isCustomEvent = function isCustomEvent(value) {
-        return isInstance(value, global.CustomEvent);
+    exp.isCustomEvent = isCustomEvent = function isCustomEvent(value, type) {
+        return isEvent(value, type) && !!value.detail;
     };
 
     // ISDATE
@@ -1368,7 +1352,7 @@
 
     // ISELEMENT
     exp.isElement = isElement = function isElement(value, notEmpty) {
-        if (!lodash.isElement(value) && !isPolyfilled(value)) { return false; }
+        if (!lodash.isElement(value) && !isPolyfilled(value) && (!isShady(value) || value.node.nodeType !== 1)) { return false; }
         if (!isVoid(notEmpty) && xor(notEmpty, find(value.childNodes, function (node) { return node.nodeType !== 1 || node.tagName.toLowerCase() !== 'template'; }))) { return false; }
         return true;
     };
@@ -1417,7 +1401,9 @@
 
     // ISEVENT
     exp.isEvent = isEvent = function isEvent(value, type) {
-        return isInstance(value, global.Event) && (isVoid(type) || value.type === type);
+        if (!value || !value.type || !value.preventDefault || !value.stopPropagation) { return false; }
+        if (!isVoid(type) && value.type !== type) { return false; }
+        return true;
     };
 
     // ISEXOTIC
@@ -1520,7 +1506,10 @@
 
     // ISNODE
     exp.isNode = isNode = function isNode(value, type) {
-        return (isInstance(value, global.Node) || isPolyfilled(value)) && (isVoid(type) || value.nodeType === type);
+        value = isShady(value) ? value.node : value;
+        if (!value || ((!isDefined(value.nodeType) || !isDefined(value.ownerDocument)) && !isPolyfilled(value))) { return false; }
+        if (!isVoid(type) && value.nodeType !== type) { return false; }
+        return true;
     };
 
     // ISNULL
@@ -1566,9 +1555,7 @@
 
     // ISPOLYFILLED
     exp.isPolyfilled = isPolyfilled = function isPolyfilled(value) {
-        if (value && lodash.has(value, 'node') && lodash.has(Object.getPrototypeOf(value), '_queryElement')) { return true; } // Shady DOM
-        if (value && (value.__impl4cf1e782hg__ || value.__wrapper8e3dd93a60__)) { return true; } // Shadow DOM
-        return false;
+        return !!value && (!!value.__impl4cf1e782hg__ || !!value.__wrapper8e3dd93a60__);
     };
 
     // ISPOSITIVE
@@ -1599,6 +1586,11 @@
     // ISSELECTOR
     exp.isSelector = isSelector = function isSelector(value) {
         return isString(value, true);
+    };
+
+    // ISSHADY
+    exp.isShady = isShady = function isShady(value) {
+        return !!value && lodash.has(value, 'node') && lodash.has(Object.getPrototypeOf(value), '_queryElement');
     };
 
     // ISSTARTCASE
