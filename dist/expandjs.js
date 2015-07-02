@@ -2127,10 +2127,12 @@ function isNullOrUndefined(arg) {
     };
 
     // DELAY
-    exp.delay = delay = function delay(func, wait) {
+    exp.delay = delay = function delay(func, wait, ticks) {
         assertArgument(isFunction(func), 1, 'Function');
         assertArgument(isVoid(wait) || isIndex(wait), 2, 'number');
-        return wait > 0 ? lodash.delay(func, wait) : lodash.defer(func);
+        return wait > 0 && !ticks ? lodash.delay(func, wait) : lodash.defer(function () {
+            if (wait  > 1) { delay(func, wait - 1, ticks); } else { func(); }
+        });
     };
 
     // DIFFERENCE
