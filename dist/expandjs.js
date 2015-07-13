@@ -1520,23 +1520,31 @@ function isNullOrUndefined(arg) {
     "use strict";
 
     // Vars
-    var AbstractError, AlreadyDefinedError, AlreadyUsedError, ArgumentError, Class, CustomError, Deferred, DeniedError, InvalidError, NotFoundError, Promise, RejectedError, RequiredError, UnavailableError, UndefinedError, ValidationError, addAttribute, addAttributes, addClass, after, alignElement, and, append, appendChild, apply, ary, assert, assertArgument, assertOption, assign, at, attempt, before, call, camelCase, capitalize, chunk, clean, clone, cloneDeep, compact, concat, countBy, createElement, createElementNS, debounce, deburr, defaults, defineProperties, defineProperty, delay, difference, drop, dropRight, dropRightWhile, dropWhile, endsWith, escape, escapeRegExp, every, fileExtension, fileName, filter, filterElements, find, findDeep, findElement, findElements, findIndex, findKey, findLast, findLastElement, findLastIndex, findLastKey, findNextElement, findNextElements, findParentElement, findPreviousElement, findPreviousElements, findSiblingElement, findSiblingElements, first, fit, fixed, flatten, flattenDeep, flush, forEach, forEachRight, forIn, forInRight, forOwn, forOwnRight, freeze, functions, getAllNext, getAllNextElements, getAllPrevious, getAllPreviousElements, getAllSiblingElements, getAllSiblings, getAttribute, getAttributes, getBoundings, getChildren, getDistributedElement, getDistributedElements, getElement, getElementById, getElements, getHTML, getHeight, getMargin, getNext, getNextElement, getNode, getNodes, getPadding, getParentElement, getPrevious, getPreviousElement, getSiblingElements, getSiblings, getStyle, getStyles, getTag, getText, getWidth, groupBy, has, hasAttribute, hasChild, hasClass, includes, includesDeep, indexBy, indexOf, initial, intersection, invert, invoke, isAny, isArguments, isArray, isArrayable, isBase62, isBindable, isBoolean, isBrowser, isCamelCase, isCapitalize, isClean, isCollection, isContent, isCustomEvent, isDate, isDefined, isElement, isEmpty, isEnumerable, isEqual, isEquivalent, isError, isEscape, isEscapeRegExp, isEven, isEvent, isExotic, isFalse, isFinite, isFloat, isFunction, isHex, isIndex, isInfinite, isInput, isInstance, isInt, isKebabCase, isKeyCase, isLast, isLastIndex, isLowerCase, isNaN, isNative, isNegative, isNode, isNull, isNullable, isNumber, isNumeric, isObject, isObservable, isOdd, isPlainObject, isPolyfilled, isPositive, isPredicate, isPrevented, isPrimitive, isRegExp, isSelector, isShady, isStartCase, isString, isTemplate, isTrue, isUniq, isUpperCase, isVoid, isWithin, iterate, kebabCase, keyCase, keys, keysIn, last, lastIndexOf, listen, localize, lowerCase, map, mapOne, mapValues, match, matches, max, memoize, merge, min, mock, moveFirst, moveLast, nand, negate, nor, not, omit, onMutation, once, or, overwrite, pad, padLeft, padRight, pairs, parallel, parseBase62, parseHex, parseJSON, parseURL, partition, pick, pluck, prefix, prependChild, preventDefault, pull, pullAt, push, random, range, readable, redirect, reduce, reduceRight, reject, remove, removeAttribute, removeAttributes, removeChild, removeClass, removeStyle, removeStyles, renameElement, repeat, replaceNode, requestAnimationFrame, rest, round, sample, seal, setAttribute, setAttributes, setChildren, setHTML, setStyle, setStyles, setText, shrink, shuffle, size, slice, snakeCase, some, sortBy, split, startCase, startsWith, stop, stopPropagation, stretch, strip, suffix, take, takeRight, takeRightWhile, takeWhile, throttle, toArray, toBase62, toBoolean, toDOMIdentity, toDOMPredicate, toElapsedTime, toHex, toIndex, toInfinite, toInput, toInt, toJSON, toNumber, toObject, toPosition, toQueryString, toRegExp, toString, toTemplate, toURL, toUseful, toValue, toggleAttribute, toggleClass, trim, trimLeft, trimRight, trunc, unescape, union, uniq, unlisten, unzip, updateElement, upperCase, value, valueIn, values, valuesIn, waterfall, where, willBleedBottom, willBleedHorizontally, willBleedLeft, willBleedRight, willBleedTop, willBleedVertically, withdraw, within, without, words, wrap, xnor, xor, zip, zipObject, 
+    var AbstractError, AlreadyDefinedError, AlreadyUsedError, ArgumentError, Class, CustomError, Deferred, DeniedError, InvalidError, NotFoundError, Promise, RejectedError, RequiredError, UnavailableError, UndefinedError, ValidationError, addAttribute, addAttributes, addClass, after, alignElement, and, append, appendChild, apply, ary, assert, assertArgument, assertOption, assign, at, attempt, before, call, camelCase, camelCaseRegex, capitalize, capitalizeRegex, chunk, clean, clone, cloneDeep, compact, concat, countBy, createElement, createElementNS, debounce, deburr, defaults, defineProperties, defineProperty, delay, difference, drop, dropRight, dropRightWhile, dropWhile, endsWith, escape, escapeRegExp, every, fileExtension, fileName, filter, filterElements, find, findDeep, findElement, findElements, findIndex, findKey, findLast, findLastElement, findLastIndex, findLastKey, findNextElement, findNextElements, findParentElement, findPreviousElement, findPreviousElements, findSiblingElement, findSiblingElements, first, fit, fixed, flatten, flattenDeep, flush, forEach, forEachRight, forIn, forInRight, forOwn, forOwnRight, freeze, functions, getAllNext, getAllNextElements, getAllPrevious, getAllPreviousElements, getAllSiblingElements, getAllSiblings, getAttribute, getAttributes, getBoundings, getChildren, getDistributedElement, getDistributedElements, getElement, getElementById, getElements, getHTML, getHeight, getMargin, getNext, getNextElement, getNode, getNodes, getPadding, getParentElement, getPrevious, getPreviousElement, getSiblingElements, getSiblings, getStyle, getStyles, getTag, getText, getValue, getWidth, groupBy, has, hasAttribute, hasChild, hasClass, includes, includesDeep, indexBy, indexOf, initial, intersection, invert, invoke, isAny, isArguments, isArray, isArrayable, isBase62, isBindable, isBoolean, isBrowser, isCamelCase, isCapitalize, isClean, isCollection, isContent, isCustomEvent, isDate, isDefined, isElement, isEmpty, isEnumerable, isEqual, isEquivalent, isError, isEscape, isEscapeRegExp, isEven, isEvent, isExotic, isFalse, isFinite, isFloat, isFunction, isHex, isIndex, isInfinite, isInstance, isInt, isInvalid, isKebabCase, isKeyCase, isLast, isLastIndex, isLowerCase, isNaN, isNative, isNegative, isNode, isNull, isNullable, isNumber, isNumeric, isObject, isObservable, isOdd, isPlainObject, isPolyfilled, isPositive, isPredicate, isPrevented, isPrimitive, isReadable, isRegExp, isSelector, isShady, isSnakeCase, isStartCase, isString, isTemplate, isTrue, isUniq, isUpperCase, isVoid, isWithin, iterate, kebabCase, kebabCaseRegex, keyCase, keyCaseRegex, keys, keysIn, last, lastIndexOf, listen, localize, lowerCase, lowerCaseRegex, map, mapOne, mapValues, match, matches, max, memoize, merge, min, mock, moveFirst, moveLast, nand, negate, nor, not, omit, onMutation, once, or, overwrite, pad, padLeft, padRight, pairs, parallel, parseBase62, parseHex, parseJSON, parseURL, partition, pick, pluck, prefix, prependChild, preventDefault, pull, pullAt, push, random, range, readable, readableRegex, redirect, reduce, reduceRight, reject, remove, removeAttribute, removeAttributes, removeChild, removeClass, removeStyle, removeStyles, renameElement, repeat, replaceNode, requestAnimationFrame, rest, round, sample, seal, setAttribute, setAttributes, setChildren, setHTML, setStyle, setStyles, setText, shrink, shuffle, size, slice, snakeCase, snakeCaseRegex, some, sortBy, split, startCase, startCaseRegex, startsWith, stop, stopPropagation, stretch, strip, suffix, take, takeRight, takeRightWhile, takeWhile, throttle, toArray, toBase62, toBoolean, toDOMIdentity, toDOMPredicate, toElapsedTime, toHex, toIndex, toInfinite, toInput, toInt, toJSON, toNumber, toObject, toPosition, toQueryString, toRegExp, toString, toTemplate, toURL, toUseful, toValue, toggleAttribute, toggleClass, trim, trimLeft, trimRegex, trimRight, trunc, unescape, union, uniq, unlisten, unzip, updateElement, upperCase, upperCaseRegex, value, valueIn, values, valuesIn, waterfall, where, willBleedBottom, willBleedHorizontally, willBleedLeft, willBleedRight, willBleedTop, willBleedVertically, withdraw, within, without, words, wrap, xnor, xor, zip, zipObject, 
         exp     = module.exports,
         lodash  = require("lodash"),
         q       = require("q"),
         url     = require("url");
 
     // ABSTRACTERROR
-    exp.AbstractError = AbstractError = function AbstractError(key) { CustomError.call(this, 'AbstractError', key, 'is abstract and should be implemented first'); };
+    exp.AbstractError = AbstractError = function AbstractError(key) {
+        CustomError.call(this, 'AbstractError', key, 'is abstract and should be implemented first');
+    };
 
     // ALREADYDEFINEDERROR
-    exp.AlreadyDefinedError = AlreadyDefinedError = function AlreadyDefinedError(key) { CustomError.call(this, 'AlreadyDefinedError', key, 'is already defined'); };
+    exp.AlreadyDefinedError = AlreadyDefinedError = function AlreadyDefinedError(key) {
+        CustomError.call(this, 'AlreadyDefinedError', key, 'is already defined');
+    };
 
     // ALREADYUSEDERROR
-    exp.AlreadyUsedError = AlreadyUsedError = function AlreadyUsedError(key) { CustomError.call(this, 'AlreadyUsedError', key, 'is already used'); };
+    exp.AlreadyUsedError = AlreadyUsedError = function AlreadyUsedError(key) {
+        CustomError.call(this, 'AlreadyUsedError', key, 'is already used');
+    };
 
     // ARGUMENTERROR
-    exp.ArgumentError = ArgumentError = function ArgumentError(position, type) { CustomError.call(this, 'ArgumentError', (toPosition(position) || 'Unknown') + ' argument', 'must be ' + type); };
+    exp.ArgumentError = ArgumentError = function ArgumentError(position, type) {
+        CustomError.call(this, 'ArgumentError', (toPosition(position) || 'Unknown') + ' argument', 'must be ' + type);
+    };
 
     // CLASS
     exp.Class = Class = function Class(name, opt) {
@@ -1734,7 +1742,12 @@ function isNullOrUndefined(arg) {
     };
 
     // CUSTOMERROR
-    exp.CustomError = CustomError = function CustomError(name, key, message) { var err = Error.call(this, key + (message ? ' ' + message : '')); err.name = name; this.message = err.message; this.stack = err.stack; };
+    exp.CustomError = CustomError = function CustomError(name, key, message) {
+        var err = Error.call(this, key + (message ? ' ' + message : ''));
+        err.name = name;
+        this.message = err.message;
+        this.stack = err.stack;
+    };
 
     // DEFERRED
     exp.Deferred = Deferred = function Deferred() {
@@ -1742,13 +1755,19 @@ function isNullOrUndefined(arg) {
     };
 
     // DENIEDERROR
-    exp.DeniedError = DeniedError = function DeniedError(key) { CustomError.call(this, 'DeniedError', key, 'is denied'); };
+    exp.DeniedError = DeniedError = function DeniedError(key) {
+        CustomError.call(this, 'DeniedError', key, 'is denied');
+    };
 
     // INVALIDERROR
-    exp.InvalidError = InvalidError = function InvalidError(key) { CustomError.call(this, 'InvalidError', key, 'is not valid'); };
+    exp.InvalidError = InvalidError = function InvalidError(key) {
+        CustomError.call(this, 'InvalidError', key, 'is not valid');
+    };
 
     // NOTFOUNDERROR
-    exp.NotFoundError = NotFoundError = function NotFoundError(key) { CustomError.call(this, 'NotFoundError', key, 'is not found'); };
+    exp.NotFoundError = NotFoundError = function NotFoundError(key) {
+        CustomError.call(this, 'NotFoundError', key, 'is not found');
+    };
 
     // PROMISE
     exp.Promise = Promise = function Promise(args, func, thisArg) {
@@ -1787,19 +1806,29 @@ function isNullOrUndefined(arg) {
     };
 
     // REJECTEDERROR
-    exp.RejectedError = RejectedError = function RejectedError(key) { CustomError.call(this, 'RejectedError', key, 'is rejected'); };
+    exp.RejectedError = RejectedError = function RejectedError(key) {
+        CustomError.call(this, 'RejectedError', key, 'is rejected');
+    };
 
     // REQUIREDERROR
-    exp.RequiredError = RequiredError = function RequiredError(key) { CustomError.call(this, 'RequiredError', key, 'is required'); };
+    exp.RequiredError = RequiredError = function RequiredError(key) {
+        CustomError.call(this, 'RequiredError', key, 'is required');
+    };
 
     // UNAVAILABLEERROR
-    exp.UnavailableError = UnavailableError = function UnavailableError(key) { CustomError.call(this, 'UnavailableError', key, 'is not available'); };
+    exp.UnavailableError = UnavailableError = function UnavailableError(key) {
+        CustomError.call(this, 'UnavailableError', key, 'is not available');
+    };
 
     // UNDEFINEDERROR
-    exp.UndefinedError = UndefinedError = function UndefinedError(key) { CustomError.call(this, 'UndefinedError', key, 'is not defined'); };
+    exp.UndefinedError = UndefinedError = function UndefinedError(key) {
+        CustomError.call(this, 'UndefinedError', key, 'is not defined');
+    };
 
     // VALIDATIONERROR
-    exp.ValidationError = ValidationError = function ValidationError(key, type) { CustomError.call(this, 'ValidationError', key, 'must be ' + type); };
+    exp.ValidationError = ValidationError = function ValidationError(key, type) {
+        CustomError.call(this, 'ValidationError', key, 'must be ' + type);
+    };
 
     // ADDATTRIBUTE
     exp.addAttribute = addAttribute = function addAttribute(element, name) {
@@ -1976,14 +2005,20 @@ function isNullOrUndefined(arg) {
     // CAMELCASE
     exp.camelCase = camelCase = function camelCase(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.camelCase(string) : '';
+        return string ? lodash.camelCase(lodash.trim(string)) : '';
     };
+
+    // CAMELCASEREGEX
+    exp.camelCaseRegex = camelCaseRegex = /^([a-z]|[\d](?![a-z]))+([A-Z]*([a-z]|[\d](?![a-z]))*)+$|^$/;
 
     // CAPITALIZE
     exp.capitalize = capitalize = function capitalize(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.capitalize(string) : '';
+        return string ? lodash.capitalize(lodash.trim(string)) : '';
     };
+
+    // CAPITALIZEREGEX
+    exp.capitalizeRegex = capitalizeRegex = /^[^\sa-z](\S*)$|^$/;
 
     // CHUNK
     exp.chunk = chunk = function chunk(array, size) {
@@ -2686,6 +2721,16 @@ function isNullOrUndefined(arg) {
         return isTemplate(node) ? '' : node.textContent;
     };
 
+    // GETVALUE
+    exp.getValue = getValue = function getValue(element, casted) {
+        assertArgument(isElement(element), 1, 'Element');
+        if (element.disabled || !element.name) { return undefined; }
+        if (element.type === 'checkbox') { return casted && element.value === 'on' ? !!element.checked : (element.checked ? element.value : undefined); }
+        if (element.type === 'radio') { return element.checked ? element.value : undefined; }
+        if (element.type === 'number' || element.type === 'range') { return casted ? (element.value ? toNumber(element.value) : null) : element.value; }
+        if (element.type !== 'file' && isString(element.value)) { return element.value; }
+    };
+
     // GETWIDTH
     exp.getWidth = getWidth = function getWidth(element) {
         assertArgument(isVoid(element) || isElement(element), 1, 'Element');
@@ -2822,12 +2867,12 @@ function isNullOrUndefined(arg) {
 
     // ISCAMELCASE
     exp.isCamelCase = isCamelCase = function isCamelCase(value, notEmpty) {
-        return isString(value) && value === camelCase(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
+        return isString(value) && camelCaseRegex.test(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
     };
 
     // ISCAPITALIZE
     exp.isCapitalize = isCapitalize = function isCapitalize(value, notEmpty) {
-        return isString(value) && value === capitalize(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
+        return isString(value) && capitalizeRegex.test(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
     };
 
     // ISCLEAN
@@ -2958,11 +3003,6 @@ function isNullOrUndefined(arg) {
         return value === Infinity || value === -Infinity;
     };
 
-    // ISINPUT
-    exp.isInput = isInput = function isInput(target, notEmpty) {
-        return isString(target, notEmpty) || isFinite(target);
-    };
-
     // ISINSTANCE
     exp.isInstance = isInstance = function isInstance(value, Constructor) {
         assertArgument(isFunction(Constructor), 2, 'Function');
@@ -2974,14 +3014,19 @@ function isNullOrUndefined(arg) {
         return isFinite(value) && value % 1 === 0 && (isVoid(notNegative) || xnor(value >= 0, notNegative));
     };
 
+    // ISINVALID
+    exp.isInvalid = isInvalid = function isInvalid(value) {
+        return isElement(value) && !!value.name && !!value.willValidate && !!value.checkValidity && !value.disabled && !value.checkValidity();
+    };
+
     // ISKEBABCASE
     exp.isKebabCase = isKebabCase = function isKebabCase(value, notEmpty) {
-        return isString(value) && value === kebabCase(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
+        return isString(value) && kebabCaseRegex.test(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
     };
 
     // ISKEYCASE
     exp.isKeyCase = isKeyCase = function isKeyCase(value, notEmpty) {
-        return isString(value) && value === keyCase(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
+        return isString(value) && keyCaseRegex.test(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
     };
 
     // ISLAST
@@ -2998,7 +3043,7 @@ function isNullOrUndefined(arg) {
 
     // ISLOWERCASE
     exp.isLowerCase = isLowerCase = function isLowerCase(value, notEmpty) {
-        return isString(value) && value === lowerCase(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
+        return isString(value) && lowerCaseRegex.test(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
     };
 
     // ISNAN
@@ -3090,6 +3135,11 @@ function isNullOrUndefined(arg) {
         return isBoolean(value) || isFinite(value) || isString(value);
     };
 
+    // ISREADABLE
+    exp.isReadable = isReadable = function isReadable(value, notEmpty) {
+        return isString(value) && readableRegex.test(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
+    };
+
     // ISREGEXP
     exp.isRegExp = isRegExp = function isRegExp(value) {
         return lodash.isRegExp(value);
@@ -3105,9 +3155,14 @@ function isNullOrUndefined(arg) {
         return !!value && lodash.has(value, 'node') && lodash.has(Object.getPrototypeOf(value), '_queryElement');
     };
 
+    // ISSNAKECASE
+    exp.isSnakeCase = isSnakeCase = function isSnakeCase(value, notEmpty) {
+        return isString(value) && snakeCaseRegex.test(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
+    };
+
     // ISSTARTCASE
     exp.isStartCase = isStartCase = function isStartCase(value, notEmpty) {
-        return isString(value) && value === startCase(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
+        return isString(value) && startCaseRegex.test(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
     };
 
     // ISSTRING
@@ -3132,7 +3187,7 @@ function isNullOrUndefined(arg) {
 
     // ISUPPERCASE
     exp.isUpperCase = isUpperCase = function isUpperCase(value, notEmpty) {
-        return isString(value) && value === upperCase(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
+        return isString(value) && upperCaseRegex.test(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
     };
 
     // ISVOID
@@ -3169,14 +3224,20 @@ function isNullOrUndefined(arg) {
     // KEBABCASE
     exp.kebabCase = kebabCase = function kebabCase(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.kebabCase(string) : '';
+        return string ? lodash.kebabCase(lodash.trim(string)) : '';
     };
+
+    // KEBABCASEREGEX
+    exp.kebabCaseRegex = kebabCaseRegex = /^([a-z](?![\d])|[\d](?![a-z]))+(-?([a-z](?![\d])|[\d](?![a-z])))*$|^$/;
 
     // KEYCASE
     exp.keyCase = keyCase = function keyCase(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? camelCase(string).replace(/^(\d+)/, '') : '';
+        return string ? lodash.camelCase(lodash.trim(string)).replace(/^(\d+)/, '') : '';
     };
+
+    // KEYCASEREGEX
+    exp.keyCaseRegex = keyCaseRegex = /^([a-z])+([A-Z]*([a-z]|[\d](?![a-z]))*)+$|^$/;
 
     // KEYS
     exp.keys = keys = function keys(object) {
@@ -3229,8 +3290,11 @@ function isNullOrUndefined(arg) {
     // LOWERCASE
     exp.lowerCase = lowerCase = function lowerCase(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? string.toLowerCase() : '';
+        return string ? lodash.trim(string).toLowerCase() : '';
     };
+
+    // LOWERCASEREGEX
+    exp.lowerCaseRegex = lowerCaseRegex = /^[^\sA-Z]+[^\sA-Z]*$|^$/;
 
     // MAP
     exp.map = map = function map(collection, iteratee, thisArg) {
@@ -3530,7 +3594,7 @@ function isNullOrUndefined(arg) {
     exp.push = push = function push(array, value) {
         assertArgument(isString(array) || isArray(array), 1, 'Array or string');
         if (isArray(array)) { return array[array.push(value) - 1]; }
-        if (isInput(value)) { return array + value; }
+        if (isString(value) || isFinite(value)) { return array + value; }
         return array;
     };
 
@@ -3552,8 +3616,11 @@ function isNullOrUndefined(arg) {
     // READABLE
     exp.readable = readable = function readable(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? capitalize(snakeCase(string).replace(/_/g, ' ')) : '';
+        return string ? lodash.capitalize(lodash.snakeCase(lodash.trim(string)).replace(/_/g, ' ')) : '';
     };
+
+    // READABLEREGEX
+    exp.readableRegex = readableRegex = /^[A-Z]\s{0,1}(([a-z])+\s{1}|([0-9])+\s{1})*[a-z0-9]$|^$/;
 
     // REDIRECT
     exp.redirect = redirect = function redirect(url, hash) {
@@ -3786,8 +3853,11 @@ function isNullOrUndefined(arg) {
     // SNAKECASE
     exp.snakeCase = snakeCase = function snakeCase(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.snakeCase(string) : '';
+        return string ? lodash.snakeCase(lodash.trim(string)) : '';
     };
+
+    // SNAKECASEREGEX
+    exp.snakeCaseRegex = snakeCaseRegex = /^([a-z](?![\d])|[\d](?![a-z]))+(_?([a-z](?![\d])|[\d](?![a-z])))*$|^$/;
 
     // SOME
     exp.some = some = function some(collection, predicate, thisArg) {
@@ -3814,8 +3884,11 @@ function isNullOrUndefined(arg) {
     // STARTCASE
     exp.startCase = startCase = function snakeCase(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.startCase(string) : '';
+        return string ? lodash.startCase(lodash.trim(string)) : '';
     };
+
+    // STARTCASEREGEX
+    exp.startCaseRegex = startCaseRegex = /^(([A-Z][a-z]*|[0-9]+)[\s])*([A-Z][a-z]*|[0-9]+)$|^$/;
 
     // STARTSWITH
     exp.startsWith = startsWith = function startsWith(string, target, spacer) {
@@ -4024,8 +4097,8 @@ function isNullOrUndefined(arg) {
 
     // TOQUERYSTRING
     exp.toQueryString = toQueryString = function toQueryString(target, force) {
-        if (isVoid(target = isObject(target) ? target : (force ? {} : null))) { return; }
-        var result = map(target, function (val, key) { if (isBoolean(val) || isFinite(val) || isString(val, true)) { return key + '=' + encodeURIComponent(val.toString()); } });
+        if (!isDefined(target = toObject(target, force))) { return; }
+        var result = map(target, function (val, key) { if (isBoolean(val) || isFinite(val) || isString(val)) { return key + '=' + encodeURIComponent(val.toString()); } });
         return filter(result, ary(isDefined, 1)).join('&');
     };
 
@@ -4086,8 +4159,8 @@ function isNullOrUndefined(arg) {
 
     // TOVALUE
     exp.toValue = toValue = function toValue(target, force) {
+        if (target === 'false' || target === 'true') { return toBoolean(target); }
         if (isNumeric(target)) { return toNumber(target); }
-        if (includes(['false', 'true'], target)) { return toBoolean(target); }
         if (isString(target)) { return target; }
         if (force) { return null; }
     };
@@ -4121,6 +4194,9 @@ function isNullOrUndefined(arg) {
         assertArgument(isVoid(chars) || isString(chars), 2, 'string');
         return string ? lodash.trimLeft(string, chars) : '';
     };
+
+    // TRIMREGEX
+    exp.trimRegex = trimRegex = /^(?!\s).*[\S]+$|^$/;
 
     // TRIMRIGHT
     exp.trimRight = trimRight = function trimRight(string, chars) {
@@ -4185,8 +4261,11 @@ function isNullOrUndefined(arg) {
     // UPPERCASE
     exp.upperCase = upperCase = function upperCase(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? string.toUpperCase() : '';
+        return string ? lodash.trim(string).toUpperCase() : '';
     };
+
+    // UPPERCASEREGEX
+    exp.upperCaseRegex = upperCaseRegex = /^[^\sa-z]+[^\sa-z]*$|^$/;
 
     // VALUE
     exp.value = value = function value(object, key, defaultValue) {
