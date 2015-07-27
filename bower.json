@@ -3,7 +3,7 @@
   "license": "BSD-3-Clause",
   "version": "0.9.5",
   "description": "This module is used to import the ExpandJS utilities",
-  "homepage": "http://expandjs.com",
+  "homepage": "http://expandjs.com/utilities",
   "authors": [
     "Giuliano Rullo <g.rullo@expandjs.com>",
     "Maurizio Stefàno <m.stefano@expandjs.com>",
