@@ -2,7 +2,7 @@
   "name": "expandjs",
   "license": "BSD-3-Clause",
   "description": "This is a set of functions, designed to enhance your JavaScript programming experience.",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "homepage": "https://github.com/ExpandJS/expandjs",
   "author": "ExpandJS <dev@expandjs.com> (http://expandjs.com)",
   "contributors": [
