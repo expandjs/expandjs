@@ -71,6 +71,7 @@
         text += '        lodash  = require("lodash"),\n';
         text += '        q       = require("q"),\n';
         text += '        url     = require("url");\n';
+        text += '        UUID    = require("uuid");\n';
 
         // Build: methods
         methodsNames.forEach(function (name) {

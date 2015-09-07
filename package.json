@@ -16,7 +16,8 @@
   },
   "dependencies": {
     "lodash": "^3.0.0",
-    "q": "^1.0.0"
+    "q": "^1.0.0",
+    "uuid": "^2.0.0"
   },
   "scripts": {
     "build": "node bin/build && browserify bin --standalone XP > dist/expandjs.js && npm run build:min",
