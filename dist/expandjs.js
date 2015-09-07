@@ -1564,106 +1564,34 @@ function isNullOrUndefined(arg) {
 
         // Evaluating
         eval('Constructor = function ' + name + '() {' +
-             '    var self = this, promised = self.promise;' +
-             '    self.options = self.options || Constructor.options;' +
-             '    self.plugins = self.plugins || {};' +
-             '    self.promise = self.promise || (initialize.promise ? new Promise(arguments, initialize.value, self) : null);' +
-             '    return initialize !== Function && (promised || !initialize.promise) ? initialize.apply(self, arguments) : self;' +
-             '};');
+            '    var self = this, promised = self._promise;' +
+            '    self.options   = self.options || Constructor.options;' +
+            '    self._snippets = self._snippets || {};' +
+            '    self._promise  = self._promise || (initialize.promise ? new Promise(arguments, initialize.value, self) : null);' +
+            '    return initialize !== Function && (promised || !initialize.promise) ? initialize.apply(self, arguments) : self;' +
+            '};');
 
         // Extending
         Constructor.prototype = Object.create(Super.prototype, {constructor: {configurable: true, value: Constructor, writable: true}});
 
-        // Setting (static properties)
+        // Defining (static)
         defineProperties(Constructor, {
 
-            // OPTIONS
+            /**
+             * TODO DOC
+             *
+             * @property options
+             * @type Object
+             * @static
+             */
             options: {
                 'static': true,
                 value: assign({}, Super.options, options)
             }
         });
 
-        // Setting (default properties)
+        // Defining (prototype)
         defineProperties(Constructor, {
-
-            /**
-             * Adds a plugin to a group
-             *
-             * @method addPlugin
-             * @param {string} group
-             * @param {Function} func
-             * @returns {Object}
-             */
-            addPlugin: function (group, func) {
-                assertArgument(isString(group, true), 1, 'string');
-                assertArgument(isFunction(func), 2, 'Function');
-                var self = this;
-                push(self.plugins[group] = self.plugins[group] || [], func);
-                return self;
-            },
-
-            /**
-             * Returns a group of plugins
-             *
-             * @method getPlugins
-             * @param {string} group
-             * @returns {Array}
-             */
-            getPlugins: function (group) {
-                assertArgument(isString(group, true), 1, 'string');
-                return this.plugins ? this.plugins[group] || [] : [];
-            },
-
-            /**
-             * Invokes a group of plugins
-             *
-             * @method invokePlugins
-             * @param {string} group
-             * @param {Array} [args]
-             * @param {Function} [callback]
-             * @returns {Object}
-             */
-            invokePlugins: function (group, args, callback) {
-                assertArgument(isString(group, true), 1, 'string');
-                assertArgument(isVoid(args) || isArrayable(args), 2, 'Arrayable');
-                assertArgument(isVoid(callback) || isFunction(callback), 3, 'Function');
-                var self = this, func = function (next) { next.apply(undefined, concat([null], args, [self])); };
-                waterfall(concat([func], self.getPlugins(group)), callback);
-                return self;
-            },
-
-            /**
-             * Removes a plugin from a group
-             *
-             * @method removePlugin
-             * @param {string} group
-             * @param {Function} func
-             * @returns {Object}
-             */
-            removePlugin: function (group, func) {
-                assertArgument(isString(group, true), 1, 'string');
-                assertArgument(isFunction(func), 2, 'Function');
-                var self = this;
-                pull(self.getPlugins(group), func);
-                return self;
-            },
-
-            /**
-             * Removes all the plugins from a group
-             *
-             * @method removePlugins
-             * @param {string} group
-             * @returns {Object}
-             */
-            removePlugins: function (group) {
-                assertArgument(isString(group, true), 1, 'string');
-                var self = this;
-                flush(self.getPlugins(group));
-                return self;
-            },
-
-            /*********************************************************************/
 
             /**
              * Wraps promise.catch
@@ -1674,7 +1602,9 @@ function isNullOrUndefined(arg) {
              */
             rejected: function (callback) {
                 assertArgument(isFunction(callback), 1, 'Function');
-                return assign(this, this.promise ? {promise: this.promise.catch(function (err) { callback(err); throw err; })} : {});
+                var self = this;
+                if (self._promise) { self._promise = self._promise.catch(function (err) { callback(err); throw err; }); }
+                return self;
             },
 
             /**
@@ -1686,7 +1616,107 @@ function isNullOrUndefined(arg) {
              */
             resolved: function (callback) {
                 assertArgument(isFunction(callback), 1, 'Function');
-                return assign(this, this.promise ? {promise: this.promise.then(function (data) { callback(data); return data; })} : {});
+                var self = this;
+                if (self._promise) { self._promise = self._promise.then(function (data) { callback(data); return data; }); }
+                return self;
+            },
+
+            /*********************************************************************/
+
+            /**
+             * Insert the `snippet` on the specified `point`.
+             *
+             * @method _insertSnippet
+             * @param {string} point
+             * @param {Function} snippet
+             * @returns {Object}
+             * @private
+             */
+            _insertSnippet: {
+                enumerable: false,
+                value: function (point, snippet) {
+                    assertArgument(isString(point, true), 1, 'string');
+                    assertArgument(isFunction(snippet), 2, 'Function');
+                    var self = this;
+                    push(self._snippets[point] = self._snippets[point] || [], snippet);
+                    return self;
+                }
+            },
+
+            /**
+             * Returns the list of snippets on the specified `point`.
+             *
+             * @method _insertedSnippets
+             * @param {string} point
+             * @returns {Array}
+             * @private
+             */
+            _insertedSnippets: {
+                enumerable: false,
+                value: function (point) {
+                    assertArgument(isString(point, true), 1, 'string');
+                    return (this._snippets[point] && concat([], this._snippets[point])) || [];
+                }
+            },
+
+            /**
+             * Invokes the snippets on the specified `point`.
+             *
+             * @method _invokeSnippets
+             * @param {string} point
+             * @param {Array} [args]
+             * @param {Function} [callback]
+             * @returns {Object}
+             * @private
+             */
+            _invokeSnippets: {
+                enumerable: false,
+                value: function (point, args, callback) {
+                    assertArgument(isString(point, true), 1, 'string');
+                    assertArgument(isVoid(args) || isArrayable(args), 2, 'Arrayable');
+                    assertArgument(isVoid(callback) || isFunction(callback), 3, 'Function');
+                    var self = this, start = function (next) { next.apply(undefined, concat([null], args, [self])); };
+                    waterfall(concat([start], self._snippets[point] || []), callback);
+                    return self;
+                }
+            },
+
+            /**
+             * Removes the `snippet` from the specified `point`.
+             *
+             * @method _removeSnippet
+             * @param {string} point
+             * @param {Function} snippet
+             * @returns {Object}
+             * @private
+             */
+            _removeSnippet: {
+                enumerable: false,
+                value: function (point, snippet) {
+                    assertArgument(isString(point, true), 1, 'string');
+                    assertArgument(isFunction(snippet), 2, 'Function');
+                    var self = this;
+                    if (self._snippets[point]) { pull(self._snippets[point], snippet); }
+                    return self;
+                }
+            },
+
+            /**
+             * Removes all the snippets from the specified `point`.
+             *
+             * @method _removeSnippets
+             * @param {string} point
+             * @returns {Object}
+             * @private
+             */
+            _removeSnippets: {
+                enumerable: false,
+                value: function (point) {
+                    assertArgument(isString(point, true), 1, 'string');
+                    var self = this;
+                    if (self._snippets[point]) { flush(self._snippets[point]); }
+                    return self;
+                }
             },
 
             /*********************************************************************/
@@ -1699,46 +1729,36 @@ function isNullOrUndefined(arg) {
              */
             options: {
                 set: function (val) { return assign(this.options || {}, val); },
-                then: function (post) { var self = this; forOwn(post.plugins || {}, function (func, group) { self.addPlugin(group, func); delete post.plugins[group]; }); }
+                then: function (post) { var self = this; forOwn(post._snippets || {}, function (snippet, point) { self._insertSnippet(point, snippet); delete post._snippets[point]; }); }
             },
 
             /**
              * TODO DOC
              *
-             * @property plugins
-             * @type Object
-             */
-            plugins: {
-                set: function (val) { return assign(this.plugins || {}, val); }
-            },
-
-            /**
-             * TODO DOC
-             *
-             * @property promise
+             * @property _snippets
              * @type Object
              * @private
              */
-            promise: {
+            _snippets: {
                 enumerable: false,
-                validate: function (val) { return isObject(val) || isVoid(val); }
+                set: function (val) { return assign(this._snippets || {}, val); }
             },
 
             /**
              * TODO DOC
              *
-             * @property resolver
-             * @type Function
+             * @property _promise
+             * @type Object
+             * @private
              */
-            resolver: {
-                validate: function (val) { return isFunction(val) || isVoid(val); }
+            _promise: {
+                enumerable: false,
+                validate: function (val) { return isObject(val) || isVoid(val); }
             }
         });
 
-        // Setting (specified properties)
-        defineProperties(Constructor, opt);
-
-        return Constructor;
+        // Defining (custom)
+        return defineProperties(Constructor, opt);
     };
 
     // CUSTOMERROR
