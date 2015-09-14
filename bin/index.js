@@ -149,6 +149,24 @@
             },
 
             /**
+             * Insert the specified `snippets`.
+             *
+             * @method _insertSnippets
+             * @param {Object} snippets
+             * @returns {Object}
+             * @private
+             */
+            _insertSnippets: {
+                enumerable: false,
+                value: function (snippets) {
+                    assertArgument(isObject(snippets), 1, 'Object');
+                    var self = this;
+                    forOwn(snippets, function (snippet, point) { self._insertSnippet(point, snippet); });
+                    return self;
+                }
+            },
+
+            /**
              * Returns the list of snippets on the specified `point`.
              *
              * @method _insertedSnippets
@@ -180,7 +198,7 @@
                     assertArgument(isString(point, true), 1, 'string');
                     assertArgument(isVoid(args) || isArrayable(args), 2, 'Arrayable');
                     assertArgument(isVoid(callback) || isFunction(callback), 3, 'Function');
-                    var self = this, start = function (next) { next.apply(undefined, concat([null], args, [self])); };
+                    var self = this, start = function (next) { next.apply(null, concat([null], args, [self])); };
                     waterfall(concat([start], self._snippets[point] || []), callback);
                     return self;
                 }
@@ -233,8 +251,7 @@
              * @type Object
              */
             options: {
-                set: function (val) { return assign(this.options || {}, val); },
-                then: function (post) { var self = this; forOwn(post._snippets || {}, function (snippet, point) { self._insertSnippet(point, snippet); delete post._snippets[point]; }); }
+                set: function (val) { return assign(this.options || {}, val); }
             },
 
             /**
@@ -506,7 +523,7 @@
         // Function
         function next() {
             var args = slice(arguments);
-            delay(function () { cb.apply(undefined, args); });
+            delay(function () { cb.apply(null, args); });
         }
 
         // Doing
@@ -1750,7 +1767,7 @@
             keys_ = isArrayable(collection) ? null : keys(collection);
 
         // Function
-        function next(error) { return (!error && (i += 1) < size(keys_ || collection)) ? iteratee(next, collection[keys_ ? keys_[i] : i], keys_ ? keys_[i] : i, collection) : cb(error, error ? null : collection); }
+        function next(error) { return (!error && (i += 1) < size(keys_ || collection)) ? iteratee(collection[keys_ ? keys_[i] : i], keys_ ? keys_[i] : i, next) : cb(error, error ? null : collection); }
 
         // Doing
         next(null);
@@ -2868,7 +2885,7 @@
             for (i = i + 1; i < fns.length; i += 1) { if (isFunction(fns[i])) { break; } }
             for (j = i + 1; j < fns.length; j += 1) { if (isFunction(fns[j])) { break; } }
             err = args.splice(0, 1, fns[j] ? next : cb)[0];
-            (!err && fns[i] ? fns[i] : cb).apply(undefined, err ? [err] : args);
+            (!err && fns[i] ? fns[i] : cb).apply(null, err ? [err] : args);
         }
 
         // Doing
