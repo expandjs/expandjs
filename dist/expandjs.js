@@ -3278,7 +3278,7 @@ function isNullOrUndefined(arg) {
             keys_ = isArrayable(collection) ? null : keys(collection);
 
         // Function
-        function next(error) { return (!error && (i += 1) < size(keys_ || collection)) ? iteratee(collection[keys_ ? keys_[i] : i], keys_ ? keys_[i] : i, next) : cb(error, error ? null : collection); }
+        function next(error) { return (!error && (i += 1) < size(keys_ || collection)) ? iteratee(next, collection[keys_ ? keys_[i] : i], keys_ ? keys_[i] : i, collection) : cb(error, error ? null : collection); }
 
         // Doing
         next(null);
