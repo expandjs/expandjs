@@ -5394,7 +5394,8 @@ function isNullOrUndefined(arg) {
     // PARSEURL
     exp.parseURL = parseURL = function parseURL(string, parseQuery, slashesDenoteHost) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? url.parse(string, !!parseQuery, !!slashesDenoteHost) : undefined;
+        var result = string ? url.parse(string, !!parseQuery, !!slashesDenoteHost) : undefined;
+        return result ? assign(result, {port: toNumber(result.port) || null}) : result;
     };
 
     // PARTITION
