@@ -44,15 +44,12 @@
     (function () {
 
         // Vars
-        var fs                = require('fs'),
-            constructors      = require(__dirname + '/../lib/constructors'),
-            constructorsNames = Object.keys(constructors).sort(),
-            methods           = require(__dirname + '/../lib'),
-            methodsNames      = Object.keys(methods).sort(),
-            text              = '';
+        var fs      = require('fs'),
+            methods = require(__dirname + '/../lib'),
+            keys    = Object.keys(methods).sort(),
+            text    = '/*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */\n';
 
         // Build: header
-        text += '/*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */\n';
         text += '\n';
         text += '(function (global, browser) {\n';
         text += '    "use strict";\n';
@@ -61,38 +58,27 @@
         text += '    var ';
 
         // Build: declaration
-        methodsNames.forEach(function (name) {
+        keys.forEach(function (name) {
             text += name + ', ';
         });
 
         // Build: vars
         text += '\n';
-        text += '        exp     = module.exports,\n';
-        text += '        lodash  = require("lodash"),\n';
-        text += '        q       = require("q"),\n';
-        text += '        url     = require("url"),\n';
-        text += '        UUID    = require("uuid");\n';
+        text += '        lodash = require("lodash"),\n';
+        text += '        q      = require("q"),\n';
+        text += '        url    = require("url"),\n';
+        text += '        UUID   = require("uuid"),\n';
+        text += '        _      = global._  = global._ || lodash,\n';
+        text += '        exp    = global.XP = module.exports;\n';
 
         // Build: methods
-        methodsNames.forEach(function (name) {
+        keys.forEach(function (name) {
             text += '\n';
             text += '    // ' + name.toUpperCase() + '\n';
             text += '    exp.' + name + ' = ' + name + ' = ' + methods[name].toString() + ';\n';
         });
 
-        // Build: browserify
-        text += '\n';
-        text += '    // Browserify\n';
-        text += '    if (browser) {\n';
-        text += '        global._ = lodash;\n';
-
-        // Build: constructors
-        constructorsNames.forEach(function (name) {
-            text += '        global.XP' + name + ' = exp.' + name + ';\n';
-        });
-
         // Build: footer
-        text += '    }\n';
         text += '\n';
         text += '}(typeof window !== "undefined" ? window : global, typeof window !== "undefined"));\n';
 

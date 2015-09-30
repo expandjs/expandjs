@@ -1,4 +1,1786 @@
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.XP = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
+/*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
+ * @license  MIT
+ */
+
+var base64 = _dereq_('base64-js')
+var ieee754 = _dereq_('ieee754')
+var isArray = _dereq_('is-array')
+
+exports.Buffer = Buffer
+exports.SlowBuffer = SlowBuffer
+exports.INSPECT_MAX_BYTES = 50
+Buffer.poolSize = 8192 // not used by this implementation
+
+var rootParent = {}
+
+/**
+ * If `Buffer.TYPED_ARRAY_SUPPORT`:
+ *   === true    Use Uint8Array implementation (fastest)
+ *   === false   Use Object implementation (most compatible, even IE6)
+ *
+ * Browsers that support typed arrays are IE 10+, Firefox 4+, Chrome 7+, Safari 5.1+,
+ * Opera 11.6+, iOS 4.2+.
+ *
+ * Due to various browser bugs, sometimes the Object implementation will be used even
+ * when the browser supports typed arrays.
+ *
+ * Note:
+ *
+ *   - Firefox 4-29 lacks support for adding new properties to `Uint8Array` instances,
+ *     See: https://bugzilla.mozilla.org/show_bug.cgi?id=695438.
+ *
+ *   - Safari 5-7 lacks support for changing the `Object.prototype.constructor` property
+ *     on objects.
+ *
+ *   - Chrome 9-10 is missing the `TypedArray.prototype.subarray` function.
+ *
+ *   - IE10 has a broken `TypedArray.prototype.subarray` function which returns arrays of
+ *     incorrect length in some situations.
+
+ * We detect these buggy browsers and set `Buffer.TYPED_ARRAY_SUPPORT` to `false` so they
+ * get the Object implementation, which is slower but behaves correctly.
+ */
+Buffer.TYPED_ARRAY_SUPPORT = (function () {
+  function Bar () {}
+  try {
+    var arr = new Uint8Array(1)
+    arr.foo = function () { return 42 }
+    arr.constructor = Bar
+    return arr.foo() === 42 && // typed array instances can be augmented
+        arr.constructor === Bar && // constructor can be set
+        typeof arr.subarray === 'function' && // chrome 9-10 lack `subarray`
+        arr.subarray(1, 1).byteLength === 0 // ie10 has broken `subarray`
+  } catch (e) {
+    return false
+  }
+})()
+
+function kMaxLength () {
+  return Buffer.TYPED_ARRAY_SUPPORT
+    ? 0x7fffffff
+    : 0x3fffffff
+}
+
+/**
+ * Class: Buffer
+ * =============
+ *
+ * The Buffer constructor returns instances of `Uint8Array` that are augmented
+ * with function properties for all the node `Buffer` API functions. We use
+ * `Uint8Array` so that square bracket notation works as expected -- it returns
+ * a single octet.
+ *
+ * By augmenting the instances, we can avoid modifying the `Uint8Array`
+ * prototype.
+ */
+function Buffer (arg) {
+  if (!(this instanceof Buffer)) {
+    // Avoid going through an ArgumentsAdaptorTrampoline in the common case.
+    if (arguments.length > 1) return new Buffer(arg, arguments[1])
+    return new Buffer(arg)
+  }
+
+  this.length = 0
+  this.parent = undefined
+
+  // Common case.
+  if (typeof arg === 'number') {
+    return fromNumber(this, arg)
+  }
+
+  // Slightly less common case.
+  if (typeof arg === 'string') {
+    return fromString(this, arg, arguments.length > 1 ? arguments[1] : 'utf8')
+  }
+
+  // Unusual.
+  return fromObject(this, arg)
+}
+
+function fromNumber (that, length) {
+  that = allocate(that, length < 0 ? 0 : checked(length) | 0)
+  if (!Buffer.TYPED_ARRAY_SUPPORT) {
+    for (var i = 0; i < length; i++) {
+      that[i] = 0
+    }
+  }
+  return that
+}
+
+function fromString (that, string, encoding) {
+  if (typeof encoding !== 'string' || encoding === '') encoding = 'utf8'
+
+  // Assumption: byteLength() return value is always < kMaxLength.
+  var length = byteLength(string, encoding) | 0
+  that = allocate(that, length)
+
+  that.write(string, encoding)
+  return that
+}
+
+function fromObject (that, object) {
+  if (Buffer.isBuffer(object)) return fromBuffer(that, object)
+
+  if (isArray(object)) return fromArray(that, object)
+
+  if (object == null) {
+    throw new TypeError('must start with number, buffer, array or string')
+  }
+
+  if (typeof ArrayBuffer !== 'undefined') {
+    if (object.buffer instanceof ArrayBuffer) {
+      return fromTypedArray(that, object)
+    }
+    if (object instanceof ArrayBuffer) {
+      return fromArrayBuffer(that, object)
+    }
+  }
+
+  if (object.length) return fromArrayLike(that, object)
+
+  return fromJsonObject(that, object)
+}
+
+function fromBuffer (that, buffer) {
+  var length = checked(buffer.length) | 0
+  that = allocate(that, length)
+  buffer.copy(that, 0, 0, length)
+  return that
+}
+
+function fromArray (that, array) {
+  var length = checked(array.length) | 0
+  that = allocate(that, length)
+  for (var i = 0; i < length; i += 1) {
+    that[i] = array[i] & 255
+  }
+  return that
+}
+
+// Duplicate of fromArray() to keep fromArray() monomorphic.
+function fromTypedArray (that, array) {
+  var length = checked(array.length) | 0
+  that = allocate(that, length)
+  // Truncating the elements is probably not what people expect from typed
+  // arrays with BYTES_PER_ELEMENT > 1 but it's compatible with the behavior
+  // of the old Buffer constructor.
+  for (var i = 0; i < length; i += 1) {
+    that[i] = array[i] & 255
+  }
+  return that
+}
+
+function fromArrayBuffer (that, array) {
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    // Return an augmented `Uint8Array` instance, for best performance
+    array.byteLength
+    that = Buffer._augment(new Uint8Array(array))
+  } else {
+    // Fallback: Return an object instance of the Buffer class
+    that = fromTypedArray(that, new Uint8Array(array))
+  }
+  return that
+}
+
+function fromArrayLike (that, array) {
+  var length = checked(array.length) | 0
+  that = allocate(that, length)
+  for (var i = 0; i < length; i += 1) {
+    that[i] = array[i] & 255
+  }
+  return that
+}
+
+// Deserialize { type: 'Buffer', data: [1,2,3,...] } into a Buffer object.
+// Returns a zero-length buffer for inputs that don't conform to the spec.
+function fromJsonObject (that, object) {
+  var array
+  var length = 0
+
+  if (object.type === 'Buffer' && isArray(object.data)) {
+    array = object.data
+    length = checked(array.length) | 0
+  }
+  that = allocate(that, length)
+
+  for (var i = 0; i < length; i += 1) {
+    that[i] = array[i] & 255
+  }
+  return that
+}
+
+function allocate (that, length) {
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    // Return an augmented `Uint8Array` instance, for best performance
+    that = Buffer._augment(new Uint8Array(length))
+  } else {
+    // Fallback: Return an object instance of the Buffer class
+    that.length = length
+    that._isBuffer = true
+  }
+
+  var fromPool = length !== 0 && length <= Buffer.poolSize >>> 1
+  if (fromPool) that.parent = rootParent
+
+  return that
+}
+
+function checked (length) {
+  // Note: cannot use `length < kMaxLength` here because that fails when
+  // length is NaN (which is otherwise coerced to zero.)
+  if (length >= kMaxLength()) {
+    throw new RangeError('Attempt to allocate Buffer larger than maximum ' +
+                         'size: 0x' + kMaxLength().toString(16) + ' bytes')
+  }
+  return length | 0
+}
+
+function SlowBuffer (subject, encoding) {
+  if (!(this instanceof SlowBuffer)) return new SlowBuffer(subject, encoding)
+
+  var buf = new Buffer(subject, encoding)
+  delete buf.parent
+  return buf
+}
+
+Buffer.isBuffer = function isBuffer (b) {
+  return !!(b != null && b._isBuffer)
+}
+
+Buffer.compare = function compare (a, b) {
+  if (!Buffer.isBuffer(a) || !Buffer.isBuffer(b)) {
+    throw new TypeError('Arguments must be Buffers')
+  }
+
+  if (a === b) return 0
+
+  var x = a.length
+  var y = b.length
+
+  var i = 0
+  var len = Math.min(x, y)
+  while (i < len) {
+    if (a[i] !== b[i]) break
+
+    ++i
+  }
+
+  if (i !== len) {
+    x = a[i]
+    y = b[i]
+  }
+
+  if (x < y) return -1
+  if (y < x) return 1
+  return 0
+}
+
+Buffer.isEncoding = function isEncoding (encoding) {
+  switch (String(encoding).toLowerCase()) {
+    case 'hex':
+    case 'utf8':
+    case 'utf-8':
+    case 'ascii':
+    case 'binary':
+    case 'base64':
+    case 'raw':
+    case 'ucs2':
+    case 'ucs-2':
+    case 'utf16le':
+    case 'utf-16le':
+      return true
+    default:
+      return false
+  }
+}
+
+Buffer.concat = function concat (list, length) {
+  if (!isArray(list)) throw new TypeError('list argument must be an Array of Buffers.')
+
+  if (list.length === 0) {
+    return new Buffer(0)
+  }
+
+  var i
+  if (length === undefined) {
+    length = 0
+    for (i = 0; i < list.length; i++) {
+      length += list[i].length
+    }
+  }
+
+  var buf = new Buffer(length)
+  var pos = 0
+  for (i = 0; i < list.length; i++) {
+    var item = list[i]
+    item.copy(buf, pos)
+    pos += item.length
+  }
+  return buf
+}
+
+function byteLength (string, encoding) {
+  if (typeof string !== 'string') string = '' + string
+
+  var len = string.length
+  if (len === 0) return 0
+
+  // Use a for loop to avoid recursion
+  var loweredCase = false
+  for (;;) {
+    switch (encoding) {
+      case 'ascii':
+      case 'binary':
+      // Deprecated
+      case 'raw':
+      case 'raws':
+        return len
+      case 'utf8':
+      case 'utf-8':
+        return utf8ToBytes(string).length
+      case 'ucs2':
+      case 'ucs-2':
+      case 'utf16le':
+      case 'utf-16le':
+        return len * 2
+      case 'hex':
+        return len >>> 1
+      case 'base64':
+        return base64ToBytes(string).length
+      default:
+        if (loweredCase) return utf8ToBytes(string).length // assume utf8
+        encoding = ('' + encoding).toLowerCase()
+        loweredCase = true
+    }
+  }
+}
+Buffer.byteLength = byteLength
+
+// pre-set for values that may exist in the future
+Buffer.prototype.length = undefined
+Buffer.prototype.parent = undefined
+
+function slowToString (encoding, start, end) {
+  var loweredCase = false
+
+  start = start | 0
+  end = end === undefined || end === Infinity ? this.length : end | 0
+
+  if (!encoding) encoding = 'utf8'
+  if (start < 0) start = 0
+  if (end > this.length) end = this.length
+  if (end <= start) return ''
+
+  while (true) {
+    switch (encoding) {
+      case 'hex':
+        return hexSlice(this, start, end)
+
+      case 'utf8':
+      case 'utf-8':
+        return utf8Slice(this, start, end)
+
+      case 'ascii':
+        return asciiSlice(this, start, end)
+
+      case 'binary':
+        return binarySlice(this, start, end)
+
+      case 'base64':
+        return base64Slice(this, start, end)
+
+      case 'ucs2':
+      case 'ucs-2':
+      case 'utf16le':
+      case 'utf-16le':
+        return utf16leSlice(this, start, end)
+
+      default:
+        if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding)
+        encoding = (encoding + '').toLowerCase()
+        loweredCase = true
+    }
+  }
+}
+
+Buffer.prototype.toString = function toString () {
+  var length = this.length | 0
+  if (length === 0) return ''
+  if (arguments.length === 0) return utf8Slice(this, 0, length)
+  return slowToString.apply(this, arguments)
+}
+
+Buffer.prototype.equals = function equals (b) {
+  if (!Buffer.isBuffer(b)) throw new TypeError('Argument must be a Buffer')
+  if (this === b) return true
+  return Buffer.compare(this, b) === 0
+}
+
+Buffer.prototype.inspect = function inspect () {
+  var str = ''
+  var max = exports.INSPECT_MAX_BYTES
+  if (this.length > 0) {
+    str = this.toString('hex', 0, max).match(/.{2}/g).join(' ')
+    if (this.length > max) str += ' ... '
+  }
+  return '<Buffer ' + str + '>'
+}
+
+Buffer.prototype.compare = function compare (b) {
+  if (!Buffer.isBuffer(b)) throw new TypeError('Argument must be a Buffer')
+  if (this === b) return 0
+  return Buffer.compare(this, b)
+}
+
+Buffer.prototype.indexOf = function indexOf (val, byteOffset) {
+  if (byteOffset > 0x7fffffff) byteOffset = 0x7fffffff
+  else if (byteOffset < -0x80000000) byteOffset = -0x80000000
+  byteOffset >>= 0
+
+  if (this.length === 0) return -1
+  if (byteOffset >= this.length) return -1
+
+  // Negative offsets start from the end of the buffer
+  if (byteOffset < 0) byteOffset = Math.max(this.length + byteOffset, 0)
+
+  if (typeof val === 'string') {
+    if (val.length === 0) return -1 // special case: looking for empty string always fails
+    return String.prototype.indexOf.call(this, val, byteOffset)
+  }
+  if (Buffer.isBuffer(val)) {
+    return arrayIndexOf(this, val, byteOffset)
+  }
+  if (typeof val === 'number') {
+    if (Buffer.TYPED_ARRAY_SUPPORT && Uint8Array.prototype.indexOf === 'function') {
+      return Uint8Array.prototype.indexOf.call(this, val, byteOffset)
+    }
+    return arrayIndexOf(this, [ val ], byteOffset)
+  }
+
+  function arrayIndexOf (arr, val, byteOffset) {
+    var foundIndex = -1
+    for (var i = 0; byteOffset + i < arr.length; i++) {
+      if (arr[byteOffset + i] === val[foundIndex === -1 ? 0 : i - foundIndex]) {
+        if (foundIndex === -1) foundIndex = i
+        if (i - foundIndex + 1 === val.length) return byteOffset + foundIndex
+      } else {
+        foundIndex = -1
+      }
+    }
+    return -1
+  }
+
+  throw new TypeError('val must be string, number or Buffer')
+}
+
+// `get` is deprecated
+Buffer.prototype.get = function get (offset) {
+  console.log('.get() is deprecated. Access using array indexes instead.')
+  return this.readUInt8(offset)
+}
+
+// `set` is deprecated
+Buffer.prototype.set = function set (v, offset) {
+  console.log('.set() is deprecated. Access using array indexes instead.')
+  return this.writeUInt8(v, offset)
+}
+
+function hexWrite (buf, string, offset, length) {
+  offset = Number(offset) || 0
+  var remaining = buf.length - offset
+  if (!length) {
+    length = remaining
+  } else {
+    length = Number(length)
+    if (length > remaining) {
+      length = remaining
+    }
+  }
+
+  // must be an even number of digits
+  var strLen = string.length
+  if (strLen % 2 !== 0) throw new Error('Invalid hex string')
+
+  if (length > strLen / 2) {
+    length = strLen / 2
+  }
+  for (var i = 0; i < length; i++) {
+    var parsed = parseInt(string.substr(i * 2, 2), 16)
+    if (isNaN(parsed)) throw new Error('Invalid hex string')
+    buf[offset + i] = parsed
+  }
+  return i
+}
+
+function utf8Write (buf, string, offset, length) {
+  return blitBuffer(utf8ToBytes(string, buf.length - offset), buf, offset, length)
+}
+
+function asciiWrite (buf, string, offset, length) {
+  return blitBuffer(asciiToBytes(string), buf, offset, length)
+}
+
+function binaryWrite (buf, string, offset, length) {
+  return asciiWrite(buf, string, offset, length)
+}
+
+function base64Write (buf, string, offset, length) {
+  return blitBuffer(base64ToBytes(string), buf, offset, length)
+}
+
+function ucs2Write (buf, string, offset, length) {
+  return blitBuffer(utf16leToBytes(string, buf.length - offset), buf, offset, length)
+}
+
+Buffer.prototype.write = function write (string, offset, length, encoding) {
+  // Buffer#write(string)
+  if (offset === undefined) {
+    encoding = 'utf8'
+    length = this.length
+    offset = 0
+  // Buffer#write(string, encoding)
+  } else if (length === undefined && typeof offset === 'string') {
+    encoding = offset
+    length = this.length
+    offset = 0
+  // Buffer#write(string, offset[, length][, encoding])
+  } else if (isFinite(offset)) {
+    offset = offset | 0
+    if (isFinite(length)) {
+      length = length | 0
+      if (encoding === undefined) encoding = 'utf8'
+    } else {
+      encoding = length
+      length = undefined
+    }
+  // legacy write(string, encoding, offset, length) - remove in v0.13
+  } else {
+    var swap = encoding
+    encoding = offset
+    offset = length | 0
+    length = swap
+  }
+
+  var remaining = this.length - offset
+  if (length === undefined || length > remaining) length = remaining
+
+  if ((string.length > 0 && (length < 0 || offset < 0)) || offset > this.length) {
+    throw new RangeError('attempt to write outside buffer bounds')
+  }
+
+  if (!encoding) encoding = 'utf8'
+
+  var loweredCase = false
+  for (;;) {
+    switch (encoding) {
+      case 'hex':
+        return hexWrite(this, string, offset, length)
+
+      case 'utf8':
+      case 'utf-8':
+        return utf8Write(this, string, offset, length)
+
+      case 'ascii':
+        return asciiWrite(this, string, offset, length)
+
+      case 'binary':
+        return binaryWrite(this, string, offset, length)
+
+      case 'base64':
+        // Warning: maxLength not taken into account in base64Write
+        return base64Write(this, string, offset, length)
+
+      case 'ucs2':
+      case 'ucs-2':
+      case 'utf16le':
+      case 'utf-16le':
+        return ucs2Write(this, string, offset, length)
+
+      default:
+        if (loweredCase) throw new TypeError('Unknown encoding: ' + encoding)
+        encoding = ('' + encoding).toLowerCase()
+        loweredCase = true
+    }
+  }
+}
+
+Buffer.prototype.toJSON = function toJSON () {
+  return {
+    type: 'Buffer',
+    data: Array.prototype.slice.call(this._arr || this, 0)
+  }
+}
+
+function base64Slice (buf, start, end) {
+  if (start === 0 && end === buf.length) {
+    return base64.fromByteArray(buf)
+  } else {
+    return base64.fromByteArray(buf.slice(start, end))
+  }
+}
+
+function utf8Slice (buf, start, end) {
+  end = Math.min(buf.length, end)
+  var res = []
+
+  var i = start
+  while (i < end) {
+    var firstByte = buf[i]
+    var codePoint = null
+    var bytesPerSequence = (firstByte > 0xEF) ? 4
+      : (firstByte > 0xDF) ? 3
+      : (firstByte > 0xBF) ? 2
+      : 1
+
+    if (i + bytesPerSequence <= end) {
+      var secondByte, thirdByte, fourthByte, tempCodePoint
+
+      switch (bytesPerSequence) {
+        case 1:
+          if (firstByte < 0x80) {
+            codePoint = firstByte
+          }
+          break
+        case 2:
+          secondByte = buf[i + 1]
+          if ((secondByte & 0xC0) === 0x80) {
+            tempCodePoint = (firstByte & 0x1F) << 0x6 | (secondByte & 0x3F)
+            if (tempCodePoint > 0x7F) {
+              codePoint = tempCodePoint
+            }
+          }
+          break
+        case 3:
+          secondByte = buf[i + 1]
+          thirdByte = buf[i + 2]
+          if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80) {
+            tempCodePoint = (firstByte & 0xF) << 0xC | (secondByte & 0x3F) << 0x6 | (thirdByte & 0x3F)
+            if (tempCodePoint > 0x7FF && (tempCodePoint < 0xD800 || tempCodePoint > 0xDFFF)) {
+              codePoint = tempCodePoint
+            }
+          }
+          break
+        case 4:
+          secondByte = buf[i + 1]
+          thirdByte = buf[i + 2]
+          fourthByte = buf[i + 3]
+          if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80 && (fourthByte & 0xC0) === 0x80) {
+            tempCodePoint = (firstByte & 0xF) << 0x12 | (secondByte & 0x3F) << 0xC | (thirdByte & 0x3F) << 0x6 | (fourthByte & 0x3F)
+            if (tempCodePoint > 0xFFFF && tempCodePoint < 0x110000) {
+              codePoint = tempCodePoint
+            }
+          }
+      }
+    }
+
+    if (codePoint === null) {
+      // we did not generate a valid codePoint so insert a
+      // replacement char (U+FFFD) and advance only 1 byte
+      codePoint = 0xFFFD
+      bytesPerSequence = 1
+    } else if (codePoint > 0xFFFF) {
+      // encode to utf16 (surrogate pair dance)
+      codePoint -= 0x10000
+      res.push(codePoint >>> 10 & 0x3FF | 0xD800)
+      codePoint = 0xDC00 | codePoint & 0x3FF
+    }
+
+    res.push(codePoint)
+    i += bytesPerSequence
+  }
+
+  return decodeCodePointsArray(res)
+}
+
+// Based on http://stackoverflow.com/a/22747272/680742, the browser with
+// the lowest limit is Chrome, with 0x10000 args.
+// We go 1 magnitude less, for safety
+var MAX_ARGUMENTS_LENGTH = 0x1000
+
+function decodeCodePointsArray (codePoints) {
+  var len = codePoints.length
+  if (len <= MAX_ARGUMENTS_LENGTH) {
+    return String.fromCharCode.apply(String, codePoints) // avoid extra slice()
+  }
+
+  // Decode in chunks to avoid "call stack size exceeded".
+  var res = ''
+  var i = 0
+  while (i < len) {
+    res += String.fromCharCode.apply(
+      String,
+      codePoints.slice(i, i += MAX_ARGUMENTS_LENGTH)
+    )
+  }
+  return res
+}
+
+function asciiSlice (buf, start, end) {
+  var ret = ''
+  end = Math.min(buf.length, end)
+
+  for (var i = start; i < end; i++) {
+    ret += String.fromCharCode(buf[i] & 0x7F)
+  }
+  return ret
+}
+
+function binarySlice (buf, start, end) {
+  var ret = ''
+  end = Math.min(buf.length, end)
+
+  for (var i = start; i < end; i++) {
+    ret += String.fromCharCode(buf[i])
+  }
+  return ret
+}
+
+function hexSlice (buf, start, end) {
+  var len = buf.length
+
+  if (!start || start < 0) start = 0
+  if (!end || end < 0 || end > len) end = len
+
+  var out = ''
+  for (var i = start; i < end; i++) {
+    out += toHex(buf[i])
+  }
+  return out
+}
+
+function utf16leSlice (buf, start, end) {
+  var bytes = buf.slice(start, end)
+  var res = ''
+  for (var i = 0; i < bytes.length; i += 2) {
+    res += String.fromCharCode(bytes[i] + bytes[i + 1] * 256)
+  }
+  return res
+}
+
+Buffer.prototype.slice = function slice (start, end) {
+  var len = this.length
+  start = ~~start
+  end = end === undefined ? len : ~~end
+
+  if (start < 0) {
+    start += len
+    if (start < 0) start = 0
+  } else if (start > len) {
+    start = len
+  }
+
+  if (end < 0) {
+    end += len
+    if (end < 0) end = 0
+  } else if (end > len) {
+    end = len
+  }
+
+  if (end < start) end = start
+
+  var newBuf
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    newBuf = Buffer._augment(this.subarray(start, end))
+  } else {
+    var sliceLen = end - start
+    newBuf = new Buffer(sliceLen, undefined)
+    for (var i = 0; i < sliceLen; i++) {
+      newBuf[i] = this[i + start]
+    }
+  }
+
+  if (newBuf.length) newBuf.parent = this.parent || this
+
+  return newBuf
+}
+
+/*
+ * Need to make sure that buffer isn't trying to write out of bounds.
+ */
+function checkOffset (offset, ext, length) {
+  if ((offset % 1) !== 0 || offset < 0) throw new RangeError('offset is not uint')
+  if (offset + ext > length) throw new RangeError('Trying to access beyond buffer length')
+}
+
+Buffer.prototype.readUIntLE = function readUIntLE (offset, byteLength, noAssert) {
+  offset = offset | 0
+  byteLength = byteLength | 0
+  if (!noAssert) checkOffset(offset, byteLength, this.length)
+
+  var val = this[offset]
+  var mul = 1
+  var i = 0
+  while (++i < byteLength && (mul *= 0x100)) {
+    val += this[offset + i] * mul
+  }
+
+  return val
+}
+
+Buffer.prototype.readUIntBE = function readUIntBE (offset, byteLength, noAssert) {
+  offset = offset | 0
+  byteLength = byteLength | 0
+  if (!noAssert) {
+    checkOffset(offset, byteLength, this.length)
+  }
+
+  var val = this[offset + --byteLength]
+  var mul = 1
+  while (byteLength > 0 && (mul *= 0x100)) {
+    val += this[offset + --byteLength] * mul
+  }
+
+  return val
+}
+
+Buffer.prototype.readUInt8 = function readUInt8 (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 1, this.length)
+  return this[offset]
+}
+
+Buffer.prototype.readUInt16LE = function readUInt16LE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 2, this.length)
+  return this[offset] | (this[offset + 1] << 8)
+}
+
+Buffer.prototype.readUInt16BE = function readUInt16BE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 2, this.length)
+  return (this[offset] << 8) | this[offset + 1]
+}
+
+Buffer.prototype.readUInt32LE = function readUInt32LE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length)
+
+  return ((this[offset]) |
+      (this[offset + 1] << 8) |
+      (this[offset + 2] << 16)) +
+      (this[offset + 3] * 0x1000000)
+}
+
+Buffer.prototype.readUInt32BE = function readUInt32BE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length)
+
+  return (this[offset] * 0x1000000) +
+    ((this[offset + 1] << 16) |
+    (this[offset + 2] << 8) |
+    this[offset + 3])
+}
+
+Buffer.prototype.readIntLE = function readIntLE (offset, byteLength, noAssert) {
+  offset = offset | 0
+  byteLength = byteLength | 0
+  if (!noAssert) checkOffset(offset, byteLength, this.length)
+
+  var val = this[offset]
+  var mul = 1
+  var i = 0
+  while (++i < byteLength && (mul *= 0x100)) {
+    val += this[offset + i] * mul
+  }
+  mul *= 0x80
+
+  if (val >= mul) val -= Math.pow(2, 8 * byteLength)
+
+  return val
+}
+
+Buffer.prototype.readIntBE = function readIntBE (offset, byteLength, noAssert) {
+  offset = offset | 0
+  byteLength = byteLength | 0
+  if (!noAssert) checkOffset(offset, byteLength, this.length)
+
+  var i = byteLength
+  var mul = 1
+  var val = this[offset + --i]
+  while (i > 0 && (mul *= 0x100)) {
+    val += this[offset + --i] * mul
+  }
+  mul *= 0x80
+
+  if (val >= mul) val -= Math.pow(2, 8 * byteLength)
+
+  return val
+}
+
+Buffer.prototype.readInt8 = function readInt8 (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 1, this.length)
+  if (!(this[offset] & 0x80)) return (this[offset])
+  return ((0xff - this[offset] + 1) * -1)
+}
+
+Buffer.prototype.readInt16LE = function readInt16LE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 2, this.length)
+  var val = this[offset] | (this[offset + 1] << 8)
+  return (val & 0x8000) ? val | 0xFFFF0000 : val
+}
+
+Buffer.prototype.readInt16BE = function readInt16BE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 2, this.length)
+  var val = this[offset + 1] | (this[offset] << 8)
+  return (val & 0x8000) ? val | 0xFFFF0000 : val
+}
+
+Buffer.prototype.readInt32LE = function readInt32LE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length)
+
+  return (this[offset]) |
+    (this[offset + 1] << 8) |
+    (this[offset + 2] << 16) |
+    (this[offset + 3] << 24)
+}
+
+Buffer.prototype.readInt32BE = function readInt32BE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length)
+
+  return (this[offset] << 24) |
+    (this[offset + 1] << 16) |
+    (this[offset + 2] << 8) |
+    (this[offset + 3])
+}
+
+Buffer.prototype.readFloatLE = function readFloatLE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length)
+  return ieee754.read(this, offset, true, 23, 4)
+}
+
+Buffer.prototype.readFloatBE = function readFloatBE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 4, this.length)
+  return ieee754.read(this, offset, false, 23, 4)
+}
+
+Buffer.prototype.readDoubleLE = function readDoubleLE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 8, this.length)
+  return ieee754.read(this, offset, true, 52, 8)
+}
+
+Buffer.prototype.readDoubleBE = function readDoubleBE (offset, noAssert) {
+  if (!noAssert) checkOffset(offset, 8, this.length)
+  return ieee754.read(this, offset, false, 52, 8)
+}
+
+function checkInt (buf, value, offset, ext, max, min) {
+  if (!Buffer.isBuffer(buf)) throw new TypeError('buffer must be a Buffer instance')
+  if (value > max || value < min) throw new RangeError('value is out of bounds')
+  if (offset + ext > buf.length) throw new RangeError('index out of range')
+}
+
+Buffer.prototype.writeUIntLE = function writeUIntLE (value, offset, byteLength, noAssert) {
+  value = +value
+  offset = offset | 0
+  byteLength = byteLength | 0
+  if (!noAssert) checkInt(this, value, offset, byteLength, Math.pow(2, 8 * byteLength), 0)
+
+  var mul = 1
+  var i = 0
+  this[offset] = value & 0xFF
+  while (++i < byteLength && (mul *= 0x100)) {
+    this[offset + i] = (value / mul) & 0xFF
+  }
+
+  return offset + byteLength
+}
+
+Buffer.prototype.writeUIntBE = function writeUIntBE (value, offset, byteLength, noAssert) {
+  value = +value
+  offset = offset | 0
+  byteLength = byteLength | 0
+  if (!noAssert) checkInt(this, value, offset, byteLength, Math.pow(2, 8 * byteLength), 0)
+
+  var i = byteLength - 1
+  var mul = 1
+  this[offset + i] = value & 0xFF
+  while (--i >= 0 && (mul *= 0x100)) {
+    this[offset + i] = (value / mul) & 0xFF
+  }
+
+  return offset + byteLength
+}
+
+Buffer.prototype.writeUInt8 = function writeUInt8 (value, offset, noAssert) {
+  value = +value
+  offset = offset | 0
+  if (!noAssert) checkInt(this, value, offset, 1, 0xff, 0)
+  if (!Buffer.TYPED_ARRAY_SUPPORT) value = Math.floor(value)
+  this[offset] = value
+  return offset + 1
+}
+
+function objectWriteUInt16 (buf, value, offset, littleEndian) {
+  if (value < 0) value = 0xffff + value + 1
+  for (var i = 0, j = Math.min(buf.length - offset, 2); i < j; i++) {
+    buf[offset + i] = (value & (0xff << (8 * (littleEndian ? i : 1 - i)))) >>>
+      (littleEndian ? i : 1 - i) * 8
+  }
+}
+
+Buffer.prototype.writeUInt16LE = function writeUInt16LE (value, offset, noAssert) {
+  value = +value
+  offset = offset | 0
+  if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0)
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = value
+    this[offset + 1] = (value >>> 8)
+  } else {
+    objectWriteUInt16(this, value, offset, true)
+  }
+  return offset + 2
+}
+
+Buffer.prototype.writeUInt16BE = function writeUInt16BE (value, offset, noAssert) {
+  value = +value
+  offset = offset | 0
+  if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0)
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value >>> 8)
+    this[offset + 1] = value
+  } else {
+    objectWriteUInt16(this, value, offset, false)
+  }
+  return offset + 2
+}
+
+function objectWriteUInt32 (buf, value, offset, littleEndian) {
+  if (value < 0) value = 0xffffffff + value + 1
+  for (var i = 0, j = Math.min(buf.length - offset, 4); i < j; i++) {
+    buf[offset + i] = (value >>> (littleEndian ? i : 3 - i) * 8) & 0xff
+  }
+}
+
+Buffer.prototype.writeUInt32LE = function writeUInt32LE (value, offset, noAssert) {
+  value = +value
+  offset = offset | 0
+  if (!noAssert) checkInt(this, value, offset, 4, 0xffffffff, 0)
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset + 3] = (value >>> 24)
+    this[offset + 2] = (value >>> 16)
+    this[offset + 1] = (value >>> 8)
+    this[offset] = value
+  } else {
+    objectWriteUInt32(this, value, offset, true)
+  }
+  return offset + 4
+}
+
+Buffer.prototype.writeUInt32BE = function writeUInt32BE (value, offset, noAssert) {
+  value = +value
+  offset = offset | 0
+  if (!noAssert) checkInt(this, value, offset, 4, 0xffffffff, 0)
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value >>> 24)
+    this[offset + 1] = (value >>> 16)
+    this[offset + 2] = (value >>> 8)
+    this[offset + 3] = value
+  } else {
+    objectWriteUInt32(this, value, offset, false)
+  }
+  return offset + 4
+}
+
+Buffer.prototype.writeIntLE = function writeIntLE (value, offset, byteLength, noAssert) {
+  value = +value
+  offset = offset | 0
+  if (!noAssert) {
+    var limit = Math.pow(2, 8 * byteLength - 1)
+
+    checkInt(this, value, offset, byteLength, limit - 1, -limit)
+  }
+
+  var i = 0
+  var mul = 1
+  var sub = value < 0 ? 1 : 0
+  this[offset] = value & 0xFF
+  while (++i < byteLength && (mul *= 0x100)) {
+    this[offset + i] = ((value / mul) >> 0) - sub & 0xFF
+  }
+
+  return offset + byteLength
+}
+
+Buffer.prototype.writeIntBE = function writeIntBE (value, offset, byteLength, noAssert) {
+  value = +value
+  offset = offset | 0
+  if (!noAssert) {
+    var limit = Math.pow(2, 8 * byteLength - 1)
+
+    checkInt(this, value, offset, byteLength, limit - 1, -limit)
+  }
+
+  var i = byteLength - 1
+  var mul = 1
+  var sub = value < 0 ? 1 : 0
+  this[offset + i] = value & 0xFF
+  while (--i >= 0 && (mul *= 0x100)) {
+    this[offset + i] = ((value / mul) >> 0) - sub & 0xFF
+  }
+
+  return offset + byteLength
+}
+
+Buffer.prototype.writeInt8 = function writeInt8 (value, offset, noAssert) {
+  value = +value
+  offset = offset | 0
+  if (!noAssert) checkInt(this, value, offset, 1, 0x7f, -0x80)
+  if (!Buffer.TYPED_ARRAY_SUPPORT) value = Math.floor(value)
+  if (value < 0) value = 0xff + value + 1
+  this[offset] = value
+  return offset + 1
+}
+
+Buffer.prototype.writeInt16LE = function writeInt16LE (value, offset, noAssert) {
+  value = +value
+  offset = offset | 0
+  if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -0x8000)
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = value
+    this[offset + 1] = (value >>> 8)
+  } else {
+    objectWriteUInt16(this, value, offset, true)
+  }
+  return offset + 2
+}
+
+Buffer.prototype.writeInt16BE = function writeInt16BE (value, offset, noAssert) {
+  value = +value
+  offset = offset | 0
+  if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -0x8000)
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value >>> 8)
+    this[offset + 1] = value
+  } else {
+    objectWriteUInt16(this, value, offset, false)
+  }
+  return offset + 2
+}
+
+Buffer.prototype.writeInt32LE = function writeInt32LE (value, offset, noAssert) {
+  value = +value
+  offset = offset | 0
+  if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000)
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = value
+    this[offset + 1] = (value >>> 8)
+    this[offset + 2] = (value >>> 16)
+    this[offset + 3] = (value >>> 24)
+  } else {
+    objectWriteUInt32(this, value, offset, true)
+  }
+  return offset + 4
+}
+
+Buffer.prototype.writeInt32BE = function writeInt32BE (value, offset, noAssert) {
+  value = +value
+  offset = offset | 0
+  if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000)
+  if (value < 0) value = 0xffffffff + value + 1
+  if (Buffer.TYPED_ARRAY_SUPPORT) {
+    this[offset] = (value >>> 24)
+    this[offset + 1] = (value >>> 16)
+    this[offset + 2] = (value >>> 8)
+    this[offset + 3] = value
+  } else {
+    objectWriteUInt32(this, value, offset, false)
+  }
+  return offset + 4
+}
+
+function checkIEEE754 (buf, value, offset, ext, max, min) {
+  if (value > max || value < min) throw new RangeError('value is out of bounds')
+  if (offset + ext > buf.length) throw new RangeError('index out of range')
+  if (offset < 0) throw new RangeError('index out of range')
+}
+
+function writeFloat (buf, value, offset, littleEndian, noAssert) {
+  if (!noAssert) {
+    checkIEEE754(buf, value, offset, 4, 3.4028234663852886e+38, -3.4028234663852886e+38)
+  }
+  ieee754.write(buf, value, offset, littleEndian, 23, 4)
+  return offset + 4
+}
+
+Buffer.prototype.writeFloatLE = function writeFloatLE (value, offset, noAssert) {
+  return writeFloat(this, value, offset, true, noAssert)
+}
+
+Buffer.prototype.writeFloatBE = function writeFloatBE (value, offset, noAssert) {
+  return writeFloat(this, value, offset, false, noAssert)
+}
+
+function writeDouble (buf, value, offset, littleEndian, noAssert) {
+  if (!noAssert) {
+    checkIEEE754(buf, value, offset, 8, 1.7976931348623157E+308, -1.7976931348623157E+308)
+  }
+  ieee754.write(buf, value, offset, littleEndian, 52, 8)
+  return offset + 8
+}
+
+Buffer.prototype.writeDoubleLE = function writeDoubleLE (value, offset, noAssert) {
+  return writeDouble(this, value, offset, true, noAssert)
+}
+
+Buffer.prototype.writeDoubleBE = function writeDoubleBE (value, offset, noAssert) {
+  return writeDouble(this, value, offset, false, noAssert)
+}
+
+// copy(targetBuffer, targetStart=0, sourceStart=0, sourceEnd=buffer.length)
+Buffer.prototype.copy = function copy (target, targetStart, start, end) {
+  if (!start) start = 0
+  if (!end && end !== 0) end = this.length
+  if (targetStart >= target.length) targetStart = target.length
+  if (!targetStart) targetStart = 0
+  if (end > 0 && end < start) end = start
+
+  // Copy 0 bytes; we're done
+  if (end === start) return 0
+  if (target.length === 0 || this.length === 0) return 0
+
+  // Fatal error conditions
+  if (targetStart < 0) {
+    throw new RangeError('targetStart out of bounds')
+  }
+  if (start < 0 || start >= this.length) throw new RangeError('sourceStart out of bounds')
+  if (end < 0) throw new RangeError('sourceEnd out of bounds')
+
+  // Are we oob?
+  if (end > this.length) end = this.length
+  if (target.length - targetStart < end - start) {
+    end = target.length - targetStart + start
+  }
+
+  var len = end - start
+  var i
+
+  if (this === target && start < targetStart && targetStart < end) {
+    // descending copy from end
+    for (i = len - 1; i >= 0; i--) {
+      target[i + targetStart] = this[i + start]
+    }
+  } else if (len < 1000 || !Buffer.TYPED_ARRAY_SUPPORT) {
+    // ascending copy from start
+    for (i = 0; i < len; i++) {
+      target[i + targetStart] = this[i + start]
+    }
+  } else {
+    target._set(this.subarray(start, start + len), targetStart)
+  }
+
+  return len
+}
+
+// fill(value, start=0, end=buffer.length)
+Buffer.prototype.fill = function fill (value, start, end) {
+  if (!value) value = 0
+  if (!start) start = 0
+  if (!end) end = this.length
+
+  if (end < start) throw new RangeError('end < start')
+
+  // Fill 0 bytes; we're done
+  if (end === start) return
+  if (this.length === 0) return
+
+  if (start < 0 || start >= this.length) throw new RangeError('start out of bounds')
+  if (end < 0 || end > this.length) throw new RangeError('end out of bounds')
+
+  var i
+  if (typeof value === 'number') {
+    for (i = start; i < end; i++) {
+      this[i] = value
+    }
+  } else {
+    var bytes = utf8ToBytes(value.toString())
+    var len = bytes.length
+    for (i = start; i < end; i++) {
+      this[i] = bytes[i % len]
+    }
+  }
+
+  return this
+}
+
+/**
+ * Creates a new `ArrayBuffer` with the *copied* memory of the buffer instance.
+ * Added in Node 0.12. Only available in browsers that support ArrayBuffer.
+ */
+Buffer.prototype.toArrayBuffer = function toArrayBuffer () {
+  if (typeof Uint8Array !== 'undefined') {
+    if (Buffer.TYPED_ARRAY_SUPPORT) {
+      return (new Buffer(this)).buffer
+    } else {
+      var buf = new Uint8Array(this.length)
+      for (var i = 0, len = buf.length; i < len; i += 1) {
+        buf[i] = this[i]
+      }
+      return buf.buffer
+    }
+  } else {
+    throw new TypeError('Buffer.toArrayBuffer not supported in this browser')
+  }
+}
+
+// HELPER FUNCTIONS
+// ================
+
+var BP = Buffer.prototype
+
+/**
+ * Augment a Uint8Array *instance* (not the Uint8Array class!) with Buffer methods
+ */
+Buffer._augment = function _augment (arr) {
+  arr.constructor = Buffer
+  arr._isBuffer = true
+
+  // save reference to original Uint8Array set method before overwriting
+  arr._set = arr.set
+
+  // deprecated
+  arr.get = BP.get
+  arr.set = BP.set
+
+  arr.write = BP.write
+  arr.toString = BP.toString
+  arr.toLocaleString = BP.toString
+  arr.toJSON = BP.toJSON
+  arr.equals = BP.equals
+  arr.compare = BP.compare
+  arr.indexOf = BP.indexOf
+  arr.copy = BP.copy
+  arr.slice = BP.slice
+  arr.readUIntLE = BP.readUIntLE
+  arr.readUIntBE = BP.readUIntBE
+  arr.readUInt8 = BP.readUInt8
+  arr.readUInt16LE = BP.readUInt16LE
+  arr.readUInt16BE = BP.readUInt16BE
+  arr.readUInt32LE = BP.readUInt32LE
+  arr.readUInt32BE = BP.readUInt32BE
+  arr.readIntLE = BP.readIntLE
+  arr.readIntBE = BP.readIntBE
+  arr.readInt8 = BP.readInt8
+  arr.readInt16LE = BP.readInt16LE
+  arr.readInt16BE = BP.readInt16BE
+  arr.readInt32LE = BP.readInt32LE
+  arr.readInt32BE = BP.readInt32BE
+  arr.readFloatLE = BP.readFloatLE
+  arr.readFloatBE = BP.readFloatBE
+  arr.readDoubleLE = BP.readDoubleLE
+  arr.readDoubleBE = BP.readDoubleBE
+  arr.writeUInt8 = BP.writeUInt8
+  arr.writeUIntLE = BP.writeUIntLE
+  arr.writeUIntBE = BP.writeUIntBE
+  arr.writeUInt16LE = BP.writeUInt16LE
+  arr.writeUInt16BE = BP.writeUInt16BE
+  arr.writeUInt32LE = BP.writeUInt32LE
+  arr.writeUInt32BE = BP.writeUInt32BE
+  arr.writeIntLE = BP.writeIntLE
+  arr.writeIntBE = BP.writeIntBE
+  arr.writeInt8 = BP.writeInt8
+  arr.writeInt16LE = BP.writeInt16LE
+  arr.writeInt16BE = BP.writeInt16BE
+  arr.writeInt32LE = BP.writeInt32LE
+  arr.writeInt32BE = BP.writeInt32BE
+  arr.writeFloatLE = BP.writeFloatLE
+  arr.writeFloatBE = BP.writeFloatBE
+  arr.writeDoubleLE = BP.writeDoubleLE
+  arr.writeDoubleBE = BP.writeDoubleBE
+  arr.fill = BP.fill
+  arr.inspect = BP.inspect
+  arr.toArrayBuffer = BP.toArrayBuffer
+
+  return arr
+}
+
+var INVALID_BASE64_RE = /[^+\/0-9A-Za-z-_]/g
+
+function base64clean (str) {
+  // Node strips out invalid characters like \n and \t from the string, base64-js does not
+  str = stringtrim(str).replace(INVALID_BASE64_RE, '')
+  // Node converts strings with length < 2 to ''
+  if (str.length < 2) return ''
+  // Node allows for non-padded base64 strings (missing trailing ===), base64-js does not
+  while (str.length % 4 !== 0) {
+    str = str + '='
+  }
+  return str
+}
+
+function stringtrim (str) {
+  if (str.trim) return str.trim()
+  return str.replace(/^\s+|\s+$/g, '')
+}
+
+function toHex (n) {
+  if (n < 16) return '0' + n.toString(16)
+  return n.toString(16)
+}
+
+function utf8ToBytes (string, units) {
+  units = units || Infinity
+  var codePoint
+  var length = string.length
+  var leadSurrogate = null
+  var bytes = []
+
+  for (var i = 0; i < length; i++) {
+    codePoint = string.charCodeAt(i)
+
+    // is surrogate component
+    if (codePoint > 0xD7FF && codePoint < 0xE000) {
+      // last char was a lead
+      if (!leadSurrogate) {
+        // no lead yet
+        if (codePoint > 0xDBFF) {
+          // unexpected trail
+          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
+          continue
+        } else if (i + 1 === length) {
+          // unpaired lead
+          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
+          continue
+        }
+
+        // valid lead
+        leadSurrogate = codePoint
+
+        continue
+      }
+
+      // 2 leads in a row
+      if (codePoint < 0xDC00) {
+        if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
+        leadSurrogate = codePoint
+        continue
+      }
+
+      // valid surrogate pair
+      codePoint = leadSurrogate - 0xD800 << 10 | codePoint - 0xDC00 | 0x10000
+    } else if (leadSurrogate) {
+      // valid bmp char, but last char was a lead
+      if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
+    }
+
+    leadSurrogate = null
+
+    // encode utf8
+    if (codePoint < 0x80) {
+      if ((units -= 1) < 0) break
+      bytes.push(codePoint)
+    } else if (codePoint < 0x800) {
+      if ((units -= 2) < 0) break
+      bytes.push(
+        codePoint >> 0x6 | 0xC0,
+        codePoint & 0x3F | 0x80
+      )
+    } else if (codePoint < 0x10000) {
+      if ((units -= 3) < 0) break
+      bytes.push(
+        codePoint >> 0xC | 0xE0,
+        codePoint >> 0x6 & 0x3F | 0x80,
+        codePoint & 0x3F | 0x80
+      )
+    } else if (codePoint < 0x110000) {
+      if ((units -= 4) < 0) break
+      bytes.push(
+        codePoint >> 0x12 | 0xF0,
+        codePoint >> 0xC & 0x3F | 0x80,
+        codePoint >> 0x6 & 0x3F | 0x80,
+        codePoint & 0x3F | 0x80
+      )
+    } else {
+      throw new Error('Invalid code point')
+    }
+  }
+
+  return bytes
+}
+
+function asciiToBytes (str) {
+  var byteArray = []
+  for (var i = 0; i < str.length; i++) {
+    // Node's code seems to be doing this and not & 0x7F..
+    byteArray.push(str.charCodeAt(i) & 0xFF)
+  }
+  return byteArray
+}
+
+function utf16leToBytes (str, units) {
+  var c, hi, lo
+  var byteArray = []
+  for (var i = 0; i < str.length; i++) {
+    if ((units -= 2) < 0) break
+
+    c = str.charCodeAt(i)
+    hi = c >> 8
+    lo = c % 256
+    byteArray.push(lo)
+    byteArray.push(hi)
+  }
+
+  return byteArray
+}
+
+function base64ToBytes (str) {
+  return base64.toByteArray(base64clean(str))
+}
+
+function blitBuffer (src, dst, offset, length) {
+  for (var i = 0; i < length; i++) {
+    if ((i + offset >= dst.length) || (i >= src.length)) break
+    dst[i + offset] = src[i]
+  }
+  return i
+}
+
+},{"base64-js":2,"ieee754":3,"is-array":4}],2:[function(_dereq_,module,exports){
+var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+
+;(function (exports) {
+	'use strict';
+
+  var Arr = (typeof Uint8Array !== 'undefined')
+    ? Uint8Array
+    : Array
+
+	var PLUS   = '+'.charCodeAt(0)
+	var SLASH  = '/'.charCodeAt(0)
+	var NUMBER = '0'.charCodeAt(0)
+	var LOWER  = 'a'.charCodeAt(0)
+	var UPPER  = 'A'.charCodeAt(0)
+	var PLUS_URL_SAFE = '-'.charCodeAt(0)
+	var SLASH_URL_SAFE = '_'.charCodeAt(0)
+
+	function decode (elt) {
+		var code = elt.charCodeAt(0)
+		if (code === PLUS ||
+		    code === PLUS_URL_SAFE)
+			return 62 // '+'
+		if (code === SLASH ||
+		    code === SLASH_URL_SAFE)
+			return 63 // '/'
+		if (code < NUMBER)
+			return -1 //no match
+		if (code < NUMBER + 10)
+			return code - NUMBER + 26 + 26
+		if (code < UPPER + 26)
+			return code - UPPER
+		if (code < LOWER + 26)
+			return code - LOWER + 26
+	}
+
+	function b64ToByteArray (b64) {
+		var i, j, l, tmp, placeHolders, arr
+
+		if (b64.length % 4 > 0) {
+			throw new Error('Invalid string. Length must be a multiple of 4')
+		}
+
+		// the number of equal signs (place holders)
+		// if there are two placeholders, than the two characters before it
+		// represent one byte
+		// if there is only one, then the three characters before it represent 2 bytes
+		// this is just a cheap hack to not do indexOf twice
+		var len = b64.length
+		placeHolders = '=' === b64.charAt(len - 2) ? 2 : '=' === b64.charAt(len - 1) ? 1 : 0
+
+		// base64 is 4/3 + up to two characters of the original data
+		arr = new Arr(b64.length * 3 / 4 - placeHolders)
+
+		// if there are placeholders, only get up to the last complete 4 chars
+		l = placeHolders > 0 ? b64.length - 4 : b64.length
+
+		var L = 0
+
+		function push (v) {
+			arr[L++] = v
+		}
+
+		for (i = 0, j = 0; i < l; i += 4, j += 3) {
+			tmp = (decode(b64.charAt(i)) << 18) | (decode(b64.charAt(i + 1)) << 12) | (decode(b64.charAt(i + 2)) << 6) | decode(b64.charAt(i + 3))
+			push((tmp & 0xFF0000) >> 16)
+			push((tmp & 0xFF00) >> 8)
+			push(tmp & 0xFF)
+		}
+
+		if (placeHolders === 2) {
+			tmp = (decode(b64.charAt(i)) << 2) | (decode(b64.charAt(i + 1)) >> 4)
+			push(tmp & 0xFF)
+		} else if (placeHolders === 1) {
+			tmp = (decode(b64.charAt(i)) << 10) | (decode(b64.charAt(i + 1)) << 4) | (decode(b64.charAt(i + 2)) >> 2)
+			push((tmp >> 8) & 0xFF)
+			push(tmp & 0xFF)
+		}
+
+		return arr
+	}
+
+	function uint8ToBase64 (uint8) {
+		var i,
+			extraBytes = uint8.length % 3, // if we have 1 byte left, pad 2 bytes
+			output = "",
+			temp, length
+
+		function encode (num) {
+			return lookup.charAt(num)
+		}
+
+		function tripletToBase64 (num) {
+			return encode(num >> 18 & 0x3F) + encode(num >> 12 & 0x3F) + encode(num >> 6 & 0x3F) + encode(num & 0x3F)
+		}
+
+		// go through the array every three bytes, we'll deal with trailing stuff later
+		for (i = 0, length = uint8.length - extraBytes; i < length; i += 3) {
+			temp = (uint8[i] << 16) + (uint8[i + 1] << 8) + (uint8[i + 2])
+			output += tripletToBase64(temp)
+		}
+
+		// pad the end with zeros, but make sure to not forget the extra bytes
+		switch (extraBytes) {
+			case 1:
+				temp = uint8[uint8.length - 1]
+				output += encode(temp >> 2)
+				output += encode((temp << 4) & 0x3F)
+				output += '=='
+				break
+			case 2:
+				temp = (uint8[uint8.length - 2] << 8) + (uint8[uint8.length - 1])
+				output += encode(temp >> 10)
+				output += encode((temp >> 4) & 0x3F)
+				output += encode((temp << 2) & 0x3F)
+				output += '='
+				break
+		}
+
+		return output
+	}
+
+	exports.toByteArray = b64ToByteArray
+	exports.fromByteArray = uint8ToBase64
+}(typeof exports === 'undefined' ? (this.base64js = {}) : exports))
+
+},{}],3:[function(_dereq_,module,exports){
+exports.read = function (buffer, offset, isLE, mLen, nBytes) {
+  var e, m
+  var eLen = nBytes * 8 - mLen - 1
+  var eMax = (1 << eLen) - 1
+  var eBias = eMax >> 1
+  var nBits = -7
+  var i = isLE ? (nBytes - 1) : 0
+  var d = isLE ? -1 : 1
+  var s = buffer[offset + i]
+
+  i += d
+
+  e = s & ((1 << (-nBits)) - 1)
+  s >>= (-nBits)
+  nBits += eLen
+  for (; nBits > 0; e = e * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+
+  m = e & ((1 << (-nBits)) - 1)
+  e >>= (-nBits)
+  nBits += mLen
+  for (; nBits > 0; m = m * 256 + buffer[offset + i], i += d, nBits -= 8) {}
+
+  if (e === 0) {
+    e = 1 - eBias
+  } else if (e === eMax) {
+    return m ? NaN : ((s ? -1 : 1) * Infinity)
+  } else {
+    m = m + Math.pow(2, mLen)
+    e = e - eBias
+  }
+  return (s ? -1 : 1) * m * Math.pow(2, e - mLen)
+}
+
+exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
+  var e, m, c
+  var eLen = nBytes * 8 - mLen - 1
+  var eMax = (1 << eLen) - 1
+  var eBias = eMax >> 1
+  var rt = (mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0)
+  var i = isLE ? 0 : (nBytes - 1)
+  var d = isLE ? 1 : -1
+  var s = value < 0 || (value === 0 && 1 / value < 0) ? 1 : 0
+
+  value = Math.abs(value)
+
+  if (isNaN(value) || value === Infinity) {
+    m = isNaN(value) ? 1 : 0
+    e = eMax
+  } else {
+    e = Math.floor(Math.log(value) / Math.LN2)
+    if (value * (c = Math.pow(2, -e)) < 1) {
+      e--
+      c *= 2
+    }
+    if (e + eBias >= 1) {
+      value += rt / c
+    } else {
+      value += rt * Math.pow(2, 1 - eBias)
+    }
+    if (value * c >= 2) {
+      e++
+      c /= 2
+    }
+
+    if (e + eBias >= eMax) {
+      m = 0
+      e = eMax
+    } else if (e + eBias >= 1) {
+      m = (value * c - 1) * Math.pow(2, mLen)
+      e = e + eBias
+    } else {
+      m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen)
+      e = 0
+    }
+  }
+
+  for (; mLen >= 8; buffer[offset + i] = m & 0xff, i += d, m /= 256, mLen -= 8) {}
+
+  e = (e << mLen) | m
+  eLen += mLen
+  for (; eLen > 0; buffer[offset + i] = e & 0xff, i += d, e /= 256, eLen -= 8) {}
+
+  buffer[offset + i - d] |= s * 128
+}
+
+},{}],4:[function(_dereq_,module,exports){
+
+/**
+ * isArray
+ */
+
+var isArray = Array.isArray;
+
+/**
+ * toString
+ */
+
+var str = Object.prototype.toString;
+
+/**
+ * Whether or not the given `val`
+ * is an array.
+ *
+ * example:
+ *
+ *        isArray([]);
+ *        // > true
+ *        isArray(arguments);
+ *        // > false
+ *        isArray('');
+ *        // > false
+ *
+ * @param {mixed} val
+ * @return {bool}
+ */
+
+module.exports = isArray || function (val) {
+  return !! val && '[object Array]' == str.call(val);
+};
+
+},{}],5:[function(_dereq_,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -90,7 +1872,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],2:[function(require,module,exports){
+},{}],6:[function(_dereq_,module,exports){
 (function (global){
 /*! https://mths.be/punycode v1.3.2 by @mathias */
 ;(function(root) {
@@ -624,7 +2406,7 @@ process.umask = function() { return 0; };
 }(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],3:[function(require,module,exports){
+},{}],7:[function(_dereq_,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -710,7 +2492,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],4:[function(require,module,exports){
+},{}],8:[function(_dereq_,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -797,13 +2579,13 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],5:[function(require,module,exports){
+},{}],9:[function(_dereq_,module,exports){
 'use strict';
 
-exports.decode = exports.parse = require('./decode');
-exports.encode = exports.stringify = require('./encode');
+exports.decode = exports.parse = _dereq_('./decode');
+exports.encode = exports.stringify = _dereq_('./encode');
 
-},{"./decode":3,"./encode":4}],6:[function(require,module,exports){
+},{"./decode":7,"./encode":8}],10:[function(_dereq_,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -825,7 +2607,7 @@ exports.encode = exports.stringify = require('./encode');
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-var punycode = require('punycode');
+var punycode = _dereq_('punycode');
 
 exports.parse = urlParse;
 exports.resolve = urlResolve;
@@ -897,7 +2679,7 @@ var protocolPattern = /^([a-z0-9.+-]+:)/i,
       'gopher:': true,
       'file:': true
     },
-    querystring = require('querystring');
+    querystring = _dereq_('querystring');
 
 function urlParse(url, parseQueryString, slashesDenoteHost) {
   if (url && isObject(url) && url instanceof Url) return url;
@@ -1512,39 +3294,40 @@ function isNullOrUndefined(arg) {
   return  arg == null;
 }
 
-},{"punycode":2,"querystring":5}],7:[function(require,module,exports){
-(function (global){
+},{"punycode":6,"querystring":9}],11:[function(_dereq_,module,exports){
+(function (global,Buffer){
 /*jslint browser: true, devel: true, node: true, ass: true, nomen: true, unparam: true, indent: 4 */
 
 (function (global, browser) {
     "use strict";
 
     // Vars
-    var AbstractError, AlreadyDefinedError, AlreadyUsedError, ArgumentError, Class, CustomError, Deferred, DeniedError, InvalidError, NotFoundError, Promise, RejectedError, RequiredError, UnavailableError, UndefinedError, ValidationError, addAttribute, addAttributes, addClass, after, alignElement, and, append, appendChild, apply, ary, assert, assertArgument, assertOption, assign, at, attempt, before, call, camelCase, camelCaseRegex, capitalize, capitalizeRegex, chunk, clean, clone, cloneDeep, compact, concat, countBy, createElement, createElementNS, debounce, deburr, defaults, defineProperties, defineProperty, delay, difference, drop, dropRight, dropRightWhile, dropWhile, endsWith, escape, escapeRegExp, every, fileExtension, fileName, filter, filterElements, find, findDeep, findElement, findElements, findIndex, findKey, findLast, findLastElement, findLastIndex, findLastKey, findNextElement, findNextElements, findParentElement, findPreviousElement, findPreviousElements, findSiblingElement, findSiblingElements, first, fit, fixed, flatten, flattenDeep, flush, forEach, forEachRight, forIn, forInRight, forOwn, forOwnRight, freeze, functions, getAllNext, getAllNextElements, getAllPrevious, getAllPreviousElements, getAllSiblingElements, getAllSiblings, getAttribute, getAttributes, getBoundings, getChildren, getDistributedElement, getDistributedElements, getElement, getElementById, getElements, getHTML, getHeight, getMargin, getNext, getNextElement, getNode, getNodes, getPadding, getParentElement, getPrevious, getPreviousElement, getSiblingElements, getSiblings, getStyle, getStyles, getTag, getText, getValue, getWidth, groupBy, has, hasAttribute, hasChild, hasClass, includes, includesDeep, indexBy, indexOf, initial, intersection, invert, invoke, isAny, isArguments, isArray, isArrayable, isBase62, isBindable, isBoolean, isBrowser, isCamelCase, isCapitalize, isClean, isCollection, isContent, isCustomEvent, isDate, isDefined, isElement, isEmpty, isEnumerable, isEqual, isEquivalent, isError, isEscape, isEscapeRegExp, isEven, isEvent, isExotic, isFalse, isFinite, isFloat, isFunction, isHex, isIndex, isInfinite, isInput, isInstance, isInt, isInvalid, isKebabCase, isKeyCase, isLast, isLastIndex, isLowerCase, isNaN, isNative, isNegative, isNode, isNull, isNullable, isNumber, isNumeric, isObject, isObservable, isOdd, isPlainObject, isPolyfilled, isPositive, isPredicate, isPrevented, isPrimitive, isRegExp, isSelector, isShady, isSnakeCase, isStartCase, isString, isTemplate, isTrue, isUniq, isUpperCase, isUuid, isVoid, isWithin, iterate, kebabCase, kebabCaseRegex, keyCase, keyCaseRegex, keys, keysIn, last, lastIndexOf, listen, localize, lowerCase, lowerCaseRegex, map, mapOne, mapValues, match, matches, max, memoize, merge, min, mock, moveFirst, moveLast, nand, negate, nor, not, omit, onMutation, once, or, overwrite, pad, padLeft, padRight, pairs, parallel, parseBase62, parseHex, parseJSON, parseURL, partition, percentage, pick, pluck, prefix, prependChild, preventDefault, pull, pullAt, push, random, range, ratio, readable, redirect, reduce, reduceRight, reject, remove, removeAttribute, removeAttributes, removeChild, removeClass, removeStyle, removeStyles, renameElement, repeat, replaceNode, requestAnimationFrame, rest, round, sample, seal, setAttribute, setAttributes, setChildren, setHTML, setStyle, setStyles, setText, shrink, shuffle, size, slice, snakeCase, snakeCaseRegex, some, sortBy, split, startCase, startCaseRegex, startsWith, stop, stopPropagation, stretch, strip, suffix, take, takeRight, takeRightWhile, takeWhile, throttle, toArray, toBase62, toBoolean, toDOMIdentity, toDOMPredicate, toElapsedTime, toHex, toIndex, toInfinite, toInput, toInt, toJSON, toNumber, toObject, toPosition, toQueryString, toRegExp, toString, toTemplate, toURL, toUseful, toValue, toggleAttribute, toggleClass, trim, trimLeft, trimRegex, trimRight, trunc, unescape, union, uniq, unlisten, unzip, updateElement, upperCase, upperCaseRegex, uuid, uuidRegex, value, valueIn, values, valuesIn, waterfall, where, willBleedBottom, willBleedHorizontally, willBleedLeft, willBleedRight, willBleedTop, willBleedVertically, withdraw, within, without, words, wrap, xnor, xor, zip, zipObject, 
-        exp     = module.exports,
-        lodash  = require("lodash"),
-        q       = require("q"),
-        url     = require("url"),
-        UUID    = require("uuid");
+    var AbstractError, AlreadyDefinedError, AlreadyUsedError, ArgumentError, Class, CustomError, Deferred, DeniedError, InvalidError, NotFoundError, Promise, RejectedError, RequiredError, UnavailableError, UndefinedError, UnknownError, ValidationError, addAttribute, addAttributes, addClass, after, alignElement, and, append, appendChild, apply, ary, assert, assertArgument, assertOption, assign, at, attempt, before, call, camelCase, camelCaseRegex, capitalize, capitalizeRegex, chunk, clean, clone, cloneDeep, compact, concat, countBy, createElement, createElementNS, debounce, deburr, defaults, defineProperties, defineProperty, delay, difference, drop, dropRight, dropRightWhile, dropWhile, endsWith, escape, escapeRegExp, every, fileExtension, fileName, filter, filterElements, find, findDeep, findElement, findElements, findIndex, findKey, findLast, findLastElement, findLastIndex, findLastKey, findNextElement, findNextElements, findParentElement, findPreviousElement, findPreviousElements, findSiblingElement, findSiblingElements, first, fit, fixed, flatten, flattenDeep, flush, forEach, forEachRight, forIn, forInRight, forOwn, forOwnRight, freeze, functions, getAllNext, getAllNextElements, getAllPrevious, getAllPreviousElements, getAllSiblingElements, getAllSiblings, getAttribute, getAttributes, getBoundings, getChildren, getDistributedElement, getDistributedElements, getElement, getElementById, getElements, getHTML, getHeight, getMargin, getNext, getNextElement, getNode, getNodes, getPadding, getParentElement, getPrevious, getPreviousElement, getSiblingElements, getSiblings, getStyle, getStyles, getTag, getText, getValue, getWidth, groupBy, has, hasAttribute, hasChild, hasClass, includes, includesDeep, indexBy, indexOf, initial, intersection, invert, invoke, isAny, isArguments, isArray, isArrayable, isBase62, isBindable, isBoolean, isBrowser, isBuffer, isCamelCase, isCapitalize, isClean, isCollection, isContent, isCustomEvent, isDate, isDefined, isElement, isEmpty, isEnumerable, isEqual, isEquivalent, isError, isEscape, isEscapeRegExp, isEven, isEvent, isExotic, isFalse, isFinite, isFloat, isFunction, isHex, isIndex, isInfinite, isInput, isInstance, isInt, isInvalid, isKebabCase, isKeyCase, isLast, isLastIndex, isLowerCase, isNaN, isNative, isNegative, isNode, isNull, isNullable, isNumber, isNumeric, isObject, isObservable, isOdd, isPlainObject, isPolyfilled, isPositive, isPredicate, isPrevented, isPrimitive, isRegExp, isSelector, isShady, isSnakeCase, isStartCase, isString, isTemplate, isTrue, isUniq, isUpperCase, isUuid, isVoid, isWithin, iterate, join, kebabCase, kebabCaseRegex, keyCase, keyCaseRegex, keys, keysIn, last, lastIndexOf, listen, localize, lowerCase, lowerCaseRegex, map, mapOne, mapValues, match, matches, max, memoize, merge, min, mock, moveFirst, moveLast, nand, negate, nor, not, omit, onMutation, once, or, overwrite, pad, padLeft, padRight, pairs, parallel, parseBase62, parseHex, parseJSON, parseURL, partition, percentage, pick, pluck, prefix, prependChild, preventDefault, pull, pullAt, push, random, range, ratio, readable, redirect, reduce, reduceRight, reject, remove, removeAttribute, removeAttributes, removeChild, removeClass, removeStyle, removeStyles, renameElement, repeat, replaceNode, requestAnimationFrame, rest, round, sample, seal, setAttribute, setAttributes, setChildren, setHTML, setStyle, setStyles, setText, shrink, shuffle, size, slice, snakeCase, snakeCaseRegex, some, sortBy, split, startCase, startCaseRegex, startsWith, stop, stopPropagation, stretch, strip, suffix, take, takeRight, takeRightWhile, takeWhile, throttle, toArray, toBase62, toBoolean, toDOMIdentity, toDOMPredicate, toElapsedTime, toHex, toIndex, toInfinite, toInput, toInt, toJSON, toNumber, toObject, toPosition, toQueryString, toRegExp, toString, toTemplate, toURL, toUseful, toValue, toggleAttribute, toggleClass, trim, trimLeft, trimRegex, trimRight, trunc, unescape, union, uniq, unlisten, unzip, updateElement, upperCase, upperCaseRegex, uuid, uuidRegex, value, valueIn, values, valuesIn, waterfall, where, willBleedBottom, willBleedHorizontally, willBleedLeft, willBleedRight, willBleedTop, willBleedVertically, withdraw, within, without, words, wrap, xnor, xor, zip, zipObject, 
+        lodash = _dereq_("lodash"),
+        q      = _dereq_("q"),
+        url    = _dereq_("url"),
+        UUID   = _dereq_("uuid"),
+        _      = global._  = global._ || lodash,
+        exp    = global.XP = module.exports;
 
     // ABSTRACTERROR
-    exp.AbstractError = AbstractError = function AbstractError(key) {
-        CustomError.call(this, 'AbstractError', key, 'is abstract and should be implemented first');
+    exp.AbstractError = AbstractError = function AbstractError(key, code) {
+        CustomError.call(this, 'AbstractError', key + ' is abstract and should be implemented first', code);
     };
 
     // ALREADYDEFINEDERROR
-    exp.AlreadyDefinedError = AlreadyDefinedError = function AlreadyDefinedError(key) {
-        CustomError.call(this, 'AlreadyDefinedError', key, 'is already defined');
+    exp.AlreadyDefinedError = AlreadyDefinedError = function AlreadyDefinedError(key, code) {
+        CustomError.call(this, 'AlreadyDefinedError', key + ' is already defined', code);
     };
 
     // ALREADYUSEDERROR
-    exp.AlreadyUsedError = AlreadyUsedError = function AlreadyUsedError(key) {
-        CustomError.call(this, 'AlreadyUsedError', key, 'is already used');
+    exp.AlreadyUsedError = AlreadyUsedError = function AlreadyUsedError(key, code) {
+        CustomError.call(this, 'AlreadyUsedError', key + ' is already used', code);
     };
 
     // ARGUMENTERROR
-    exp.ArgumentError = ArgumentError = function ArgumentError(position, type) {
-        CustomError.call(this, 'ArgumentError', (toPosition(position) || 'Unknown') + ' argument', 'must be ' + type);
+    exp.ArgumentError = ArgumentError = function ArgumentError(position, type, code) {
+        CustomError.call(this, 'ArgumentError', (toPosition(position) || 'Unknown') + ' argument must be ' + type, code);
     };
 
     // CLASS
@@ -1791,7 +3574,7 @@ function isNullOrUndefined(arg) {
              */
             _promise: {
                 enumerable: false,
-                validate: function (val) { return isObject(val) || isVoid(val); }
+                validate: function (val) { return !isVoid(val) && !isObject(val) && 'Object'; }
             }
         });
 
@@ -1800,11 +3583,12 @@ function isNullOrUndefined(arg) {
     };
 
     // CUSTOMERROR
-    exp.CustomError = CustomError = function CustomError(name, key, message) {
-        var err = Error.call(this, key + (message ? ' ' + message : ''));
-        err.name = name;
+    exp.CustomError = CustomError = function CustomError(name, message, code) {
+        var err      = Error.call(this, message);
+        this.name    = err.name = name;
         this.message = err.message;
-        this.stack = err.stack;
+        this.stack   = err.stack;
+        this.code    = err.code = code;
     };
 
     // DEFERRED
@@ -1813,18 +3597,18 @@ function isNullOrUndefined(arg) {
     };
 
     // DENIEDERROR
-    exp.DeniedError = DeniedError = function DeniedError(key) {
-        CustomError.call(this, 'DeniedError', key, 'is denied');
+    exp.DeniedError = DeniedError = function DeniedError(key, code) {
+        CustomError.call(this, 'DeniedError', key + ' is denied', code);
     };
 
     // INVALIDERROR
-    exp.InvalidError = InvalidError = function InvalidError(key) {
-        CustomError.call(this, 'InvalidError', key, 'is not valid');
+    exp.InvalidError = InvalidError = function InvalidError(key, code) {
+        CustomError.call(this, 'InvalidError', key + ' is not valid', code);
     };
 
     // NOTFOUNDERROR
-    exp.NotFoundError = NotFoundError = function NotFoundError(key) {
-        CustomError.call(this, 'NotFoundError', key, 'is not found');
+    exp.NotFoundError = NotFoundError = function NotFoundError(key, code) {
+        CustomError.call(this, 'NotFoundError', key + ' is not found', code);
     };
 
     // PROMISE
@@ -1864,28 +3648,33 @@ function isNullOrUndefined(arg) {
     };
 
     // REJECTEDERROR
-    exp.RejectedError = RejectedError = function RejectedError(key) {
-        CustomError.call(this, 'RejectedError', key, 'is rejected');
+    exp.RejectedError = RejectedError = function RejectedError(key, code) {
+        CustomError.call(this, 'RejectedError', key + ' is rejected', code);
     };
 
     // REQUIREDERROR
-    exp.RequiredError = RequiredError = function RequiredError(key) {
-        CustomError.call(this, 'RequiredError', key, 'is required');
+    exp.RequiredError = RequiredError = function RequiredError(key, code) {
+        CustomError.call(this, 'RequiredError', key + ' is required', code);
     };
 
     // UNAVAILABLEERROR
-    exp.UnavailableError = UnavailableError = function UnavailableError(key) {
-        CustomError.call(this, 'UnavailableError', key, 'is not available');
+    exp.UnavailableError = UnavailableError = function UnavailableError(key, code) {
+        CustomError.call(this, 'UnavailableError', key + ' is not available', code);
     };
 
     // UNDEFINEDERROR
-    exp.UndefinedError = UndefinedError = function UndefinedError(key) {
-        CustomError.call(this, 'UndefinedError', key, 'is not defined');
+    exp.UndefinedError = UndefinedError = function UndefinedError(key, code) {
+        CustomError.call(this, 'UndefinedError', key + ' is not defined', code);
+    };
+
+    // UNKNOWNERROR
+    exp.UnknownError = UnknownError = function UnknownError(code) {
+        CustomError.call(this, 'UnknownError', 'Unknown error', code);
     };
 
     // VALIDATIONERROR
-    exp.ValidationError = ValidationError = function ValidationError(key, type) {
-        CustomError.call(this, 'ValidationError', key, 'must be ' + type);
+    exp.ValidationError = ValidationError = function ValidationError(key, type, code) {
+        CustomError.call(this, 'ValidationError', key + ' must be ' + type, code);
     };
 
     // ADDATTRIBUTE
@@ -1916,7 +3705,7 @@ function isNullOrUndefined(arg) {
     exp.after = after = function after(n, func) {
         assertArgument(isIndex(n), 1, 'number');
         assertArgument(isFunction(func), 2, 'Function');
-        return lodash.after(n, func);
+        return _.after(n, func);
     };
 
     // ALIGNELEMENT
@@ -1995,7 +3784,7 @@ function isNullOrUndefined(arg) {
     exp.ary = ary = function ary(func, n) {
         assertArgument(isFunction(func), 1, 'Function');
         assertArgument(isVoid(n) || isIndex(n), 2, 'number');
-        return lodash.ary(func, n);
+        return _.ary(func, n);
     };
 
     // ASSERT
@@ -2016,14 +3805,14 @@ function isNullOrUndefined(arg) {
     // ASSIGN
     exp.assign = assign = function assign(object, sources) {
         assertArgument(isObject(object), 1, 'Object');
-        return lodash.assign.apply(lodash, filter(arguments, ary(isObject, 1)));
+        return _.assign.apply(_, filter(arguments, ary(isObject, 1)));
     };
 
     // AT
     exp.at = at = function at(collection, props) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(props = toArray(props), 2, 'Arrayable');
-        return lodash.at(collection, props);
+        return _.at(collection, props);
     };
 
     // ATTEMPT
@@ -2050,7 +3839,7 @@ function isNullOrUndefined(arg) {
     exp.before = before = function before(n, func) {
         assertArgument(isIndex(n), 1, 'number');
         assertArgument(isFunction(func), 2, 'Function');
-        return lodash.before(n, func);
+        return _.before(n, func);
     };
 
     // CALL
@@ -2063,7 +3852,7 @@ function isNullOrUndefined(arg) {
     // CAMELCASE
     exp.camelCase = camelCase = function camelCase(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.camelCase(lodash.trim(string)) : '';
+        return string ? _.camelCase(_.trim(string)) : '';
     };
 
     // CAMELCASEREGEX
@@ -2072,7 +3861,7 @@ function isNullOrUndefined(arg) {
     // CAPITALIZE
     exp.capitalize = capitalize = function capitalize(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.capitalize(lodash.trim(string)) : '';
+        return string ? _.capitalize(_.trim(string)) : '';
     };
 
     // CAPITALIZEREGEX
@@ -2082,7 +3871,7 @@ function isNullOrUndefined(arg) {
     exp.chunk = chunk = function chunk(array, size) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         assertArgument(isVoid(size) || isIndex(size), 2, 'number');
-        return lodash.chunk(array, size);
+        return _.chunk(array, size);
     };
 
     // CLEAN
@@ -2095,20 +3884,20 @@ function isNullOrUndefined(arg) {
     exp.clone = clone = function clone(collection, customizer, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isVoid(customizer) || isFunction(customizer), 2, 'Function');
-        return lodash.clone(collection, customizer, thisArg);
+        return _.clone(collection, customizer, thisArg);
     };
 
     // CLONEDEEP
     exp.cloneDeep = cloneDeep = function cloneDeep(collection, customizer, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isVoid(customizer) || isFunction(customizer), 2, 'Function');
-        return lodash.cloneDeep(collection, customizer, thisArg);
+        return _.cloneDeep(collection, customizer, thisArg);
     };
 
     // COMPACT
     exp.compact = compact = function compact(array) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
-        return lodash.compact(array);
+        return _.compact(array);
     };
 
     // CONCAT
@@ -2122,7 +3911,7 @@ function isNullOrUndefined(arg) {
     exp.countBy = countBy = function countBy(collection, iteratee, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isFunction(iteratee) || isObject(iteratee) || isString(iteratee), 2, 'Function, Object or string');
-        return lodash.countBy(collection, iteratee, thisArg);
+        return _.countBy(collection, iteratee, thisArg);
     };
 
     // CREATEELEMENT
@@ -2145,19 +3934,19 @@ function isNullOrUndefined(arg) {
         assertArgument(isFunction(func), 1, 'Function');
         assertArgument(isVoid(wait) || isIndex(wait), 2, 'number');
         assertArgument(isVoid(opt) || isObject(opt), 3, 'Object');
-        return lodash.debounce(func, wait, opt);
+        return _.debounce(func, wait, opt);
     };
 
     // DEBURR
     exp.deburr = deburr = function deburr(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.deburr(string) : '';
+        return string ? _.deburr(string) : '';
     };
 
     // DEFAULTS
     exp.defaults = defaults = function defaults(object, sources) {
         assertArgument(isObject(object), 1, 'Object');
-        return lodash.defaults.apply(lodash, filter(arguments, ary(isObject, 1)));
+        return _.defaults.apply(_, filter(arguments, ary(isObject, 1)));
     };
 
     // DEFINEPROPERTIES
@@ -2178,6 +3967,7 @@ function isNullOrUndefined(arg) {
 
         // Preparing
         opt = isFunction(opt) ? {value: opt} : opt;
+        opt.defined    = false;
         opt.enumerable = value(opt, 'enumerable', true);
 
         // Vars
@@ -2190,7 +3980,7 @@ function isNullOrUndefined(arg) {
         // Setting
         if (isConstant && opt.promise) { opt.value = function () { return new Promise(arguments, func, this); }; }
         if (isGetter && !isSetter) { opt.set = function (val) { return val; }; }
-        if (isSetter && !isGetter && !isValidated) { opt.validate = function () { return true; }; }
+        if (isSetter && !isGetter && !isValidated) { opt.validate = mock(); }
         if (isFunction(target) && !opt['static']) { target = target.prototype; }
 
         // Defining
@@ -2203,9 +3993,9 @@ function isNullOrUndefined(arg) {
         } : {
             get: isGetter ? opt.get : function () { return value(this, name + '_'); },
             set: isGetter ? opt.set : function (val) {
-                var self = this, key = name + '_', pre = self[key], post = opt.set.call(self, val);
-                if (!opt.validate.call(self, post)) { throw new InvalidError(name); }
-                if (!has(self, key)) { Object.defineProperty(self, key, {configurable: true, enumerable: opt.enumerable, writable: true, value: post}); } else { self[key] = post; }
+                var self = this, key = name + '_', pre = self[key], post = opt.set.call(self, val), err = opt.validate.call(self, post);
+                if (err) { throw new ValidationError(name, err, 500); }
+                if (opt.defined = opt.defined || has(self, key)) { self[key] = post; } else { Object.defineProperty(self, key, {configurable: opt.defined = true, enumerable: opt.enumerable, writable: true, value: post}); }
                 if (opt.sealed) { seal(post); }
                 if (opt.frozen) { freeze(post); }
                 if (opt.then) { opt.then.call(self, post, pre); }
@@ -2223,42 +4013,42 @@ function isNullOrUndefined(arg) {
     exp.delay = delay = function delay(func, wait, ticks) {
         assertArgument(isFunction(func), 1, 'Function');
         assertArgument(isVoid(wait) || isIndex(wait), 2, 'number');
-        return wait > 0 && !ticks ? lodash.delay(func, wait) : lodash.defer(function () {
+        return wait > 0 && !ticks ? _.delay(func, wait) : _.defer(function () {
             if (wait  > 1) { delay(func, wait - 1, ticks); } else { func(); }
         });
     };
 
     // DIFFERENCE
     exp.difference = difference = function difference(array, values) {
-        return lodash.difference.apply(lodash, map(filter(arguments, ary(isArrayable, 1)), ary(toArray, 1)));
+        return _.difference.apply(_, map(filter(arguments, ary(isArrayable, 1)), ary(toArray, 1)));
     };
 
     // DROP
     exp.drop = drop = function drop(array, n) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         assertArgument(isVoid(n) || isIndex(n), 2, 'number');
-        return lodash.drop(array, n);
+        return _.drop(array, n);
     };
 
     // DROPRIGHT
     exp.dropRight = dropRight = function dropRight(array, n) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         assertArgument(isVoid(n) || isIndex(n), 2, 'number');
-        return lodash.dropRight(array, n);
+        return _.dropRight(array, n);
     };
 
     // DROPRIGHTWHILE
     exp.dropRightWhile = dropRightWhile = function dropRightWhile(array, predicate, thisArg) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         assertArgument(isPredicate(predicate), 2, 'Function | Object | string');
-        return lodash.dropRightWhile(array, predicate, thisArg);
+        return _.dropRightWhile(array, predicate, thisArg);
     };
 
     // DROPWHILE
     exp.dropWhile = dropWhile = function dropWhile(array, predicate, thisArg) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         assertArgument(isPredicate(predicate), 2, 'Function | Object | string');
-        return lodash.dropWhile(array, predicate, thisArg);
+        return _.dropWhile(array, predicate, thisArg);
     };
 
     // ENDSWITH
@@ -2266,26 +4056,26 @@ function isNullOrUndefined(arg) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
         assertArgument(isVoid(target) || isString(target), 2, 'string');
         assertArgument(isVoid(spacer) || isString(spacer), 3, 'string');
-        return lodash.endsWith(string, (spacer || '') + (target || ''));
+        return _.endsWith(string, (spacer || '') + (target || ''));
     };
 
     // ESCAPE
     exp.escape = escape = function escape(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.escape(string) : '';
+        return string ? _.escape(string) : '';
     };
 
     // ESCAPEREGEXP
     exp.escapeRegExp = escapeRegExp = function escapeRegExp(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.escapeRegExp(string) : '';
+        return string ? _.escapeRegExp(string) : '';
     };
 
     // EVERY
     exp.every = every = function every(collection, predicate, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isPredicate(predicate), 2, 'Function, Object or string');
-        return lodash.every(collection, predicate, thisArg);
+        return _.every(collection, predicate, thisArg);
     };
 
     // FILEEXTENSION
@@ -2306,7 +4096,7 @@ function isNullOrUndefined(arg) {
     exp.filter = filter = function filter(collection, predicate, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isPredicate(predicate), 2, 'Function, Object or string');
-        return lodash.filter(collection, predicate, thisArg);
+        return _.filter(collection, predicate, thisArg);
     };
 
     // FILTERELEMENTS
@@ -2323,7 +4113,7 @@ function isNullOrUndefined(arg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isPredicate(predicate) || isIndex(index), 2, 'Function, number, Object or string');
         if (isIndex(index)) { return collection[index]; }
-        if (isPredicate(predicate)) { return lodash.find(collection, predicate, thisArg); }
+        if (isPredicate(predicate)) { return _.find(collection, predicate, thisArg); }
     };
 
     // FINDDEEP
@@ -2358,7 +4148,7 @@ function isNullOrUndefined(arg) {
     exp.findIndex = findIndex = function findIndex(array, predicate, thisArg) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         assertArgument(isPredicate(predicate), 2, 'Function | Object | string');
-        var result = lodash.findIndex(array, predicate, thisArg);
+        var result = _.findIndex(array, predicate, thisArg);
         return isIndex(result) ? result : undefined;
     };
 
@@ -2366,7 +4156,7 @@ function isNullOrUndefined(arg) {
     exp.findKey = findKey = function findKey(object, predicate, thisArg) {
         assertArgument(isObject(object), 1, 'Object');
         assertArgument(isPredicate(predicate), 2, 'Function | Object | string');
-        return lodash.findKey(object, predicate, thisArg);
+        return _.findKey(object, predicate, thisArg);
     };
 
     // FINDLAST
@@ -2375,7 +4165,7 @@ function isNullOrUndefined(arg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isPredicate(predicate) || isIndex(index), 2, 'Function, number, Object or string');
         if (isIndex(index)) { return collection[index]; }
-        if (isPredicate(predicate)) { return lodash.findLast(collection, predicate, thisArg); }
+        if (isPredicate(predicate)) { return _.findLast(collection, predicate, thisArg); }
     };
 
     // FINDLASTELEMENT
@@ -2390,7 +4180,7 @@ function isNullOrUndefined(arg) {
     exp.findLastIndex = findLastIndex = function findLastIndex(array, predicate, thisArg) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         assertArgument(isPredicate(predicate), 2, 'Function | Object | string');
-        var result = lodash.findLastIndex(array, predicate, thisArg);
+        var result = _.findLastIndex(array, predicate, thisArg);
         return isIndex(result) ? result : undefined;
     };
 
@@ -2398,7 +4188,7 @@ function isNullOrUndefined(arg) {
     exp.findLastKey = findLastKey = function findLastKey(object, predicate, thisArg) {
         assertArgument(isObject(object), 1, 'Object');
         assertArgument(isPredicate(predicate), 2, 'Function | Object | string');
-        return lodash.findLastKey(object, predicate, thisArg);
+        return _.findLastKey(object, predicate, thisArg);
     };
 
     // FINDNEXTELEMENT
@@ -2462,7 +4252,7 @@ function isNullOrUndefined(arg) {
     // FIRST
     exp.first = first = function first(array) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
-        return lodash.first(array);
+        return _.first(array);
     };
 
     // FIT
@@ -2485,13 +4275,13 @@ function isNullOrUndefined(arg) {
     // FLATTEN
     exp.flatten = flatten = function flatten(array) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
-        return lodash.flatten(array);
+        return _.flatten(array);
     };
 
     // FLATTENDEEP
     exp.flattenDeep = flattenDeep = function flattenDeep(array) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
-        return lodash.flattenDeep(array);
+        return _.flattenDeep(array);
     };
 
     // FLUSH
@@ -2507,42 +4297,42 @@ function isNullOrUndefined(arg) {
     exp.forEach = forEach = function forEach(collection, iteratee, thisArg) {
         assertArgument(isCollection(collection), 1, 'Arrayable or Object');
         assertArgument(isFunction(iteratee), 2, 'Function');
-        return lodash.forEach(collection, iteratee, thisArg);
+        return _.forEach(collection, iteratee, thisArg);
     };
 
     // FOREACHRIGHT
     exp.forEachRight = forEachRight = function forEachRight(collection, iteratee, thisArg) {
         assertArgument(isCollection(collection), 1, 'Arrayable or Object');
         assertArgument(isFunction(iteratee), 2, 'Function');
-        return lodash.forEachRight(collection, iteratee, thisArg);
+        return _.forEachRight(collection, iteratee, thisArg);
     };
 
     // FORIN
     exp.forIn = forIn = function forIn(object, iteratee, thisArg) {
         assertArgument(isObject(object), 1, 'Object');
         assertArgument(isFunction(iteratee), 2, 'Function');
-        return lodash.forIn(object, iteratee, thisArg);
+        return _.forIn(object, iteratee, thisArg);
     };
 
     // FORINRIGHT
     exp.forInRight = forInRight = function forInRight(object, iteratee, thisArg) {
         assertArgument(isObject(object), 1, 'Object');
         assertArgument(isFunction(iteratee), 2, 'Function');
-        return lodash.forInRight(object, iteratee, thisArg);
+        return _.forInRight(object, iteratee, thisArg);
     };
 
     // FOROWN
     exp.forOwn = forOwn = function forOwn(object, iteratee, thisArg) {
         assertArgument(isObject(object), 1, 'Object');
         assertArgument(isFunction(iteratee), 2, 'Function');
-        return lodash.forOwn(object, iteratee, thisArg);
+        return _.forOwn(object, iteratee, thisArg);
     };
 
     // FOROWNRIGHT
     exp.forOwnRight = forOwnRight = function forOwnRight(object, iteratee, thisArg) {
         assertArgument(isObject(object), 1, 'Object');
         assertArgument(isFunction(iteratee), 2, 'Function');
-        return lodash.forOwn(object, iteratee, thisArg);
+        return _.forOwn(object, iteratee, thisArg);
     };
 
     // FREEZE
@@ -2554,7 +4344,7 @@ function isNullOrUndefined(arg) {
     // FUNCTIONS
     exp.functions = functions = function functions(object) {
         assertArgument(isObject(object), 1, 'Object');
-        return lodash.functions(object);
+        return _.functions(object);
     };
 
     // GETALLNEXT
@@ -2799,14 +4589,14 @@ function isNullOrUndefined(arg) {
     exp.groupBy = groupBy = function groupBy(collection, iteratee, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isFunction(iteratee) || isObject(iteratee) || isString(iteratee), 2, 'Function, Object or string');
-        return lodash.groupBy(collection, iteratee, thisArg);
+        return _.groupBy(collection, iteratee, thisArg);
     };
 
     // HAS
     exp.has = has = function has(object, key) {
         assertArgument(isBindable(object, true), 1, 'Array, Function or Object');
         assertArgument(isString(key), 2, 'string');
-        return lodash.has(object, key);
+        return _.has(object, key);
     };
 
     // HASATTRIBUTE
@@ -2835,7 +4625,7 @@ function isNullOrUndefined(arg) {
     exp.includes = includes = function includes(collection, target, fromIndex) {
         assertArgument(isString(collection) || isCollection(collection = toArray(collection) || collection), 1, 'Arrayable, Object or string');
         assertArgument(isVoid(fromIndex) || isFinite(fromIndex), 3, 'number');
-        return lodash.includes(collection, target, fromIndex);
+        return _.includes(collection, target, fromIndex);
     };
 
     // INCLUDESDEEP
@@ -2848,39 +4638,39 @@ function isNullOrUndefined(arg) {
     exp.indexBy = indexBy = function indexBy(collection, iteratee, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isFunction(iteratee) || isObject(iteratee) || isString(iteratee), 2, 'Function, Object or string');
-        return lodash.indexBy(collection, iteratee, thisArg);
+        return _.indexBy(collection, iteratee, thisArg);
     };
 
     // INDEXOF
     exp.indexOf = indexOf = function indexOf(array, value, fromIndex) {
         assertArgument(isString(array) || isDefined(array = toArray(array)), 1, 'Arrayable or string');
         assertArgument(isVoid(fromIndex) || isFinite(fromIndex), 3, 'number');
-        var i = isArray(array) ? lodash.indexOf(array, value, fromIndex) : (isString(value) ? array.indexOf(value) : -1);
+        var i = isArray(array) ? _.indexOf(array, value, fromIndex) : (isString(value) ? array.indexOf(value) : -1);
         return isIndex(i) ? i : undefined;
     };
 
     // INITIAL
     exp.initial = initial = function initial(array) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
-        return lodash.initial(array);
+        return _.initial(array);
     };
 
     // INTERSECTION
     exp.intersection = intersection = function intersection(arrays) {
-        return lodash.intersection.apply(lodash, map(filter(arguments, ary(isArrayable, 1)), ary(toArray, 1)));
+        return _.intersection.apply(_, map(filter(arguments, ary(isArrayable, 1)), ary(toArray, 1)));
     };
 
     // INVERT
     exp.invert = invert = function invert(object, multiValue) {
         assertArgument(isObject(object), 1, 'Object');
-        return lodash.invert(object, !!multiValue);
+        return _.invert(object, !!multiValue);
     };
 
     // INVOKE
     exp.invoke = invoke = function invoke(collection, methodName, args) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isFunction(methodName) || isString(methodName, true), 2, 'Function or string');
-        return lodash.invoke.apply(lodash, concat([collection, methodName], slice(arguments, 2)));
+        return _.invoke.apply(_, concat([collection, methodName], slice(arguments, 2)));
     };
 
     // ISANY
@@ -2890,12 +4680,12 @@ function isNullOrUndefined(arg) {
 
     // ISARGUMENTS
     exp.isArguments = isArguments = function isArguments(value, notEmpty) {
-        return lodash.isArguments(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
+        return _.isArguments(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
     };
 
     // ISARRAY
     exp.isArray = isArray = function isArray(value, notEmpty) {
-        return lodash.isArray(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
+        return _.isArray(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
     };
 
     // ISARRAYABLE
@@ -2914,13 +4704,18 @@ function isNullOrUndefined(arg) {
     };
 
     // ISBOOLEAN
-    exp.isBoolean = isBoolean = function isBoolean(value) {
-        return lodash.isBoolean(value);
+    exp.isBoolean = isBoolean = function isBoolean(value, string) {
+        return _.isBoolean(value) || (string && (value === 'false' || value === 'true'));
     };
 
     // ISBROWSER
     exp.isBrowser = isBrowser = function isBrowser() {
         return browser;
+    };
+
+    // ISBUFFER
+    exp.isBuffer = isBuffer = function isBuffer(value) {
+        return Buffer.isBuffer(value);
     };
 
     // ISCAMELCASE
@@ -2957,7 +4752,7 @@ function isNullOrUndefined(arg) {
 
     // ISDATE
     exp.isDate = isDate = function isDate(value) {
-        return lodash.isDate(value);
+        return _.isDate(value);
     };
 
     // ISDEFINED
@@ -2967,7 +4762,7 @@ function isNullOrUndefined(arg) {
 
     // ISELEMENT
     exp.isElement = isElement = function isElement(value, notEmpty) {
-        if (!lodash.isElement(value) && !isPolyfilled(value) && (!isShady(value) || value.node.nodeType !== 1)) { return false; }
+        if (!_.isElement(value) && !isPolyfilled(value) && (!isShady(value) || value.node.nodeType !== 1)) { return false; }
         if (!isVoid(notEmpty) && xor(notEmpty, find(value.childNodes, function (node) { return node.nodeType !== 1 || node.tagName.toLowerCase() !== 'template'; }))) { return false; }
         return true;
     };
@@ -2986,7 +4781,7 @@ function isNullOrUndefined(arg) {
     // ISEQUAL
     exp.isEqual = isEqual = function isEqual(value, other, customizer, thisArg) {
         assertArgument(isVoid(customizer) || isFunction(customizer), 3, 'Function');
-        return lodash.isEqual(value, other, customizer, thisArg);
+        return _.isEqual(value, other, customizer, thisArg);
     };
 
     // ISEQUIVALENT
@@ -2996,7 +4791,7 @@ function isNullOrUndefined(arg) {
 
     // ISERROR
     exp.isError = isError = function isError(value) {
-        return lodash.isError(value);
+        return _.isError(value);
     };
 
     // ISESCAPE
@@ -3033,7 +4828,7 @@ function isNullOrUndefined(arg) {
 
     // ISFINITE
     exp.isFinite = isFinite = function isFinite(value, notNegative) {
-        return lodash.isFinite(value) && (isVoid(notNegative) || xnor(value >= 0, notNegative));
+        return _.isFinite(value) && (isVoid(notNegative) || xnor(value >= 0, notNegative));
     };
 
     // ISFLOAT
@@ -3043,7 +4838,7 @@ function isNullOrUndefined(arg) {
 
     // ISFUNCTION
     exp.isFunction = isFunction = function isFunction(value) {
-        return lodash.isFunction(value);
+        return _.isFunction(value);
     };
 
     // ISHEX
@@ -3111,12 +4906,12 @@ function isNullOrUndefined(arg) {
 
     // ISNAN
     exp.isNaN = isNaN = function isNaN(value) {
-        return lodash.isNaN(value);
+        return _.isNaN(value);
     };
 
     // ISNATIVE
     exp.isNative = isNative = function isNative(value) {
-        return lodash.isNative(value);
+        return _.isNative(value);
     };
 
     // ISNEGATIVE
@@ -3134,7 +4929,7 @@ function isNullOrUndefined(arg) {
 
     // ISNULL
     exp.isNull = isNull = function isNull(value) {
-        return lodash.isNull(value);
+        return _.isNull(value);
     };
 
     // ISNULLABLE
@@ -3144,7 +4939,7 @@ function isNullOrUndefined(arg) {
 
     // ISNUMBER
     exp.isNumber = isNumber = function isNumber(value, notNegative) {
-        return lodash.isNumber(value) && !isNaN(value) && (isVoid(notNegative) || xnor(value >= 0, notNegative));
+        return _.isNumber(value) && !isNaN(value) && (isVoid(notNegative) || xnor(value >= 0, notNegative));
     };
 
     // ISNUMERIC
@@ -3155,7 +4950,7 @@ function isNullOrUndefined(arg) {
 
     // ISOBJECT
     exp.isObject = isObject = function isObject(value, notEmpty) {
-        return lodash.isObject(value) && !isArray(value) && !isFunction(value) && (isVoid(notEmpty) || xnor(lodash.values(value).length, notEmpty));
+        return _.isObject(value) && !isArray(value) && !isFunction(value) && (isVoid(notEmpty) || xnor(_.values(value).length, notEmpty));
     };
 
     // ISOBSERVABLE
@@ -3170,7 +4965,7 @@ function isNullOrUndefined(arg) {
 
     // ISPLAINOBJECT
     exp.isPlainObject = isPlainObject = function isPlainObject(value, notEmpty) {
-        return lodash.isPlainObject(value) && (isVoid(notEmpty) || xnor(lodash.values(value).length, notEmpty));
+        return _.isPlainObject(value) && (isVoid(notEmpty) || xnor(_.values(value).length, notEmpty));
     };
 
     // ISPOLYFILLED
@@ -3185,7 +4980,7 @@ function isNullOrUndefined(arg) {
 
     // ISPREDICATE
     exp.isPredicate = isPredicate = function isPredicate(value) {
-        return isFunction(value) || isObject(value) || isString(value);
+        return isFunction(value) || isObject(value) || isString(value, true);
     };
 
     // ISPREVENTED
@@ -3200,7 +4995,7 @@ function isNullOrUndefined(arg) {
 
     // ISREGEXP
     exp.isRegExp = isRegExp = function isRegExp(value) {
-        return lodash.isRegExp(value);
+        return _.isRegExp(value);
     };
 
     // ISSELECTOR
@@ -3210,7 +5005,7 @@ function isNullOrUndefined(arg) {
 
     // ISSHADY
     exp.isShady = isShady = function isShady(value) {
-        return !!value && lodash.has(value, 'node') && lodash.has(Object.getPrototypeOf(value), '_queryElement');
+        return !!value && _.has(value, 'node') && _.has(Object.getPrototypeOf(value), '_queryElement');
     };
 
     // ISSNAKECASE
@@ -3225,7 +5020,7 @@ function isNullOrUndefined(arg) {
 
     // ISSTRING
     exp.isString = isString = function isString(value, notEmpty) {
-        return lodash.isString(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
+        return _.isString(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
     };
 
     // ISTEMPLATE
@@ -3284,10 +5079,17 @@ function isNullOrUndefined(arg) {
         next(null);
     };
 
+    // JOIN
+    exp.join = join = function join(array, separator) {
+        assertArgument(array = toArray(array), 1, 'Arrayable');
+        assertArgument(isVoid(separator) || isString(separator), 2, 'string');
+        return !array.length || Buffer.isBuffer(array[0]) ? Buffer.concat(array) : array.join(separator);
+    };
+
     // KEBABCASE
     exp.kebabCase = kebabCase = function kebabCase(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.kebabCase(lodash.trim(string)) : '';
+        return string ? _.kebabCase(_.trim(string)) : '';
     };
 
     // KEBABCASEREGEX
@@ -3296,7 +5098,7 @@ function isNullOrUndefined(arg) {
     // KEYCASE
     exp.keyCase = keyCase = function keyCase(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.camelCase(lodash.trim(string)).replace(/^(\d+)/, '') : '';
+        return string ? _.camelCase(_.trim(string)).replace(/^(\d+)/, '') : '';
     };
 
     // KEYCASEREGEX
@@ -3305,26 +5107,26 @@ function isNullOrUndefined(arg) {
     // KEYS
     exp.keys = keys = function keys(object) {
         assertArgument(isObject(object), 1, 'Object');
-        return lodash.keys(object);
+        return _.keys(object);
     };
 
     // KEYSIN
     exp.keysIn = keysIn = function keysIn(object) {
         assertArgument(isObject(object), 1, 'Object');
-        return lodash.keysIn(object);
+        return _.keysIn(object);
     };
 
     // LAST
     exp.last = last = function last(array) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
-        return lodash.last(array);
+        return _.last(array);
     };
 
     // LASTINDEXOF
     exp.lastIndexOf = lastIndexOf = function lastIndexOf(array, value, fromIndex) {
         assertArgument(isString(array) || isDefined(array = toArray(array)), 1, 'Arrayable or string');
         assertArgument(isVoid(fromIndex) || isFinite(fromIndex), 3, 'number');
-        var i = isArray(array) ? lodash.lastIndexOf(array, value, fromIndex) : (isString(value) ? array.lastIndexOf(value) : -1);
+        var i = isArray(array) ? _.lastIndexOf(array, value, fromIndex) : (isString(value) ? array.lastIndexOf(value) : -1);
         return isIndex(i) ? i : undefined;
     };
 
@@ -3353,7 +5155,7 @@ function isNullOrUndefined(arg) {
     // LOWERCASE
     exp.lowerCase = lowerCase = function lowerCase(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.trim(string).toLowerCase() : '';
+        return string ? _.trim(string).toLowerCase() : '';
     };
 
     // LOWERCASEREGEX
@@ -3363,7 +5165,7 @@ function isNullOrUndefined(arg) {
     exp.map = map = function map(collection, iteratee, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isFunction(iteratee) || isObject(iteratee) || isString(iteratee), 2, 'Function, Object or string');
-        return lodash.map(collection, iteratee, thisArg);
+        return _.map(collection, iteratee, thisArg);
     };
 
     // MAPONE
@@ -3379,7 +5181,7 @@ function isNullOrUndefined(arg) {
     exp.mapValues = mapValues = function mapValues(object, iteratee, thisArg) {
         assertArgument(isObject(object), 1, 'Object');
         assertArgument(isFunction(iteratee) || isString(iteratee), 2, 'Function or string');
-        return lodash.mapValues(object, iteratee, thisArg);
+        return _.mapValues(object, iteratee, thisArg);
     };
 
     // MATCH
@@ -3401,27 +5203,27 @@ function isNullOrUndefined(arg) {
     exp.max = max = function max(collection, iteratee, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isFunction(iteratee) || isObject(iteratee) || isString(iteratee), 2, 'Function, Object or string');
-        return lodash.max(collection, iteratee, thisArg);
+        return _.max(collection, iteratee, thisArg);
     };
 
     // MEMOIZE
     exp.memoize = memoize = function memoize(func, resolver) {
         assertArgument(isFunction(func), 1, 'Function');
         assertArgument(isVoid(resolver) || isFunction(resolver), 2, 'Function');
-        return lodash.memoize(func, resolver);
+        return _.memoize(func, resolver);
     };
 
     // MERGE
     exp.merge = merge = function merge(object, sources) {
         assertArgument(isObject(object), 1, 'Object');
-        return lodash.merge.apply(lodash, filter(arguments, ary(isObject, 1)));
+        return _.merge.apply(_, filter(arguments, ary(isObject, 1)));
     };
 
     // MIN
     exp.min = min = function min(collection, iteratee, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isFunction(iteratee) || isObject(iteratee) || isString(iteratee), 2, 'Function, Object or string');
-        return lodash.min(collection, iteratee, thisArg);
+        return _.min(collection, iteratee, thisArg);
     };
 
     // MOCK
@@ -3455,7 +5257,7 @@ function isNullOrUndefined(arg) {
     // NEGATE
     exp.negate = negate = function negate(predicate) {
         assertArgument(isFunction(predicate), 1, 'Function');
-        return lodash.negate(predicate);
+        return _.negate(predicate);
     };
 
     // NOR
@@ -3472,7 +5274,7 @@ function isNullOrUndefined(arg) {
     exp.omit = omit = function omit(object, predicate, thisArg) {
         assertArgument(isObject(object), 1, 'Object');
         assertArgument(isString(predicate) || isArrayable(predicate) || isFunction(predicate), 2, 'Arrayable, Function or string');
-        return lodash.omit(object, predicate, thisArg);
+        return _.omit(object, predicate, thisArg);
     };
 
     // ONMUTATION
@@ -3491,7 +5293,7 @@ function isNullOrUndefined(arg) {
     // ONCE
     exp.once = once = function once(func) {
         assertArgument(isFunction(func), 1, 'Function');
-        return lodash.once(func);
+        return _.once(func);
     };
 
     // OR
@@ -3513,7 +5315,7 @@ function isNullOrUndefined(arg) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
         assertArgument(isVoid(length) || isIndex(length), 2, 'number');
         assertArgument(isVoid(chars) || isString(chars), 3, 'string');
-        return lodash.pad(string, length, chars);
+        return _.pad(string, length, chars);
     };
 
     // PADLEFT
@@ -3521,7 +5323,7 @@ function isNullOrUndefined(arg) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
         assertArgument(isVoid(length) || isIndex(length), 2, 'number');
         assertArgument(isVoid(chars) || isString(chars), 3, 'string');
-        return lodash.padLeft(string, length, chars);
+        return _.padLeft(string, length, chars);
     };
 
     // PADRIGHT
@@ -3529,13 +5331,13 @@ function isNullOrUndefined(arg) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
         assertArgument(isVoid(length) || isIndex(length), 2, 'number');
         assertArgument(isVoid(chars) || isString(chars), 3, 'string');
-        return lodash.padRight(string, length, chars);
+        return _.padRight(string, length, chars);
     };
 
     // PAIRS
     exp.pairs = pairs = function pairs(object) {
         assertArgument(isObject(object), 1, 'Object');
-        return lodash.pairs(object);
+        return _.pairs(object);
     };
 
     // PARALLEL
@@ -3599,7 +5401,7 @@ function isNullOrUndefined(arg) {
     exp.partition = partition = function partition(collection, predicate, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isPredicate(predicate), 2, 'Function, Object or string');
-        return lodash.partition(collection, predicate, thisArg);
+        return _.partition(collection, predicate, thisArg);
     };
 
     // PERCENTAGE
@@ -3611,14 +5413,14 @@ function isNullOrUndefined(arg) {
     exp.pick = pick = function pick(object, predicate, thisArg) {
         assertArgument(isObject(object), 1, 'Object');
         assertArgument(isString(predicate) || isArrayable(predicate) || isFunction(predicate), 2, 'Arrayable, Function or string');
-        return lodash.pick(object, predicate, thisArg);
+        return _.pick(object, predicate, thisArg);
     };
 
     // PLUCK
     exp.pluck = pluck = function pluck(collection, key) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isString(key), 2, 'string');
-        return lodash.pluck(collection, key);
+        return _.pluck(collection, key);
     };
 
     // PREFIX
@@ -3648,14 +5450,14 @@ function isNullOrUndefined(arg) {
     // PULL
     exp.pull = pull = function pull(array, value) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
-        return lodash.pull(array, value);
+        return _.pull(array, value);
     };
 
     // PULLAT
     exp.pullAt = pullAt = function pullAt(array, index) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         assertArgument(isIndex(index), 2, 'number');
-        return lodash.pullAt(array, index)[0];
+        return _.pullAt(array, index)[0];
     };
 
     // PUSH
@@ -3670,7 +5472,7 @@ function isNullOrUndefined(arg) {
     exp.random = random = function random(min, max, floating) {
         assertArgument(isVoid(min) || isFinite(min), 1, 'number');
         assertArgument(isVoid(max) || isFinite(max), 2, 'number');
-        return lodash.random(min, max, !!floating);
+        return _.random(min, max, !!floating);
     };
 
     // RANGE
@@ -3678,7 +5480,7 @@ function isNullOrUndefined(arg) {
         assertArgument(isFinite(start), 1, 'number');
         assertArgument(isVoid(end) || isFinite(end), 2, 'number');
         assertArgument(isVoid(step) || isFinite(step), 3, 'number');
-        return lodash.range(start, end, step);
+        return _.range(start, end, step);
     };
 
     // RATIO
@@ -3692,7 +5494,7 @@ function isNullOrUndefined(arg) {
     // READABLE
     exp.readable = readable = function readable(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.capitalize(lodash.snakeCase(lodash.trim(string)).replace(/_/g, ' ')) : '';
+        return string ? _.capitalize(_.snakeCase(_.trim(string)).replace(/_/g, ' ')) : '';
     };
 
     // REDIRECT
@@ -3705,28 +5507,28 @@ function isNullOrUndefined(arg) {
     exp.reduce = reduce = function reduce(collection, iteratee, accumulator, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isFunction(iteratee), 2, 'Function');
-        return lodash.reduce(collection, iteratee, accumulator, thisArg);
+        return _.reduce(collection, iteratee, accumulator, thisArg);
     };
 
     // REDUCERIGHT
     exp.reduceRight = reduceRight = function reduceRight(collection, iteratee, accumulator, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isFunction(iteratee), 2, 'Function');
-        return lodash.reduceRight(collection, iteratee, accumulator, thisArg);
+        return _.reduceRight(collection, iteratee, accumulator, thisArg);
     };
 
     // REJECT
     exp.reject = reject = function reject(collection, predicate, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isPredicate(predicate), 2, 'Function, Object or string');
-        return lodash.reject(collection, predicate, thisArg);
+        return _.reject(collection, predicate, thisArg);
     };
 
     // REMOVE
     exp.remove = remove = function remove(array, predicate, thisArg) {
         assertArgument(isArray(array), 1, 'Array');
         assertArgument(isPredicate(predicate), 2, 'Function, Object or string');
-        return lodash.remove(array, predicate, thisArg);
+        return _.remove(array, predicate, thisArg);
     };
 
     // REMOVEATTRIBUTE
@@ -3812,7 +5614,7 @@ function isNullOrUndefined(arg) {
     // REST
     exp.rest = rest = function rest(array) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
-        return lodash.rest(array);
+        return _.rest(array);
     };
 
     // ROUND
@@ -3826,7 +5628,7 @@ function isNullOrUndefined(arg) {
     exp.sample = sample = function sample(collection, n) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isVoid(n) || isIndex(n), 2, 'number');
-        return lodash.sample(collection, n);
+        return _.sample(collection, n);
     };
 
     // SEAL
@@ -3907,26 +5709,26 @@ function isNullOrUndefined(arg) {
     // SHUFFLE
     exp.shuffle = shuffle = function shuffle(collection) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
-        return lodash.shuffle(collection);
+        return _.shuffle(collection);
     };
 
     // SIZE
     exp.size = size = function size(collection) {
         assertArgument(isString(collection) || isCollection(collection = toArray(collection) || collection), 1, 'Arrayable, Object or string');
-        return lodash.size(collection);
+        return _.size(collection);
     };
 
     // SLICE
     exp.slice = slice = function slice(array, start, end) {
         assertArgument(isVoid(start) || isIndex(start), 2, 'a positive number');
         assertArgument(isVoid(end) || isIndex(end), 3, 'a positive number');
-        return lodash.slice(array, start, end);
+        return _.slice(array, start, end);
     };
 
     // SNAKECASE
     exp.snakeCase = snakeCase = function snakeCase(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.snakeCase(lodash.trim(string)) : '';
+        return string ? _.snakeCase(_.trim(string)) : '';
     };
 
     // SNAKECASEREGEX
@@ -3936,14 +5738,14 @@ function isNullOrUndefined(arg) {
     exp.some = some = function some(collection, predicate, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isPredicate(predicate), 2, 'Function, Object or string');
-        return lodash.some(collection, predicate, thisArg);
+        return _.some(collection, predicate, thisArg);
     };
 
     // SORTBY
     exp.sortBy = sortBy = function sortBy(collection, iteratee, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isFunction(iteratee) || isObject(iteratee) || isString(iteratee), 2, 'Function, Object or string');
-        return lodash.sortBy(collection, iteratee, thisArg);
+        return _.sortBy(collection, iteratee, thisArg);
     };
 
     // SPLIT
@@ -3957,7 +5759,7 @@ function isNullOrUndefined(arg) {
     // STARTCASE
     exp.startCase = startCase = function snakeCase(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.startCase(lodash.trim(string)) : '';
+        return string ? _.startCase(_.trim(string)) : '';
     };
 
     // STARTCASEREGEX
@@ -3968,7 +5770,7 @@ function isNullOrUndefined(arg) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
         assertArgument(isVoid(target) || isString(target), 2, 'string');
         assertArgument(isVoid(spacer) || isString(spacer), 3, 'string');
-        return lodash.startsWith(string, (spacer || '') + (target || ''));
+        return _.startsWith(string, (spacer || '') + (target || ''));
     };
 
     // STOP
@@ -4011,28 +5813,28 @@ function isNullOrUndefined(arg) {
     exp.take = take = function take(array, n) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         assertArgument(isVoid(n) || isIndex(n), 2, 'number');
-        return lodash.take(array, n);
+        return _.take(array, n);
     };
 
     // TAKERIGHT
     exp.takeRight = takeRight = function takeRight(array, n) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         assertArgument(isVoid(n) || isIndex(n), 2, 'number');
-        return lodash.takeRight(array, n);
+        return _.takeRight(array, n);
     };
 
     // TAKERIGHTWHILE
     exp.takeRightWhile = takeRightWhile = function takeRightWhile(array, predicate, thisArg) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         assertArgument(isPredicate(predicate), 2, 'Function, Object or string');
-        return lodash.takeRightWhile(array, predicate, thisArg);
+        return _.takeRightWhile(array, predicate, thisArg);
     };
 
     // TAKEWHILE
     exp.takeWhile = takeWhile = function takeWhile(array, predicate, thisArg) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         assertArgument(isPredicate(predicate), 2, 'Function, Object or string');
-        return lodash.takeWhile(array, predicate, thisArg);
+        return _.takeWhile(array, predicate, thisArg);
     };
 
     // THROTTLE
@@ -4040,7 +5842,7 @@ function isNullOrUndefined(arg) {
         assertArgument(isFunction(func), 1, 'Function');
         assertArgument(isVoid(wait) || isIndex(wait), 2, 'number');
         assertArgument(isVoid(opt) || isObject(opt), 3, 'Object');
-        return lodash.throttle(func, wait, opt);
+        return _.throttle(func, wait, opt);
     };
 
     // TOARRAY
@@ -4258,14 +6060,14 @@ function isNullOrUndefined(arg) {
     exp.trim = trim = function trim(string, chars) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
         assertArgument(isVoid(chars) || isString(chars), 2, 'string');
-        return string ? lodash.trim(string, chars) : '';
+        return string ? _.trim(string, chars) : '';
     };
 
     // TRIMLEFT
     exp.trimLeft = trimLeft = function trimLeft(string, chars) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
         assertArgument(isVoid(chars) || isString(chars), 2, 'string');
-        return string ? lodash.trimLeft(string, chars) : '';
+        return string ? _.trimLeft(string, chars) : '';
     };
 
     // TRIMREGEX
@@ -4275,32 +6077,32 @@ function isNullOrUndefined(arg) {
     exp.trimRight = trimRight = function trimRight(string, chars) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
         assertArgument(isVoid(chars) || isString(chars), 2, 'string');
-        return string ? lodash.trimRight(string, chars) : '';
+        return string ? _.trimRight(string, chars) : '';
     };
 
     // TRUNC
     exp.trunc = trunc = function trunc(string, opt) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
         assertArgument(isVoid(opt) || isObject(opt), 2, 'Object');
-        return string ? lodash.trunc(string, opt) : '';
+        return string ? _.trunc(string, opt) : '';
     };
 
     // UNESCAPE
     exp.unescape = unescape = function unescape(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.unescape(string) : '';
+        return string ? _.unescape(string) : '';
     };
 
     // UNION
     exp.union = union = function union(arrays) {
-        return lodash.union.apply(lodash, map(filter(arguments, ary(isArrayable, 1)), ary(toArray, 1)));
+        return _.union.apply(_, map(filter(arguments, ary(isArrayable, 1)), ary(toArray, 1)));
     };
 
     // UNIQ
     exp.uniq = uniq = function uniq(array, iteratee, thisArg) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         assertArgument(isFunction(iteratee) || isObject(iteratee) || isString(iteratee), 2, 'Function, Object or string');
-        return lodash.uniq(array, iteratee, thisArg);
+        return _.uniq(array, iteratee, thisArg);
     };
 
     // UNLISTEN
@@ -4318,7 +6120,7 @@ function isNullOrUndefined(arg) {
     // UNZIP
     exp.unzip = unzip = function unzip(array) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
-        return lodash.unzip(array);
+        return _.unzip(array);
     };
 
     // UPDATEELEMENT
@@ -4334,7 +6136,7 @@ function isNullOrUndefined(arg) {
     // UPPERCASE
     exp.upperCase = upperCase = function upperCase(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.trim(string).toUpperCase() : '';
+        return string ? _.trim(string).toUpperCase() : '';
     };
 
     // UPPERCASEREGEX
@@ -4366,13 +6168,13 @@ function isNullOrUndefined(arg) {
     // VALUES
     exp.values = values = function values(object) {
         assertArgument(isObject(object), 1, 'Object');
-        return lodash.values(object);
+        return _.values(object);
     };
 
     // VALUESIN
     exp.valuesIn = valuesIn = function valuesIn(object) {
         assertArgument(isObject(object), 1, 'Object');
-        return lodash.valuesIn(object);
+        return _.valuesIn(object);
     };
 
     // WATERFALL
@@ -4404,7 +6206,7 @@ function isNullOrUndefined(arg) {
     exp.where = where = function where(collection, source) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isObject(source), 2, 'Object');
-        return lodash.where(collection, source);
+        return _.where(collection, source);
     };
 
     // WILLBLEEDBOTTOM
@@ -4469,21 +6271,21 @@ function isNullOrUndefined(arg) {
     // WITHOUT
     exp.without = without = function without(array, values) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
-        return lodash.without.apply(lodash, concat([array], slice(arguments, 1)));
+        return _.without.apply(_, concat([array], slice(arguments, 1)));
     };
 
     // WORDS
     exp.words = words = function words(string, pattern) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
         assertArgument(isVoid(pattern) || isRegExp(pattern) || isString(pattern), 2, 'RegExp or string');
-        return string ? lodash.words(string, pattern) : [];
+        return string ? _.words(string, pattern) : [];
     };
 
     // WRAP
     exp.wrap = wrap = function wrap(func, wrapper) {
         assertArgument(isFunction(func), 1, 'Function');
         assertArgument(isVoid(wrapper) || isFunction(wrapper), 2, 'Function');
-        return lodash.wrap(func, wrapper);
+        return _.wrap(func, wrapper);
     };
 
     // XNOR
@@ -4498,7 +6300,7 @@ function isNullOrUndefined(arg) {
 
     // ZIP
     exp.zip = zip = function zip(arrays) {
-        return lodash.union.apply(lodash, map(filter(arguments, ary(isArrayable, 1)), ary(toArray, 1)));
+        return _.union.apply(_, map(filter(arguments, ary(isArrayable, 1)), ary(toArray, 1)));
     };
 
     // ZIPOBJECT
@@ -4509,18 +6311,10 @@ function isNullOrUndefined(arg) {
         return result;
     };
 
-    // Browserify
-    if (browser) {
-        global._ = lodash;
-        global.XPClass = exp.Class;
-        global.XPDeferred = exp.Deferred;
-        global.XPPromise = exp.Promise;
-    }
-
 }(typeof window !== "undefined" ? window : global, typeof window !== "undefined"));
 
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"lodash":8,"q":9,"url":6,"uuid":11}],8:[function(require,module,exports){
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},_dereq_("buffer").Buffer)
+},{"buffer":1,"lodash":12,"q":13,"url":10,"uuid":15}],12:[function(_dereq_,module,exports){
 (function (global){
 /**
  * @license
@@ -16875,7 +18669,7 @@ function isNullOrUndefined(arg) {
 }.call(this));
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],9:[function(require,module,exports){
+},{}],13:[function(_dereq_,module,exports){
 (function (process){
 // vim:ts=4:sts=4:sw=4:
 /*!
@@ -18926,8 +20720,8 @@ return Q;
 
 });
 
-}).call(this,require('_process'))
-},{"_process":1}],10:[function(require,module,exports){
+}).call(this,_dereq_('_process'))
+},{"_process":5}],14:[function(_dereq_,module,exports){
 (function (global){
 
 var rng;
@@ -18962,7 +20756,7 @@ module.exports = rng;
 
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],11:[function(require,module,exports){
+},{}],15:[function(_dereq_,module,exports){
 //     uuid.js
 //
 //     Copyright (c) 2010-2012 Robert Kieffer
@@ -18971,7 +20765,7 @@ module.exports = rng;
 // Unique ID creation requires a high quality random # generator.  We feature
 // detect to determine the best RNG source, normalizing to a function that
 // returns 128-bits of randomness, since that's what's usually required
-var _rng = require('./rng');
+var _rng = _dereq_('./rng');
 
 // Maps for number <-> hex string conversion
 var _byteToHex = [];
@@ -19147,5 +20941,4 @@ uuid.unparse = unparse;
 
 module.exports = uuid;
 
-},{"./rng":10}]},{},[7])(7)
-});
+},{"./rng":14}]},{},[11]);

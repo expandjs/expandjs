@@ -4,31 +4,32 @@
     "use strict";
 
     // Vars
-    var AbstractError, AlreadyDefinedError, AlreadyUsedError, ArgumentError, Class, CustomError, Deferred, DeniedError, InvalidError, NotFoundError, Promise, RejectedError, RequiredError, UnavailableError, UndefinedError, ValidationError, addAttribute, addAttributes, addClass, after, alignElement, and, append, appendChild, apply, ary, assert, assertArgument, assertOption, assign, at, attempt, before, call, camelCase, camelCaseRegex, capitalize, capitalizeRegex, chunk, clean, clone, cloneDeep, compact, concat, countBy, createElement, createElementNS, debounce, deburr, defaults, defineProperties, defineProperty, delay, difference, drop, dropRight, dropRightWhile, dropWhile, endsWith, escape, escapeRegExp, every, fileExtension, fileName, filter, filterElements, find, findDeep, findElement, findElements, findIndex, findKey, findLast, findLastElement, findLastIndex, findLastKey, findNextElement, findNextElements, findParentElement, findPreviousElement, findPreviousElements, findSiblingElement, findSiblingElements, first, fit, fixed, flatten, flattenDeep, flush, forEach, forEachRight, forIn, forInRight, forOwn, forOwnRight, freeze, functions, getAllNext, getAllNextElements, getAllPrevious, getAllPreviousElements, getAllSiblingElements, getAllSiblings, getAttribute, getAttributes, getBoundings, getChildren, getDistributedElement, getDistributedElements, getElement, getElementById, getElements, getHTML, getHeight, getMargin, getNext, getNextElement, getNode, getNodes, getPadding, getParentElement, getPrevious, getPreviousElement, getSiblingElements, getSiblings, getStyle, getStyles, getTag, getText, getValue, getWidth, groupBy, has, hasAttribute, hasChild, hasClass, includes, includesDeep, indexBy, indexOf, initial, intersection, invert, invoke, isAny, isArguments, isArray, isArrayable, isBase62, isBindable, isBoolean, isBrowser, isCamelCase, isCapitalize, isClean, isCollection, isContent, isCustomEvent, isDate, isDefined, isElement, isEmpty, isEnumerable, isEqual, isEquivalent, isError, isEscape, isEscapeRegExp, isEven, isEvent, isExotic, isFalse, isFinite, isFloat, isFunction, isHex, isIndex, isInfinite, isInput, isInstance, isInt, isInvalid, isKebabCase, isKeyCase, isLast, isLastIndex, isLowerCase, isNaN, isNative, isNegative, isNode, isNull, isNullable, isNumber, isNumeric, isObject, isObservable, isOdd, isPlainObject, isPolyfilled, isPositive, isPredicate, isPrevented, isPrimitive, isRegExp, isSelector, isShady, isSnakeCase, isStartCase, isString, isTemplate, isTrue, isUniq, isUpperCase, isUuid, isVoid, isWithin, iterate, kebabCase, kebabCaseRegex, keyCase, keyCaseRegex, keys, keysIn, last, lastIndexOf, listen, localize, lowerCase, lowerCaseRegex, map, mapOne, mapValues, match, matches, max, memoize, merge, min, mock, moveFirst, moveLast, nand, negate, nor, not, omit, onMutation, once, or, overwrite, pad, padLeft, padRight, pairs, parallel, parseBase62, parseHex, parseJSON, parseURL, partition, percentage, pick, pluck, prefix, prependChild, preventDefault, pull, pullAt, push, random, range, ratio, readable, redirect, reduce, reduceRight, reject, remove, removeAttribute, removeAttributes, removeChild, removeClass, removeStyle, removeStyles, renameElement, repeat, replaceNode, requestAnimationFrame, rest, round, sample, seal, setAttribute, setAttributes, setChildren, setHTML, setStyle, setStyles, setText, shrink, shuffle, size, slice, snakeCase, snakeCaseRegex, some, sortBy, split, startCase, startCaseRegex, startsWith, stop, stopPropagation, stretch, strip, suffix, take, takeRight, takeRightWhile, takeWhile, throttle, toArray, toBase62, toBoolean, toDOMIdentity, toDOMPredicate, toElapsedTime, toHex, toIndex, toInfinite, toInput, toInt, toJSON, toNumber, toObject, toPosition, toQueryString, toRegExp, toString, toTemplate, toURL, toUseful, toValue, toggleAttribute, toggleClass, trim, trimLeft, trimRegex, trimRight, trunc, unescape, union, uniq, unlisten, unzip, updateElement, upperCase, upperCaseRegex, uuid, uuidRegex, value, valueIn, values, valuesIn, waterfall, where, willBleedBottom, willBleedHorizontally, willBleedLeft, willBleedRight, willBleedTop, willBleedVertically, withdraw, within, without, words, wrap, xnor, xor, zip, zipObject, 
-        exp     = module.exports,
-        lodash  = require("lodash"),
-        q       = require("q"),
-        url     = require("url"),
-        UUID    = require("uuid");
+    var AbstractError, AlreadyDefinedError, AlreadyUsedError, ArgumentError, Class, CustomError, Deferred, DeniedError, InvalidError, NotFoundError, Promise, RejectedError, RequiredError, UnavailableError, UndefinedError, UnknownError, ValidationError, addAttribute, addAttributes, addClass, after, alignElement, and, append, appendChild, apply, ary, assert, assertArgument, assertOption, assign, at, attempt, before, call, camelCase, camelCaseRegex, capitalize, capitalizeRegex, chunk, clean, clone, cloneDeep, compact, concat, countBy, createElement, createElementNS, debounce, deburr, defaults, defineProperties, defineProperty, delay, difference, drop, dropRight, dropRightWhile, dropWhile, endsWith, escape, escapeRegExp, every, fileExtension, fileName, filter, filterElements, find, findDeep, findElement, findElements, findIndex, findKey, findLast, findLastElement, findLastIndex, findLastKey, findNextElement, findNextElements, findParentElement, findPreviousElement, findPreviousElements, findSiblingElement, findSiblingElements, first, fit, fixed, flatten, flattenDeep, flush, forEach, forEachRight, forIn, forInRight, forOwn, forOwnRight, freeze, functions, getAllNext, getAllNextElements, getAllPrevious, getAllPreviousElements, getAllSiblingElements, getAllSiblings, getAttribute, getAttributes, getBoundings, getChildren, getDistributedElement, getDistributedElements, getElement, getElementById, getElements, getHTML, getHeight, getMargin, getNext, getNextElement, getNode, getNodes, getPadding, getParentElement, getPrevious, getPreviousElement, getSiblingElements, getSiblings, getStyle, getStyles, getTag, getText, getValue, getWidth, groupBy, has, hasAttribute, hasChild, hasClass, includes, includesDeep, indexBy, indexOf, initial, intersection, invert, invoke, isAny, isArguments, isArray, isArrayable, isBase62, isBindable, isBoolean, isBrowser, isBuffer, isCamelCase, isCapitalize, isClean, isCollection, isContent, isCustomEvent, isDate, isDefined, isElement, isEmpty, isEnumerable, isEqual, isEquivalent, isError, isEscape, isEscapeRegExp, isEven, isEvent, isExotic, isFalse, isFinite, isFloat, isFunction, isHex, isIndex, isInfinite, isInput, isInstance, isInt, isInvalid, isKebabCase, isKeyCase, isLast, isLastIndex, isLowerCase, isNaN, isNative, isNegative, isNode, isNull, isNullable, isNumber, isNumeric, isObject, isObservable, isOdd, isPlainObject, isPolyfilled, isPositive, isPredicate, isPrevented, isPrimitive, isRegExp, isSelector, isShady, isSnakeCase, isStartCase, isString, isTemplate, isTrue, isUniq, isUpperCase, isUuid, isVoid, isWithin, iterate, join, kebabCase, kebabCaseRegex, keyCase, keyCaseRegex, keys, keysIn, last, lastIndexOf, listen, localize, lowerCase, lowerCaseRegex, map, mapOne, mapValues, match, matches, max, memoize, merge, min, mock, moveFirst, moveLast, nand, negate, nor, not, omit, onMutation, once, or, overwrite, pad, padLeft, padRight, pairs, parallel, parseBase62, parseHex, parseJSON, parseURL, partition, percentage, pick, pluck, prefix, prependChild, preventDefault, pull, pullAt, push, random, range, ratio, readable, redirect, reduce, reduceRight, reject, remove, removeAttribute, removeAttributes, removeChild, removeClass, removeStyle, removeStyles, renameElement, repeat, replaceNode, requestAnimationFrame, rest, round, sample, seal, setAttribute, setAttributes, setChildren, setHTML, setStyle, setStyles, setText, shrink, shuffle, size, slice, snakeCase, snakeCaseRegex, some, sortBy, split, startCase, startCaseRegex, startsWith, stop, stopPropagation, stretch, strip, suffix, take, takeRight, takeRightWhile, takeWhile, throttle, toArray, toBase62, toBoolean, toDOMIdentity, toDOMPredicate, toElapsedTime, toHex, toIndex, toInfinite, toInput, toInt, toJSON, toNumber, toObject, toPosition, toQueryString, toRegExp, toString, toTemplate, toURL, toUseful, toValue, toggleAttribute, toggleClass, trim, trimLeft, trimRegex, trimRight, trunc, unescape, union, uniq, unlisten, unzip, updateElement, upperCase, upperCaseRegex, uuid, uuidRegex, value, valueIn, values, valuesIn, waterfall, where, willBleedBottom, willBleedHorizontally, willBleedLeft, willBleedRight, willBleedTop, willBleedVertically, withdraw, within, without, words, wrap, xnor, xor, zip, zipObject, 
+        lodash = require("lodash"),
+        q      = require("q"),
+        url    = require("url"),
+        UUID   = require("uuid"),
+        _      = global._  = global._ || lodash,
+        exp    = global.XP = module.exports;
 
     // ABSTRACTERROR
-    exp.AbstractError = AbstractError = function AbstractError(key) {
-        CustomError.call(this, 'AbstractError', key, 'is abstract and should be implemented first');
+    exp.AbstractError = AbstractError = function AbstractError(key, code) {
+        CustomError.call(this, 'AbstractError', key + ' is abstract and should be implemented first', code);
     };
 
     // ALREADYDEFINEDERROR
-    exp.AlreadyDefinedError = AlreadyDefinedError = function AlreadyDefinedError(key) {
-        CustomError.call(this, 'AlreadyDefinedError', key, 'is already defined');
+    exp.AlreadyDefinedError = AlreadyDefinedError = function AlreadyDefinedError(key, code) {
+        CustomError.call(this, 'AlreadyDefinedError', key + ' is already defined', code);
     };
 
     // ALREADYUSEDERROR
-    exp.AlreadyUsedError = AlreadyUsedError = function AlreadyUsedError(key) {
-        CustomError.call(this, 'AlreadyUsedError', key, 'is already used');
+    exp.AlreadyUsedError = AlreadyUsedError = function AlreadyUsedError(key, code) {
+        CustomError.call(this, 'AlreadyUsedError', key + ' is already used', code);
     };
 
     // ARGUMENTERROR
-    exp.ArgumentError = ArgumentError = function ArgumentError(position, type) {
-        CustomError.call(this, 'ArgumentError', (toPosition(position) || 'Unknown') + ' argument', 'must be ' + type);
+    exp.ArgumentError = ArgumentError = function ArgumentError(position, type, code) {
+        CustomError.call(this, 'ArgumentError', (toPosition(position) || 'Unknown') + ' argument must be ' + type, code);
     };
 
     // CLASS
@@ -275,7 +276,7 @@
              */
             _promise: {
                 enumerable: false,
-                validate: function (val) { return isObject(val) || isVoid(val); }
+                validate: function (val) { return !isVoid(val) && !isObject(val) && 'Object'; }
             }
         });
 
@@ -284,11 +285,12 @@
     };
 
     // CUSTOMERROR
-    exp.CustomError = CustomError = function CustomError(name, key, message) {
-        var err = Error.call(this, key + (message ? ' ' + message : ''));
-        err.name = name;
+    exp.CustomError = CustomError = function CustomError(name, message, code) {
+        var err      = Error.call(this, message);
+        this.name    = err.name = name;
         this.message = err.message;
-        this.stack = err.stack;
+        this.stack   = err.stack;
+        this.code    = err.code = code;
     };
 
     // DEFERRED
@@ -297,18 +299,18 @@
     };
 
     // DENIEDERROR
-    exp.DeniedError = DeniedError = function DeniedError(key) {
-        CustomError.call(this, 'DeniedError', key, 'is denied');
+    exp.DeniedError = DeniedError = function DeniedError(key, code) {
+        CustomError.call(this, 'DeniedError', key + ' is denied', code);
     };
 
     // INVALIDERROR
-    exp.InvalidError = InvalidError = function InvalidError(key) {
-        CustomError.call(this, 'InvalidError', key, 'is not valid');
+    exp.InvalidError = InvalidError = function InvalidError(key, code) {
+        CustomError.call(this, 'InvalidError', key + ' is not valid', code);
     };
 
     // NOTFOUNDERROR
-    exp.NotFoundError = NotFoundError = function NotFoundError(key) {
-        CustomError.call(this, 'NotFoundError', key, 'is not found');
+    exp.NotFoundError = NotFoundError = function NotFoundError(key, code) {
+        CustomError.call(this, 'NotFoundError', key + ' is not found', code);
     };
 
     // PROMISE
@@ -348,28 +350,33 @@
     };
 
     // REJECTEDERROR
-    exp.RejectedError = RejectedError = function RejectedError(key) {
-        CustomError.call(this, 'RejectedError', key, 'is rejected');
+    exp.RejectedError = RejectedError = function RejectedError(key, code) {
+        CustomError.call(this, 'RejectedError', key + ' is rejected', code);
     };
 
     // REQUIREDERROR
-    exp.RequiredError = RequiredError = function RequiredError(key) {
-        CustomError.call(this, 'RequiredError', key, 'is required');
+    exp.RequiredError = RequiredError = function RequiredError(key, code) {
+        CustomError.call(this, 'RequiredError', key + ' is required', code);
     };
 
     // UNAVAILABLEERROR
-    exp.UnavailableError = UnavailableError = function UnavailableError(key) {
-        CustomError.call(this, 'UnavailableError', key, 'is not available');
+    exp.UnavailableError = UnavailableError = function UnavailableError(key, code) {
+        CustomError.call(this, 'UnavailableError', key + ' is not available', code);
     };
 
     // UNDEFINEDERROR
-    exp.UndefinedError = UndefinedError = function UndefinedError(key) {
-        CustomError.call(this, 'UndefinedError', key, 'is not defined');
+    exp.UndefinedError = UndefinedError = function UndefinedError(key, code) {
+        CustomError.call(this, 'UndefinedError', key + ' is not defined', code);
+    };
+
+    // UNKNOWNERROR
+    exp.UnknownError = UnknownError = function UnknownError(code) {
+        CustomError.call(this, 'UnknownError', 'Unknown error', code);
     };
 
     // VALIDATIONERROR
-    exp.ValidationError = ValidationError = function ValidationError(key, type) {
-        CustomError.call(this, 'ValidationError', key, 'must be ' + type);
+    exp.ValidationError = ValidationError = function ValidationError(key, type, code) {
+        CustomError.call(this, 'ValidationError', key + ' must be ' + type, code);
     };
 
     // ADDATTRIBUTE
@@ -400,7 +407,7 @@
     exp.after = after = function after(n, func) {
         assertArgument(isIndex(n), 1, 'number');
         assertArgument(isFunction(func), 2, 'Function');
-        return lodash.after(n, func);
+        return _.after(n, func);
     };
 
     // ALIGNELEMENT
@@ -479,7 +486,7 @@
     exp.ary = ary = function ary(func, n) {
         assertArgument(isFunction(func), 1, 'Function');
         assertArgument(isVoid(n) || isIndex(n), 2, 'number');
-        return lodash.ary(func, n);
+        return _.ary(func, n);
     };
 
     // ASSERT
@@ -500,14 +507,14 @@
     // ASSIGN
     exp.assign = assign = function assign(object, sources) {
         assertArgument(isObject(object), 1, 'Object');
-        return lodash.assign.apply(lodash, filter(arguments, ary(isObject, 1)));
+        return _.assign.apply(_, filter(arguments, ary(isObject, 1)));
     };
 
     // AT
     exp.at = at = function at(collection, props) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(props = toArray(props), 2, 'Arrayable');
-        return lodash.at(collection, props);
+        return _.at(collection, props);
     };
 
     // ATTEMPT
@@ -534,7 +541,7 @@
     exp.before = before = function before(n, func) {
         assertArgument(isIndex(n), 1, 'number');
         assertArgument(isFunction(func), 2, 'Function');
-        return lodash.before(n, func);
+        return _.before(n, func);
     };
 
     // CALL
@@ -547,7 +554,7 @@
     // CAMELCASE
     exp.camelCase = camelCase = function camelCase(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.camelCase(lodash.trim(string)) : '';
+        return string ? _.camelCase(_.trim(string)) : '';
     };
 
     // CAMELCASEREGEX
@@ -556,7 +563,7 @@
     // CAPITALIZE
     exp.capitalize = capitalize = function capitalize(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.capitalize(lodash.trim(string)) : '';
+        return string ? _.capitalize(_.trim(string)) : '';
     };
 
     // CAPITALIZEREGEX
@@ -566,7 +573,7 @@
     exp.chunk = chunk = function chunk(array, size) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         assertArgument(isVoid(size) || isIndex(size), 2, 'number');
-        return lodash.chunk(array, size);
+        return _.chunk(array, size);
     };
 
     // CLEAN
@@ -579,20 +586,20 @@
     exp.clone = clone = function clone(collection, customizer, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isVoid(customizer) || isFunction(customizer), 2, 'Function');
-        return lodash.clone(collection, customizer, thisArg);
+        return _.clone(collection, customizer, thisArg);
     };
 
     // CLONEDEEP
     exp.cloneDeep = cloneDeep = function cloneDeep(collection, customizer, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isVoid(customizer) || isFunction(customizer), 2, 'Function');
-        return lodash.cloneDeep(collection, customizer, thisArg);
+        return _.cloneDeep(collection, customizer, thisArg);
     };
 
     // COMPACT
     exp.compact = compact = function compact(array) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
-        return lodash.compact(array);
+        return _.compact(array);
     };
 
     // CONCAT
@@ -606,7 +613,7 @@
     exp.countBy = countBy = function countBy(collection, iteratee, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isFunction(iteratee) || isObject(iteratee) || isString(iteratee), 2, 'Function, Object or string');
-        return lodash.countBy(collection, iteratee, thisArg);
+        return _.countBy(collection, iteratee, thisArg);
     };
 
     // CREATEELEMENT
@@ -629,19 +636,19 @@
         assertArgument(isFunction(func), 1, 'Function');
         assertArgument(isVoid(wait) || isIndex(wait), 2, 'number');
         assertArgument(isVoid(opt) || isObject(opt), 3, 'Object');
-        return lodash.debounce(func, wait, opt);
+        return _.debounce(func, wait, opt);
     };
 
     // DEBURR
     exp.deburr = deburr = function deburr(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.deburr(string) : '';
+        return string ? _.deburr(string) : '';
     };
 
     // DEFAULTS
     exp.defaults = defaults = function defaults(object, sources) {
         assertArgument(isObject(object), 1, 'Object');
-        return lodash.defaults.apply(lodash, filter(arguments, ary(isObject, 1)));
+        return _.defaults.apply(_, filter(arguments, ary(isObject, 1)));
     };
 
     // DEFINEPROPERTIES
@@ -662,6 +669,7 @@
 
         // Preparing
         opt = isFunction(opt) ? {value: opt} : opt;
+        opt.defined    = false;
         opt.enumerable = value(opt, 'enumerable', true);
 
         // Vars
@@ -674,7 +682,7 @@
         // Setting
         if (isConstant && opt.promise) { opt.value = function () { return new Promise(arguments, func, this); }; }
         if (isGetter && !isSetter) { opt.set = function (val) { return val; }; }
-        if (isSetter && !isGetter && !isValidated) { opt.validate = function () { return true; }; }
+        if (isSetter && !isGetter && !isValidated) { opt.validate = mock(); }
         if (isFunction(target) && !opt['static']) { target = target.prototype; }
 
         // Defining
@@ -687,9 +695,9 @@
         } : {
             get: isGetter ? opt.get : function () { return value(this, name + '_'); },
             set: isGetter ? opt.set : function (val) {
-                var self = this, key = name + '_', pre = self[key], post = opt.set.call(self, val);
-                if (!opt.validate.call(self, post)) { throw new InvalidError(name); }
-                if (!has(self, key)) { Object.defineProperty(self, key, {configurable: true, enumerable: opt.enumerable, writable: true, value: post}); } else { self[key] = post; }
+                var self = this, key = name + '_', pre = self[key], post = opt.set.call(self, val), err = opt.validate.call(self, post);
+                if (err) { throw new ValidationError(name, err, 500); }
+                if (opt.defined = opt.defined || has(self, key)) { self[key] = post; } else { Object.defineProperty(self, key, {configurable: opt.defined = true, enumerable: opt.enumerable, writable: true, value: post}); }
                 if (opt.sealed) { seal(post); }
                 if (opt.frozen) { freeze(post); }
                 if (opt.then) { opt.then.call(self, post, pre); }
@@ -707,42 +715,42 @@
     exp.delay = delay = function delay(func, wait, ticks) {
         assertArgument(isFunction(func), 1, 'Function');
         assertArgument(isVoid(wait) || isIndex(wait), 2, 'number');
-        return wait > 0 && !ticks ? lodash.delay(func, wait) : lodash.defer(function () {
+        return wait > 0 && !ticks ? _.delay(func, wait) : _.defer(function () {
             if (wait  > 1) { delay(func, wait - 1, ticks); } else { func(); }
         });
     };
 
     // DIFFERENCE
     exp.difference = difference = function difference(array, values) {
-        return lodash.difference.apply(lodash, map(filter(arguments, ary(isArrayable, 1)), ary(toArray, 1)));
+        return _.difference.apply(_, map(filter(arguments, ary(isArrayable, 1)), ary(toArray, 1)));
     };
 
     // DROP
     exp.drop = drop = function drop(array, n) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         assertArgument(isVoid(n) || isIndex(n), 2, 'number');
-        return lodash.drop(array, n);
+        return _.drop(array, n);
     };
 
     // DROPRIGHT
     exp.dropRight = dropRight = function dropRight(array, n) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         assertArgument(isVoid(n) || isIndex(n), 2, 'number');
-        return lodash.dropRight(array, n);
+        return _.dropRight(array, n);
     };
 
     // DROPRIGHTWHILE
     exp.dropRightWhile = dropRightWhile = function dropRightWhile(array, predicate, thisArg) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         assertArgument(isPredicate(predicate), 2, 'Function | Object | string');
-        return lodash.dropRightWhile(array, predicate, thisArg);
+        return _.dropRightWhile(array, predicate, thisArg);
     };
 
     // DROPWHILE
     exp.dropWhile = dropWhile = function dropWhile(array, predicate, thisArg) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         assertArgument(isPredicate(predicate), 2, 'Function | Object | string');
-        return lodash.dropWhile(array, predicate, thisArg);
+        return _.dropWhile(array, predicate, thisArg);
     };
 
     // ENDSWITH
@@ -750,26 +758,26 @@
         assertArgument(isVoid(string) || isString(string), 1, 'string');
         assertArgument(isVoid(target) || isString(target), 2, 'string');
         assertArgument(isVoid(spacer) || isString(spacer), 3, 'string');
-        return lodash.endsWith(string, (spacer || '') + (target || ''));
+        return _.endsWith(string, (spacer || '') + (target || ''));
     };
 
     // ESCAPE
     exp.escape = escape = function escape(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.escape(string) : '';
+        return string ? _.escape(string) : '';
     };
 
     // ESCAPEREGEXP
     exp.escapeRegExp = escapeRegExp = function escapeRegExp(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.escapeRegExp(string) : '';
+        return string ? _.escapeRegExp(string) : '';
     };
 
     // EVERY
     exp.every = every = function every(collection, predicate, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isPredicate(predicate), 2, 'Function, Object or string');
-        return lodash.every(collection, predicate, thisArg);
+        return _.every(collection, predicate, thisArg);
     };
 
     // FILEEXTENSION
@@ -790,7 +798,7 @@
     exp.filter = filter = function filter(collection, predicate, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isPredicate(predicate), 2, 'Function, Object or string');
-        return lodash.filter(collection, predicate, thisArg);
+        return _.filter(collection, predicate, thisArg);
     };
 
     // FILTERELEMENTS
@@ -807,7 +815,7 @@
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isPredicate(predicate) || isIndex(index), 2, 'Function, number, Object or string');
         if (isIndex(index)) { return collection[index]; }
-        if (isPredicate(predicate)) { return lodash.find(collection, predicate, thisArg); }
+        if (isPredicate(predicate)) { return _.find(collection, predicate, thisArg); }
     };
 
     // FINDDEEP
@@ -842,7 +850,7 @@
     exp.findIndex = findIndex = function findIndex(array, predicate, thisArg) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         assertArgument(isPredicate(predicate), 2, 'Function | Object | string');
-        var result = lodash.findIndex(array, predicate, thisArg);
+        var result = _.findIndex(array, predicate, thisArg);
         return isIndex(result) ? result : undefined;
     };
 
@@ -850,7 +858,7 @@
     exp.findKey = findKey = function findKey(object, predicate, thisArg) {
         assertArgument(isObject(object), 1, 'Object');
         assertArgument(isPredicate(predicate), 2, 'Function | Object | string');
-        return lodash.findKey(object, predicate, thisArg);
+        return _.findKey(object, predicate, thisArg);
     };
 
     // FINDLAST
@@ -859,7 +867,7 @@
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isPredicate(predicate) || isIndex(index), 2, 'Function, number, Object or string');
         if (isIndex(index)) { return collection[index]; }
-        if (isPredicate(predicate)) { return lodash.findLast(collection, predicate, thisArg); }
+        if (isPredicate(predicate)) { return _.findLast(collection, predicate, thisArg); }
     };
 
     // FINDLASTELEMENT
@@ -874,7 +882,7 @@
     exp.findLastIndex = findLastIndex = function findLastIndex(array, predicate, thisArg) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         assertArgument(isPredicate(predicate), 2, 'Function | Object | string');
-        var result = lodash.findLastIndex(array, predicate, thisArg);
+        var result = _.findLastIndex(array, predicate, thisArg);
         return isIndex(result) ? result : undefined;
     };
 
@@ -882,7 +890,7 @@
     exp.findLastKey = findLastKey = function findLastKey(object, predicate, thisArg) {
         assertArgument(isObject(object), 1, 'Object');
         assertArgument(isPredicate(predicate), 2, 'Function | Object | string');
-        return lodash.findLastKey(object, predicate, thisArg);
+        return _.findLastKey(object, predicate, thisArg);
     };
 
     // FINDNEXTELEMENT
@@ -946,7 +954,7 @@
     // FIRST
     exp.first = first = function first(array) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
-        return lodash.first(array);
+        return _.first(array);
     };
 
     // FIT
@@ -969,13 +977,13 @@
     // FLATTEN
     exp.flatten = flatten = function flatten(array) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
-        return lodash.flatten(array);
+        return _.flatten(array);
     };
 
     // FLATTENDEEP
     exp.flattenDeep = flattenDeep = function flattenDeep(array) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
-        return lodash.flattenDeep(array);
+        return _.flattenDeep(array);
     };
 
     // FLUSH
@@ -991,42 +999,42 @@
     exp.forEach = forEach = function forEach(collection, iteratee, thisArg) {
         assertArgument(isCollection(collection), 1, 'Arrayable or Object');
         assertArgument(isFunction(iteratee), 2, 'Function');
-        return lodash.forEach(collection, iteratee, thisArg);
+        return _.forEach(collection, iteratee, thisArg);
     };
 
     // FOREACHRIGHT
     exp.forEachRight = forEachRight = function forEachRight(collection, iteratee, thisArg) {
         assertArgument(isCollection(collection), 1, 'Arrayable or Object');
         assertArgument(isFunction(iteratee), 2, 'Function');
-        return lodash.forEachRight(collection, iteratee, thisArg);
+        return _.forEachRight(collection, iteratee, thisArg);
     };
 
     // FORIN
     exp.forIn = forIn = function forIn(object, iteratee, thisArg) {
         assertArgument(isObject(object), 1, 'Object');
         assertArgument(isFunction(iteratee), 2, 'Function');
-        return lodash.forIn(object, iteratee, thisArg);
+        return _.forIn(object, iteratee, thisArg);
     };
 
     // FORINRIGHT
     exp.forInRight = forInRight = function forInRight(object, iteratee, thisArg) {
         assertArgument(isObject(object), 1, 'Object');
         assertArgument(isFunction(iteratee), 2, 'Function');
-        return lodash.forInRight(object, iteratee, thisArg);
+        return _.forInRight(object, iteratee, thisArg);
     };
 
     // FOROWN
     exp.forOwn = forOwn = function forOwn(object, iteratee, thisArg) {
         assertArgument(isObject(object), 1, 'Object');
         assertArgument(isFunction(iteratee), 2, 'Function');
-        return lodash.forOwn(object, iteratee, thisArg);
+        return _.forOwn(object, iteratee, thisArg);
     };
 
     // FOROWNRIGHT
     exp.forOwnRight = forOwnRight = function forOwnRight(object, iteratee, thisArg) {
         assertArgument(isObject(object), 1, 'Object');
         assertArgument(isFunction(iteratee), 2, 'Function');
-        return lodash.forOwn(object, iteratee, thisArg);
+        return _.forOwn(object, iteratee, thisArg);
     };
 
     // FREEZE
@@ -1038,7 +1046,7 @@
     // FUNCTIONS
     exp.functions = functions = function functions(object) {
         assertArgument(isObject(object), 1, 'Object');
-        return lodash.functions(object);
+        return _.functions(object);
     };
 
     // GETALLNEXT
@@ -1283,14 +1291,14 @@
     exp.groupBy = groupBy = function groupBy(collection, iteratee, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isFunction(iteratee) || isObject(iteratee) || isString(iteratee), 2, 'Function, Object or string');
-        return lodash.groupBy(collection, iteratee, thisArg);
+        return _.groupBy(collection, iteratee, thisArg);
     };
 
     // HAS
     exp.has = has = function has(object, key) {
         assertArgument(isBindable(object, true), 1, 'Array, Function or Object');
         assertArgument(isString(key), 2, 'string');
-        return lodash.has(object, key);
+        return _.has(object, key);
     };
 
     // HASATTRIBUTE
@@ -1319,7 +1327,7 @@
     exp.includes = includes = function includes(collection, target, fromIndex) {
         assertArgument(isString(collection) || isCollection(collection = toArray(collection) || collection), 1, 'Arrayable, Object or string');
         assertArgument(isVoid(fromIndex) || isFinite(fromIndex), 3, 'number');
-        return lodash.includes(collection, target, fromIndex);
+        return _.includes(collection, target, fromIndex);
     };
 
     // INCLUDESDEEP
@@ -1332,39 +1340,39 @@
     exp.indexBy = indexBy = function indexBy(collection, iteratee, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isFunction(iteratee) || isObject(iteratee) || isString(iteratee), 2, 'Function, Object or string');
-        return lodash.indexBy(collection, iteratee, thisArg);
+        return _.indexBy(collection, iteratee, thisArg);
     };
 
     // INDEXOF
     exp.indexOf = indexOf = function indexOf(array, value, fromIndex) {
         assertArgument(isString(array) || isDefined(array = toArray(array)), 1, 'Arrayable or string');
         assertArgument(isVoid(fromIndex) || isFinite(fromIndex), 3, 'number');
-        var i = isArray(array) ? lodash.indexOf(array, value, fromIndex) : (isString(value) ? array.indexOf(value) : -1);
+        var i = isArray(array) ? _.indexOf(array, value, fromIndex) : (isString(value) ? array.indexOf(value) : -1);
         return isIndex(i) ? i : undefined;
     };
 
     // INITIAL
     exp.initial = initial = function initial(array) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
-        return lodash.initial(array);
+        return _.initial(array);
     };
 
     // INTERSECTION
     exp.intersection = intersection = function intersection(arrays) {
-        return lodash.intersection.apply(lodash, map(filter(arguments, ary(isArrayable, 1)), ary(toArray, 1)));
+        return _.intersection.apply(_, map(filter(arguments, ary(isArrayable, 1)), ary(toArray, 1)));
     };
 
     // INVERT
     exp.invert = invert = function invert(object, multiValue) {
         assertArgument(isObject(object), 1, 'Object');
-        return lodash.invert(object, !!multiValue);
+        return _.invert(object, !!multiValue);
     };
 
     // INVOKE
     exp.invoke = invoke = function invoke(collection, methodName, args) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isFunction(methodName) || isString(methodName, true), 2, 'Function or string');
-        return lodash.invoke.apply(lodash, concat([collection, methodName], slice(arguments, 2)));
+        return _.invoke.apply(_, concat([collection, methodName], slice(arguments, 2)));
     };
 
     // ISANY
@@ -1374,12 +1382,12 @@
 
     // ISARGUMENTS
     exp.isArguments = isArguments = function isArguments(value, notEmpty) {
-        return lodash.isArguments(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
+        return _.isArguments(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
     };
 
     // ISARRAY
     exp.isArray = isArray = function isArray(value, notEmpty) {
-        return lodash.isArray(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
+        return _.isArray(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
     };
 
     // ISARRAYABLE
@@ -1398,13 +1406,18 @@
     };
 
     // ISBOOLEAN
-    exp.isBoolean = isBoolean = function isBoolean(value) {
-        return lodash.isBoolean(value);
+    exp.isBoolean = isBoolean = function isBoolean(value, string) {
+        return _.isBoolean(value) || (string && (value === 'false' || value === 'true'));
     };
 
     // ISBROWSER
     exp.isBrowser = isBrowser = function isBrowser() {
         return browser;
+    };
+
+    // ISBUFFER
+    exp.isBuffer = isBuffer = function isBuffer(value) {
+        return Buffer.isBuffer(value);
     };
 
     // ISCAMELCASE
@@ -1441,7 +1454,7 @@
 
     // ISDATE
     exp.isDate = isDate = function isDate(value) {
-        return lodash.isDate(value);
+        return _.isDate(value);
     };
 
     // ISDEFINED
@@ -1451,7 +1464,7 @@
 
     // ISELEMENT
     exp.isElement = isElement = function isElement(value, notEmpty) {
-        if (!lodash.isElement(value) && !isPolyfilled(value) && (!isShady(value) || value.node.nodeType !== 1)) { return false; }
+        if (!_.isElement(value) && !isPolyfilled(value) && (!isShady(value) || value.node.nodeType !== 1)) { return false; }
         if (!isVoid(notEmpty) && xor(notEmpty, find(value.childNodes, function (node) { return node.nodeType !== 1 || node.tagName.toLowerCase() !== 'template'; }))) { return false; }
         return true;
     };
@@ -1470,7 +1483,7 @@
     // ISEQUAL
     exp.isEqual = isEqual = function isEqual(value, other, customizer, thisArg) {
         assertArgument(isVoid(customizer) || isFunction(customizer), 3, 'Function');
-        return lodash.isEqual(value, other, customizer, thisArg);
+        return _.isEqual(value, other, customizer, thisArg);
     };
 
     // ISEQUIVALENT
@@ -1480,7 +1493,7 @@
 
     // ISERROR
     exp.isError = isError = function isError(value) {
-        return lodash.isError(value);
+        return _.isError(value);
     };
 
     // ISESCAPE
@@ -1517,7 +1530,7 @@
 
     // ISFINITE
     exp.isFinite = isFinite = function isFinite(value, notNegative) {
-        return lodash.isFinite(value) && (isVoid(notNegative) || xnor(value >= 0, notNegative));
+        return _.isFinite(value) && (isVoid(notNegative) || xnor(value >= 0, notNegative));
     };
 
     // ISFLOAT
@@ -1527,7 +1540,7 @@
 
     // ISFUNCTION
     exp.isFunction = isFunction = function isFunction(value) {
-        return lodash.isFunction(value);
+        return _.isFunction(value);
     };
 
     // ISHEX
@@ -1595,12 +1608,12 @@
 
     // ISNAN
     exp.isNaN = isNaN = function isNaN(value) {
-        return lodash.isNaN(value);
+        return _.isNaN(value);
     };
 
     // ISNATIVE
     exp.isNative = isNative = function isNative(value) {
-        return lodash.isNative(value);
+        return _.isNative(value);
     };
 
     // ISNEGATIVE
@@ -1618,7 +1631,7 @@
 
     // ISNULL
     exp.isNull = isNull = function isNull(value) {
-        return lodash.isNull(value);
+        return _.isNull(value);
     };
 
     // ISNULLABLE
@@ -1628,7 +1641,7 @@
 
     // ISNUMBER
     exp.isNumber = isNumber = function isNumber(value, notNegative) {
-        return lodash.isNumber(value) && !isNaN(value) && (isVoid(notNegative) || xnor(value >= 0, notNegative));
+        return _.isNumber(value) && !isNaN(value) && (isVoid(notNegative) || xnor(value >= 0, notNegative));
     };
 
     // ISNUMERIC
@@ -1639,7 +1652,7 @@
 
     // ISOBJECT
     exp.isObject = isObject = function isObject(value, notEmpty) {
-        return lodash.isObject(value) && !isArray(value) && !isFunction(value) && (isVoid(notEmpty) || xnor(lodash.values(value).length, notEmpty));
+        return _.isObject(value) && !isArray(value) && !isFunction(value) && (isVoid(notEmpty) || xnor(_.values(value).length, notEmpty));
     };
 
     // ISOBSERVABLE
@@ -1654,7 +1667,7 @@
 
     // ISPLAINOBJECT
     exp.isPlainObject = isPlainObject = function isPlainObject(value, notEmpty) {
-        return lodash.isPlainObject(value) && (isVoid(notEmpty) || xnor(lodash.values(value).length, notEmpty));
+        return _.isPlainObject(value) && (isVoid(notEmpty) || xnor(_.values(value).length, notEmpty));
     };
 
     // ISPOLYFILLED
@@ -1669,7 +1682,7 @@
 
     // ISPREDICATE
     exp.isPredicate = isPredicate = function isPredicate(value) {
-        return isFunction(value) || isObject(value) || isString(value);
+        return isFunction(value) || isObject(value) || isString(value, true);
     };
 
     // ISPREVENTED
@@ -1684,7 +1697,7 @@
 
     // ISREGEXP
     exp.isRegExp = isRegExp = function isRegExp(value) {
-        return lodash.isRegExp(value);
+        return _.isRegExp(value);
     };
 
     // ISSELECTOR
@@ -1694,7 +1707,7 @@
 
     // ISSHADY
     exp.isShady = isShady = function isShady(value) {
-        return !!value && lodash.has(value, 'node') && lodash.has(Object.getPrototypeOf(value), '_queryElement');
+        return !!value && _.has(value, 'node') && _.has(Object.getPrototypeOf(value), '_queryElement');
     };
 
     // ISSNAKECASE
@@ -1709,7 +1722,7 @@
 
     // ISSTRING
     exp.isString = isString = function isString(value, notEmpty) {
-        return lodash.isString(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
+        return _.isString(value) && (isVoid(notEmpty) || xnor(value.length, notEmpty));
     };
 
     // ISTEMPLATE
@@ -1768,10 +1781,17 @@
         next(null);
     };
 
+    // JOIN
+    exp.join = join = function join(array, separator) {
+        assertArgument(array = toArray(array), 1, 'Arrayable');
+        assertArgument(isVoid(separator) || isString(separator), 2, 'string');
+        return !array.length || Buffer.isBuffer(array[0]) ? Buffer.concat(array) : array.join(separator);
+    };
+
     // KEBABCASE
     exp.kebabCase = kebabCase = function kebabCase(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.kebabCase(lodash.trim(string)) : '';
+        return string ? _.kebabCase(_.trim(string)) : '';
     };
 
     // KEBABCASEREGEX
@@ -1780,7 +1800,7 @@
     // KEYCASE
     exp.keyCase = keyCase = function keyCase(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.camelCase(lodash.trim(string)).replace(/^(\d+)/, '') : '';
+        return string ? _.camelCase(_.trim(string)).replace(/^(\d+)/, '') : '';
     };
 
     // KEYCASEREGEX
@@ -1789,26 +1809,26 @@
     // KEYS
     exp.keys = keys = function keys(object) {
         assertArgument(isObject(object), 1, 'Object');
-        return lodash.keys(object);
+        return _.keys(object);
     };
 
     // KEYSIN
     exp.keysIn = keysIn = function keysIn(object) {
         assertArgument(isObject(object), 1, 'Object');
-        return lodash.keysIn(object);
+        return _.keysIn(object);
     };
 
     // LAST
     exp.last = last = function last(array) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
-        return lodash.last(array);
+        return _.last(array);
     };
 
     // LASTINDEXOF
     exp.lastIndexOf = lastIndexOf = function lastIndexOf(array, value, fromIndex) {
         assertArgument(isString(array) || isDefined(array = toArray(array)), 1, 'Arrayable or string');
         assertArgument(isVoid(fromIndex) || isFinite(fromIndex), 3, 'number');
-        var i = isArray(array) ? lodash.lastIndexOf(array, value, fromIndex) : (isString(value) ? array.lastIndexOf(value) : -1);
+        var i = isArray(array) ? _.lastIndexOf(array, value, fromIndex) : (isString(value) ? array.lastIndexOf(value) : -1);
         return isIndex(i) ? i : undefined;
     };
 
@@ -1837,7 +1857,7 @@
     // LOWERCASE
     exp.lowerCase = lowerCase = function lowerCase(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.trim(string).toLowerCase() : '';
+        return string ? _.trim(string).toLowerCase() : '';
     };
 
     // LOWERCASEREGEX
@@ -1847,7 +1867,7 @@
     exp.map = map = function map(collection, iteratee, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isFunction(iteratee) || isObject(iteratee) || isString(iteratee), 2, 'Function, Object or string');
-        return lodash.map(collection, iteratee, thisArg);
+        return _.map(collection, iteratee, thisArg);
     };
 
     // MAPONE
@@ -1863,7 +1883,7 @@
     exp.mapValues = mapValues = function mapValues(object, iteratee, thisArg) {
         assertArgument(isObject(object), 1, 'Object');
         assertArgument(isFunction(iteratee) || isString(iteratee), 2, 'Function or string');
-        return lodash.mapValues(object, iteratee, thisArg);
+        return _.mapValues(object, iteratee, thisArg);
     };
 
     // MATCH
@@ -1885,27 +1905,27 @@
     exp.max = max = function max(collection, iteratee, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isFunction(iteratee) || isObject(iteratee) || isString(iteratee), 2, 'Function, Object or string');
-        return lodash.max(collection, iteratee, thisArg);
+        return _.max(collection, iteratee, thisArg);
     };
 
     // MEMOIZE
     exp.memoize = memoize = function memoize(func, resolver) {
         assertArgument(isFunction(func), 1, 'Function');
         assertArgument(isVoid(resolver) || isFunction(resolver), 2, 'Function');
-        return lodash.memoize(func, resolver);
+        return _.memoize(func, resolver);
     };
 
     // MERGE
     exp.merge = merge = function merge(object, sources) {
         assertArgument(isObject(object), 1, 'Object');
-        return lodash.merge.apply(lodash, filter(arguments, ary(isObject, 1)));
+        return _.merge.apply(_, filter(arguments, ary(isObject, 1)));
     };
 
     // MIN
     exp.min = min = function min(collection, iteratee, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isFunction(iteratee) || isObject(iteratee) || isString(iteratee), 2, 'Function, Object or string');
-        return lodash.min(collection, iteratee, thisArg);
+        return _.min(collection, iteratee, thisArg);
     };
 
     // MOCK
@@ -1939,7 +1959,7 @@
     // NEGATE
     exp.negate = negate = function negate(predicate) {
         assertArgument(isFunction(predicate), 1, 'Function');
-        return lodash.negate(predicate);
+        return _.negate(predicate);
     };
 
     // NOR
@@ -1956,7 +1976,7 @@
     exp.omit = omit = function omit(object, predicate, thisArg) {
         assertArgument(isObject(object), 1, 'Object');
         assertArgument(isString(predicate) || isArrayable(predicate) || isFunction(predicate), 2, 'Arrayable, Function or string');
-        return lodash.omit(object, predicate, thisArg);
+        return _.omit(object, predicate, thisArg);
     };
 
     // ONMUTATION
@@ -1975,7 +1995,7 @@
     // ONCE
     exp.once = once = function once(func) {
         assertArgument(isFunction(func), 1, 'Function');
-        return lodash.once(func);
+        return _.once(func);
     };
 
     // OR
@@ -1997,7 +2017,7 @@
         assertArgument(isVoid(string) || isString(string), 1, 'string');
         assertArgument(isVoid(length) || isIndex(length), 2, 'number');
         assertArgument(isVoid(chars) || isString(chars), 3, 'string');
-        return lodash.pad(string, length, chars);
+        return _.pad(string, length, chars);
     };
 
     // PADLEFT
@@ -2005,7 +2025,7 @@
         assertArgument(isVoid(string) || isString(string), 1, 'string');
         assertArgument(isVoid(length) || isIndex(length), 2, 'number');
         assertArgument(isVoid(chars) || isString(chars), 3, 'string');
-        return lodash.padLeft(string, length, chars);
+        return _.padLeft(string, length, chars);
     };
 
     // PADRIGHT
@@ -2013,13 +2033,13 @@
         assertArgument(isVoid(string) || isString(string), 1, 'string');
         assertArgument(isVoid(length) || isIndex(length), 2, 'number');
         assertArgument(isVoid(chars) || isString(chars), 3, 'string');
-        return lodash.padRight(string, length, chars);
+        return _.padRight(string, length, chars);
     };
 
     // PAIRS
     exp.pairs = pairs = function pairs(object) {
         assertArgument(isObject(object), 1, 'Object');
-        return lodash.pairs(object);
+        return _.pairs(object);
     };
 
     // PARALLEL
@@ -2083,7 +2103,7 @@
     exp.partition = partition = function partition(collection, predicate, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isPredicate(predicate), 2, 'Function, Object or string');
-        return lodash.partition(collection, predicate, thisArg);
+        return _.partition(collection, predicate, thisArg);
     };
 
     // PERCENTAGE
@@ -2095,14 +2115,14 @@
     exp.pick = pick = function pick(object, predicate, thisArg) {
         assertArgument(isObject(object), 1, 'Object');
         assertArgument(isString(predicate) || isArrayable(predicate) || isFunction(predicate), 2, 'Arrayable, Function or string');
-        return lodash.pick(object, predicate, thisArg);
+        return _.pick(object, predicate, thisArg);
     };
 
     // PLUCK
     exp.pluck = pluck = function pluck(collection, key) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isString(key), 2, 'string');
-        return lodash.pluck(collection, key);
+        return _.pluck(collection, key);
     };
 
     // PREFIX
@@ -2132,14 +2152,14 @@
     // PULL
     exp.pull = pull = function pull(array, value) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
-        return lodash.pull(array, value);
+        return _.pull(array, value);
     };
 
     // PULLAT
     exp.pullAt = pullAt = function pullAt(array, index) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         assertArgument(isIndex(index), 2, 'number');
-        return lodash.pullAt(array, index)[0];
+        return _.pullAt(array, index)[0];
     };
 
     // PUSH
@@ -2154,7 +2174,7 @@
     exp.random = random = function random(min, max, floating) {
         assertArgument(isVoid(min) || isFinite(min), 1, 'number');
         assertArgument(isVoid(max) || isFinite(max), 2, 'number');
-        return lodash.random(min, max, !!floating);
+        return _.random(min, max, !!floating);
     };
 
     // RANGE
@@ -2162,7 +2182,7 @@
         assertArgument(isFinite(start), 1, 'number');
         assertArgument(isVoid(end) || isFinite(end), 2, 'number');
         assertArgument(isVoid(step) || isFinite(step), 3, 'number');
-        return lodash.range(start, end, step);
+        return _.range(start, end, step);
     };
 
     // RATIO
@@ -2176,7 +2196,7 @@
     // READABLE
     exp.readable = readable = function readable(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.capitalize(lodash.snakeCase(lodash.trim(string)).replace(/_/g, ' ')) : '';
+        return string ? _.capitalize(_.snakeCase(_.trim(string)).replace(/_/g, ' ')) : '';
     };
 
     // REDIRECT
@@ -2189,28 +2209,28 @@
     exp.reduce = reduce = function reduce(collection, iteratee, accumulator, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isFunction(iteratee), 2, 'Function');
-        return lodash.reduce(collection, iteratee, accumulator, thisArg);
+        return _.reduce(collection, iteratee, accumulator, thisArg);
     };
 
     // REDUCERIGHT
     exp.reduceRight = reduceRight = function reduceRight(collection, iteratee, accumulator, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isFunction(iteratee), 2, 'Function');
-        return lodash.reduceRight(collection, iteratee, accumulator, thisArg);
+        return _.reduceRight(collection, iteratee, accumulator, thisArg);
     };
 
     // REJECT
     exp.reject = reject = function reject(collection, predicate, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isPredicate(predicate), 2, 'Function, Object or string');
-        return lodash.reject(collection, predicate, thisArg);
+        return _.reject(collection, predicate, thisArg);
     };
 
     // REMOVE
     exp.remove = remove = function remove(array, predicate, thisArg) {
         assertArgument(isArray(array), 1, 'Array');
         assertArgument(isPredicate(predicate), 2, 'Function, Object or string');
-        return lodash.remove(array, predicate, thisArg);
+        return _.remove(array, predicate, thisArg);
     };
 
     // REMOVEATTRIBUTE
@@ -2296,7 +2316,7 @@
     // REST
     exp.rest = rest = function rest(array) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
-        return lodash.rest(array);
+        return _.rest(array);
     };
 
     // ROUND
@@ -2310,7 +2330,7 @@
     exp.sample = sample = function sample(collection, n) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isVoid(n) || isIndex(n), 2, 'number');
-        return lodash.sample(collection, n);
+        return _.sample(collection, n);
     };
 
     // SEAL
@@ -2391,26 +2411,26 @@
     // SHUFFLE
     exp.shuffle = shuffle = function shuffle(collection) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
-        return lodash.shuffle(collection);
+        return _.shuffle(collection);
     };
 
     // SIZE
     exp.size = size = function size(collection) {
         assertArgument(isString(collection) || isCollection(collection = toArray(collection) || collection), 1, 'Arrayable, Object or string');
-        return lodash.size(collection);
+        return _.size(collection);
     };
 
     // SLICE
     exp.slice = slice = function slice(array, start, end) {
         assertArgument(isVoid(start) || isIndex(start), 2, 'a positive number');
         assertArgument(isVoid(end) || isIndex(end), 3, 'a positive number');
-        return lodash.slice(array, start, end);
+        return _.slice(array, start, end);
     };
 
     // SNAKECASE
     exp.snakeCase = snakeCase = function snakeCase(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.snakeCase(lodash.trim(string)) : '';
+        return string ? _.snakeCase(_.trim(string)) : '';
     };
 
     // SNAKECASEREGEX
@@ -2420,14 +2440,14 @@
     exp.some = some = function some(collection, predicate, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isPredicate(predicate), 2, 'Function, Object or string');
-        return lodash.some(collection, predicate, thisArg);
+        return _.some(collection, predicate, thisArg);
     };
 
     // SORTBY
     exp.sortBy = sortBy = function sortBy(collection, iteratee, thisArg) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isFunction(iteratee) || isObject(iteratee) || isString(iteratee), 2, 'Function, Object or string');
-        return lodash.sortBy(collection, iteratee, thisArg);
+        return _.sortBy(collection, iteratee, thisArg);
     };
 
     // SPLIT
@@ -2441,7 +2461,7 @@
     // STARTCASE
     exp.startCase = startCase = function snakeCase(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.startCase(lodash.trim(string)) : '';
+        return string ? _.startCase(_.trim(string)) : '';
     };
 
     // STARTCASEREGEX
@@ -2452,7 +2472,7 @@
         assertArgument(isVoid(string) || isString(string), 1, 'string');
         assertArgument(isVoid(target) || isString(target), 2, 'string');
         assertArgument(isVoid(spacer) || isString(spacer), 3, 'string');
-        return lodash.startsWith(string, (spacer || '') + (target || ''));
+        return _.startsWith(string, (spacer || '') + (target || ''));
     };
 
     // STOP
@@ -2495,28 +2515,28 @@
     exp.take = take = function take(array, n) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         assertArgument(isVoid(n) || isIndex(n), 2, 'number');
-        return lodash.take(array, n);
+        return _.take(array, n);
     };
 
     // TAKERIGHT
     exp.takeRight = takeRight = function takeRight(array, n) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         assertArgument(isVoid(n) || isIndex(n), 2, 'number');
-        return lodash.takeRight(array, n);
+        return _.takeRight(array, n);
     };
 
     // TAKERIGHTWHILE
     exp.takeRightWhile = takeRightWhile = function takeRightWhile(array, predicate, thisArg) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         assertArgument(isPredicate(predicate), 2, 'Function, Object or string');
-        return lodash.takeRightWhile(array, predicate, thisArg);
+        return _.takeRightWhile(array, predicate, thisArg);
     };
 
     // TAKEWHILE
     exp.takeWhile = takeWhile = function takeWhile(array, predicate, thisArg) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         assertArgument(isPredicate(predicate), 2, 'Function, Object or string');
-        return lodash.takeWhile(array, predicate, thisArg);
+        return _.takeWhile(array, predicate, thisArg);
     };
 
     // THROTTLE
@@ -2524,7 +2544,7 @@
         assertArgument(isFunction(func), 1, 'Function');
         assertArgument(isVoid(wait) || isIndex(wait), 2, 'number');
         assertArgument(isVoid(opt) || isObject(opt), 3, 'Object');
-        return lodash.throttle(func, wait, opt);
+        return _.throttle(func, wait, opt);
     };
 
     // TOARRAY
@@ -2742,14 +2762,14 @@
     exp.trim = trim = function trim(string, chars) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
         assertArgument(isVoid(chars) || isString(chars), 2, 'string');
-        return string ? lodash.trim(string, chars) : '';
+        return string ? _.trim(string, chars) : '';
     };
 
     // TRIMLEFT
     exp.trimLeft = trimLeft = function trimLeft(string, chars) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
         assertArgument(isVoid(chars) || isString(chars), 2, 'string');
-        return string ? lodash.trimLeft(string, chars) : '';
+        return string ? _.trimLeft(string, chars) : '';
     };
 
     // TRIMREGEX
@@ -2759,32 +2779,32 @@
     exp.trimRight = trimRight = function trimRight(string, chars) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
         assertArgument(isVoid(chars) || isString(chars), 2, 'string');
-        return string ? lodash.trimRight(string, chars) : '';
+        return string ? _.trimRight(string, chars) : '';
     };
 
     // TRUNC
     exp.trunc = trunc = function trunc(string, opt) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
         assertArgument(isVoid(opt) || isObject(opt), 2, 'Object');
-        return string ? lodash.trunc(string, opt) : '';
+        return string ? _.trunc(string, opt) : '';
     };
 
     // UNESCAPE
     exp.unescape = unescape = function unescape(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.unescape(string) : '';
+        return string ? _.unescape(string) : '';
     };
 
     // UNION
     exp.union = union = function union(arrays) {
-        return lodash.union.apply(lodash, map(filter(arguments, ary(isArrayable, 1)), ary(toArray, 1)));
+        return _.union.apply(_, map(filter(arguments, ary(isArrayable, 1)), ary(toArray, 1)));
     };
 
     // UNIQ
     exp.uniq = uniq = function uniq(array, iteratee, thisArg) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         assertArgument(isFunction(iteratee) || isObject(iteratee) || isString(iteratee), 2, 'Function, Object or string');
-        return lodash.uniq(array, iteratee, thisArg);
+        return _.uniq(array, iteratee, thisArg);
     };
 
     // UNLISTEN
@@ -2802,7 +2822,7 @@
     // UNZIP
     exp.unzip = unzip = function unzip(array) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
-        return lodash.unzip(array);
+        return _.unzip(array);
     };
 
     // UPDATEELEMENT
@@ -2818,7 +2838,7 @@
     // UPPERCASE
     exp.upperCase = upperCase = function upperCase(string) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
-        return string ? lodash.trim(string).toUpperCase() : '';
+        return string ? _.trim(string).toUpperCase() : '';
     };
 
     // UPPERCASEREGEX
@@ -2850,13 +2870,13 @@
     // VALUES
     exp.values = values = function values(object) {
         assertArgument(isObject(object), 1, 'Object');
-        return lodash.values(object);
+        return _.values(object);
     };
 
     // VALUESIN
     exp.valuesIn = valuesIn = function valuesIn(object) {
         assertArgument(isObject(object), 1, 'Object');
-        return lodash.valuesIn(object);
+        return _.valuesIn(object);
     };
 
     // WATERFALL
@@ -2888,7 +2908,7 @@
     exp.where = where = function where(collection, source) {
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isObject(source), 2, 'Object');
-        return lodash.where(collection, source);
+        return _.where(collection, source);
     };
 
     // WILLBLEEDBOTTOM
@@ -2953,21 +2973,21 @@
     // WITHOUT
     exp.without = without = function without(array, values) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
-        return lodash.without.apply(lodash, concat([array], slice(arguments, 1)));
+        return _.without.apply(_, concat([array], slice(arguments, 1)));
     };
 
     // WORDS
     exp.words = words = function words(string, pattern) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
         assertArgument(isVoid(pattern) || isRegExp(pattern) || isString(pattern), 2, 'RegExp or string');
-        return string ? lodash.words(string, pattern) : [];
+        return string ? _.words(string, pattern) : [];
     };
 
     // WRAP
     exp.wrap = wrap = function wrap(func, wrapper) {
         assertArgument(isFunction(func), 1, 'Function');
         assertArgument(isVoid(wrapper) || isFunction(wrapper), 2, 'Function');
-        return lodash.wrap(func, wrapper);
+        return _.wrap(func, wrapper);
     };
 
     // XNOR
@@ -2982,7 +3002,7 @@
 
     // ZIP
     exp.zip = zip = function zip(arrays) {
-        return lodash.union.apply(lodash, map(filter(arguments, ary(isArrayable, 1)), ary(toArray, 1)));
+        return _.union.apply(_, map(filter(arguments, ary(isArrayable, 1)), ary(toArray, 1)));
     };
 
     // ZIPOBJECT
@@ -2992,13 +3012,5 @@
         if (isString(props)) { result[props] = values; } else { props.forEach(function (key, i) { result[key] = multi ? values[i] : values; }); }
         return result;
     };
-
-    // Browserify
-    if (browser) {
-        global._ = lodash;
-        global.XPClass = exp.Class;
-        global.XPDeferred = exp.Deferred;
-        global.XPPromise = exp.Promise;
-    }
 
 }(typeof window !== "undefined" ? window : global, typeof window !== "undefined"));
