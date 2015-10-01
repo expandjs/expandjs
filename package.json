@@ -25,8 +25,9 @@
     "minifyify": "*"
   },
   "scripts": {
-    "build": "node bin/build && browserify bin | derequire > dist/expandjs.js && npm run build:min",
-    "build:min": "browserify -d bin -p [minifyify --map expandjs.min.map --output dist/expandjs.min.map] | derequire > dist/expandjs.min.js"
+    "build": "npm run build:browserify && npm run build:minify && node noconflict",
+    "build:browserify": "node bin/build && browserify bin --standalone XP | derequire > dist/expandjs.js",
+    "build:minify": "browserify -d bin --standalone XP -p [minifyify --map expandjs.min.map --output dist/expandjs.min.map] | derequire > dist/expandjs.min.js"
   },
   "keywords": [
       "expandjs",
