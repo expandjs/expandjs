@@ -3584,7 +3584,7 @@ function isNullOrUndefined(arg) {
 
     // CUSTOMERROR
     exp.CustomError = CustomError = function CustomError(name, message, code) {
-        var err      = Error.call(this, message);
+        var err      = Error.call(this, message || '');
         this.name    = err.name = name;
         this.message = err.message;
         this.stack   = err.stack;
@@ -5083,7 +5083,7 @@ function isNullOrUndefined(arg) {
     exp.join = join = function join(array, separator) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         assertArgument(isVoid(separator) || isString(separator), 2, 'string');
-        return !array.length || Buffer.isBuffer(array[0]) ? Buffer.concat(array) : array.join(separator);
+        return !array.length || Buffer.isBuffer(array[0]) ? Buffer.concat(array) : array.join(separator || '');
     };
 
     // KEBABCASE
