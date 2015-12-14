@@ -4,9 +4,9 @@
     "use strict";
 
     // Vars
-    var AbstractError, AlreadyDefinedError, AlreadyUsedError, ArgumentError, Class, CustomError, Deferred, DeniedError, ImmutableError, InvalidError, NotFoundError, Promise, RejectedError, RequiredError, UnavailableError, UndefinedError, UnknownError, ValidationError, addAttribute, addAttributes, addClass, after, alignElement, and, append, appendChild, apply, ary, assert, assertArgument, assertOption, assign, at, attempt, basicAuth, bearerAuth, before, call, camelCase, camelCaseRegex, capitalize, capitalizeRegex, chunk, clean, clone, cloneDeep, compact, concat, countBy, createElement, createElementNS, debounce, deburr, defaults, defineProperties, defineProperty, delay, difference, drop, dropRight, dropRightWhile, dropWhile, endsWith, escape, escapeRegExp, every, fileExtension, fileName, filter, filterElements, find, findDeep, findElement, findElements, findIndex, findKey, findLast, findLastElement, findLastIndex, findLastKey, findNextElement, findNextElements, findParentElement, findPreviousElement, findPreviousElements, findSiblingElement, findSiblingElements, first, fit, fixed, flatten, flattenDeep, flush, forEach, forEachRight, forIn, forInRight, forOwn, forOwnRight, freeze, functions, getAllNext, getAllNextElements, getAllPrevious, getAllPreviousElements, getAllSiblingElements, getAllSiblings, getAttribute, getAttributes, getBoundings, getChildren, getDistributedElement, getDistributedElements, getElement, getElementById, getElements, getHTML, getHeight, getMargin, getNext, getNextElement, getNode, getNodes, getPadding, getParentElement, getPrevious, getPreviousElement, getSiblingElements, getSiblings, getStyle, getStyles, getTag, getText, getValue, getWidth, groupBy, has, hasAttribute, hasChild, hasClass, includes, includesDeep, indexBy, indexOf, initial, intersection, invert, invoke, isArguments, isArray, isArrayable, isBase62, isBindable, isBoolean, isBrowser, isBuffer, isCamelCase, isCapitalize, isClean, isCollection, isContent, isCustomEvent, isDate, isDefined, isElement, isEmpty, isEnumerable, isEqual, isEquivalent, isError, isEscape, isEscapeRegExp, isEven, isEvent, isExotic, isFalse, isFalsy, isFinite, isFloat, isFunction, isHex, isIndex, isInfinite, isInput, isInstance, isInt, isInvalid, isKebabCase, isKeyCase, isLast, isLastIndex, isLowerCase, isNaN, isNative, isNegative, isNode, isNull, isNumber, isNumeric, isObject, isObservable, isOdd, isPlainObject, isPolyfilled, isPositive, isPredicate, isPrevented, isPrimitive, isRegExp, isSelector, isShady, isSnakeCase, isStartCase, isString, isTemplate, isTrue, isTruthy, isUniq, isUpperCase, isUuid, isVoid, isWithin, iterate, join, kebabCase, kebabCaseRegex, keyCase, keyCaseRegex, keys, keysIn, last, lastIndexOf, listen, localize, lowerCase, lowerCaseRegex, map, mapOne, mapValues, match, matches, max, memoize, merge, min, mock, moveFirst, moveLast, nand, negate, nor, not, omit, onMutation, once, or, overwrite, pad, padLeft, padRight, pairs, parallel, parseBase62, parseHex, parseJSON, parseURL, partition, percentage, pick, pluck, prefix, prependChild, preventDefault, pull, pullAt, push, random, range, ratio, readable, redirect, reduce, reduceRight, reject, remove, removeAttribute, removeAttributes, removeChild, removeClass, removeStyle, removeStyles, renameElement, repeat, replaceNode, requestAnimationFrame, rest, round, sample, seal, setAttribute, setAttributes, setChildren, setHTML, setStyle, setStyles, setText, shrink, shuffle, size, slice, snakeCase, snakeCaseRegex, some, sortBy, split, startCase, startCaseRegex, startsWith, stop, stopPropagation, stretch, strip, suffix, take, takeRight, takeRightWhile, takeWhile, throttle, toArray, toBase62, toBoolean, toDOMIdentity, toDOMPredicate, toElapsedTime, toHex, toIndex, toInfinite, toInput, toInt, toJSON, toNumber, toObject, toPosition, toPrimitive, toQueryString, toRegExp, toString, toTemplate, toURL, toUseful, toValue, toggleAttribute, toggleClass, trim, trimLeft, trimRegex, trimRight, trunc, unescape, union, uniq, unlisten, unzip, updateElement, upperCase, upperCaseRegex, uuid, uuidRegex, value, valueIn, values, valuesIn, waterfall, where, willBleedBottom, willBleedHorizontally, willBleedLeft, willBleedRight, willBleedTop, willBleedVertically, withdraw, within, without, words, wrap, xnor, xor, zip, zipObject, 
+    var AbstractError, AlreadyDefinedError, AlreadyUsedError, ArgumentError, Class, CustomError, DeniedError, ImmutableError, InvalidError, NotFoundError, RejectedError, RequiredError, UnavailableError, UndefinedError, UnknownError, ValidationError, addAttribute, addAttributes, addClass, after, alignElement, and, append, appendChild, apply, ary, assert, assertArgument, assertOption, assign, at, attempt, basicAuth, bearerAuth, before, call, camelCase, camelCaseRegex, capitalize, capitalizeRegex, chunk, clean, clone, cloneDeep, compact, concat, countBy, debounce, deburr, defaults, defineProperties, defineProperty, delay, difference, drop, dropRight, dropRightWhile, dropWhile, endsWith, escape, escapeRegExp, every, fileExtension, fileName, filter, filterElements, find, findDeep, findElement, findElements, findIndex, findKey, findLast, findLastElement, findLastIndex, findLastKey, findNextElement, findNextElements, findParentElement, findPreviousElement, findPreviousElements, findSiblingElement, findSiblingElements, first, fit, fixed, flatten, flattenDeep, flush, forEach, forEachRight, forIn, forInRight, forOwn, forOwnRight, formData, freeze, functions, getAllNext, getAllPrevious, getAllSiblings, getAttribute, getAttributes, getBoundings, getElement, getElementById, getElements, getHTML, getHeight, getMargin, getNext, getNextElement, getNextElements, getNode, getNodes, getPadding, getPrevious, getPreviousElement, getPreviousElements, getSiblingElements, getSiblings, getStyle, getStyles, getTag, getText, getValue, getWidth, getter, groupBy, has, hasAttribute, hasChildren, hasClass, includes, includesDeep, indexBy, indexOf, initial, intersection, invert, invoke, isAny, isArguments, isArray, isArrayable, isBase62, isBindable, isBoolean, isBrowser, isBuffer, isCamelCase, isCapitalize, isClean, isCollection, isDate, isDefined, isElement, isEmpty, isEnumerable, isEqual, isEquivalent, isError, isEscape, isEscapeRegExp, isEven, isEvent, isExotic, isFalse, isFalsy, isFinite, isFloat, isFunction, isHex, isIndex, isInfinite, isInput, isInstance, isInt, isInvalid, isKebabCase, isKeyCase, isLast, isLastIndex, isLowerCase, isNaN, isNative, isNegative, isNode, isNull, isNullable, isNumber, isNumeric, isObject, isObservable, isOdd, isPlainObject, isPolyfilled, isPositive, isPredicate, isPrevented, isPrimitive, isRegExp, isSelector, isShady, isSnakeCase, isStartCase, isString, isTemplate, isTrue, isTruthy, isUniq, isUpperCase, isUuid, isVoid, isWithin, iterate, join, kebabCase, kebabCaseRegex, keyCase, keyCaseRegex, keys, keysIn, last, lastIndexOf, listen, literalOf, localize, lowerCase, lowerCaseRegex, map, mapValues, match, matches, max, memoize, merge, min, mock, moveFirst, moveLast, nand, negate, nor, not, omit, onMutation, once, or, overwrite, pad, padLeft, padRight, pairs, parallel, parseBase62, parseHex, parseJSON, parseURL, partition, percentage, pick, pluck, prefix, prependChild, preventDefault, promise, pull, pullAt, push, random, range, ratio, readable, redirect, reduce, reduceRight, reject, remove, removeAttribute, removeAttributes, removeChild, removeClass, removeStyle, removeStyles, renameElement, repeat, replaceNode, rest, round, sample, seal, setAttribute, setAttributes, setHTML, setNodes, setStyle, setStyles, setText, setValue, setter, shrink, shuffle, size, slice, snakeCase, snakeCaseRegex, some, sortBy, split, startCase, startCaseRegex, startsWith, stop, stopPropagation, stretch, strip, suffix, take, takeRight, takeRightWhile, takeWhile, throttle, toArray, toBase62, toBoolean, toDOMIdentity, toDOMPredicate, toElapsedTime, toHex, toIndex, toInfinite, toInput, toInt, toJSON, toNull, toNumber, toObject, toPosition, toPrimitive, toQueryString, toRegExp, toString, toURL, toUseful, toValue, toggleAttribute, toggleClass, trim, trimLeft, trimRegex, trimRight, trunc, unescape, union, uniq, unlisten, unzip, upperCase, upperCaseRegex, uuid, uuidRegex, value, valueIn, values, valuesIn, waterfall, where, willBleedBottom, willBleedHorizontally, willBleedLeft, willBleedRight, willBleedTop, willBleedVertically, withdraw, within, without, words, wrap, xnor, xor, zip, zipObject, 
+        forms  = require("html-json-forms"),
         lodash = require("lodash"),
-        q      = require("q"),
         url    = require("url"),
         UUID   = require("uuid"),
         _      = global._  = global._ || lodash,
@@ -33,7 +33,7 @@
     };
 
     // CLASS
-    exp.Class = Class = function Class(name, opt) {
+    exp.Class = Class = function (name, opt) {
 
         // Asserting
         assertArgument(isString(name, true), 1, 'string');
@@ -53,7 +53,7 @@
             '    var self = this, promised = self._promise;' +
             '    self.options   = self.options || Constructor.options;' +
             '    self._snippets = self._snippets || {};' +
-            '    self._promise  = self._promise || (initialize.promise ? new Promise(arguments, initialize.value, self) : null);' +
+            '    self._promise  = self._promise || (initialize.promise ? promise(arguments, initialize.value, self) : null);' +
             '    return initialize !== Function && (promised || !initialize.promise) ? initialize.apply(self, arguments) : self;' +
             '};');
 
@@ -80,30 +80,30 @@
         defineProperties(Constructor, {
 
             /**
-             * Wraps promise.catch
+             * Wraps `promise.catch`.
              *
              * @method rejected
              * @param {Function} callback
              * @returns {Object}
              */
-            rejected: function (callback) {
+            catch: function (callback) {
                 assertArgument(isFunction(callback), 1, 'Function');
                 var self = this;
-                if (self._promise) { self._promise = self._promise.catch(function (error) { callback(error); throw error; }); }
+                if (self._promise) { self._promise.catch(callback); }
                 return self;
             },
 
             /**
-             * Wraps promise.then
+             * Wraps `promise.then`.
              *
              * @method resolved
              * @param {Function} callback
              * @returns {Object}
              */
-            resolved: function (callback) {
+            then: function (callback) {
                 assertArgument(isFunction(callback), 1, 'Function');
                 var self = this;
-                if (self._promise) { self._promise = self._promise.then(function (data) { callback(data); return data; }); }
+                if (self._promise) { self._promise.then(callback).catch(function () { /* SILENT ERROR */ }); }
                 return self;
             },
 
@@ -199,7 +199,7 @@
                     assertArgument(isString(point, true), 1, 'string');
                     assertArgument(isVoid(args) || isArrayable(args), 2, 'Arrayable');
                     assertArgument(isVoid(callback) || isFunction(callback), 3, 'Function');
-                    var self = this, start = function (next) { next.apply(null, concat([null], args, [self])); };
+                    var self = this, start = function (next) { next.apply(null, concat([null], args)); };
                     waterfall(concat([start], self._snippets[point] || []), callback);
                     return self;
                 }
@@ -293,11 +293,6 @@
         this.code    = err.code = code;
     };
 
-    // DEFERRED
-    exp.Deferred = Deferred = function Deferred() {
-        return q.defer();
-    };
-
     // DENIEDERROR
     exp.DeniedError = DeniedError = function DeniedError(key, code) {
         CustomError.call(this, 'DeniedError', key + ' is denied', code);
@@ -316,42 +311,6 @@
     // NOTFOUNDERROR
     exp.NotFoundError = NotFoundError = function NotFoundError(key, code) {
         CustomError.call(this, 'NotFoundError', key + ' is not found', code);
-    };
-
-    // PROMISE
-    exp.Promise = Promise = function Promise(args, func, thisArg) {
-
-        // Asserting
-        assertArgument(args = toArray(args), 1, 'Arrayable');
-        assertArgument(isFunction(func), 2, 'Function');
-        assertArgument(isBindable(thisArg), 3, 'Array, Function or Object');
-
-        // Vars
-        var callback, i, n,
-            deferred = new Deferred(),
-            promise  = deferred.promise;
-
-        // Preparing
-        if (isArray(args = fit(args, func.length), true)) {
-            for (n = args.length - 1, i = n; i >= 0; i -= 1) {
-                if (isFunction(args[i])) {
-                    for (callback = args[i]; i < n; i += 1) {
-                        args[i] = undefined;
-                    }
-                    break;
-                }
-            }
-            args[n] = function (error, data) { deferred[error ? 'reject' : 'resolve'](error || data); };
-        }
-
-        // Applying
-        func.apply(thisArg, args);
-
-        // Catching
-        if (callback) { promise = promise.then(function (data) { callback(null, data); return data; }); }
-        if (callback) { promise = promise.catch(function (error) { callback(error, null); throw error; }); }
-
-        return promise;
     };
 
     // REJECTEDERROR
@@ -480,11 +439,10 @@
     };
 
     // APPLY
-    exp.apply = apply = function apply(collection, method, args) {
-        assertArgument(isBindable(collection, true), 1, 'Array, Function or Object');
+    exp.apply = apply = function apply(target, method, args) {
         assertArgument(isString(method, true), 2, 'string');
         assertArgument(isVoid(args) || isArrayable(args), 3, 'Arrayable');
-        return isFunction(collection[method]) ? collection[method].apply(collection, toArray(args) || []) : undefined;
+        return !isVoid(target) && isFunction(target[method]) ? target[method].apply(target, toArray(args) || []) : undefined;
     };
 
     // ARY
@@ -510,9 +468,9 @@
     };
 
     // ASSIGN
-    exp.assign = assign = function assign(object, sources) {
+    exp.assign = assign = function assign(object, sources, customizer) {
         assertArgument(isObject(object), 1, 'Object');
-        return _.assign.apply(_, filter(arguments, ary(isObject, 1)));
+        return _.assign.apply(_, filter(arguments, ary(isBindable, 1)));
     };
 
     // AT
@@ -563,10 +521,9 @@
     };
 
     // CALL
-    exp.call = call = function call(collection, method, var_args) {
-        assertArgument(isBindable(collection, true), 1, 'Array, Function or Object');
+    exp.call = call = function call(target, method, var_args) {
         assertArgument(isString(method, true), 2, 'string');
-        return isFunction(collection[method]) ? collection[method].apply(collection, slice(arguments, 2)) : undefined;
+        return !isVoid(target) && isFunction(target[method]) ? target[method].apply(target, slice(arguments, 2)) : undefined;
     };
 
     // CAMELCASE
@@ -634,21 +591,6 @@
         return _.countBy(collection, iteratee, thisArg);
     };
 
-    // CREATEELEMENT
-    exp.createElement = createElement = function createElement(name, opt) {
-        assertArgument(isString(name, true), 1, 'string');
-        assertArgument(isVoid(opt) || isObject(opt), 2, 'Object');
-        return updateElement(global.document.createElement(name), opt);
-    };
-
-    // CREATEELEMENTNS
-    exp.createElementNS = createElementNS = function createElementNS(namespace, name, opt) {
-        assertArgument(isString(namespace, true), 1, 'string');
-        assertArgument(isString(name, true), 2, 'string');
-        assertArgument(isVoid(opt) || isObject(opt), 3, 'Object');
-        return updateElement(global.document.createElementNS(namespace, name), opt);
-    };
-
     // DEBOUNCE
     exp.debounce = debounce = function debounce(func, wait, opt) {
         assertArgument(isFunction(func), 1, 'Function');
@@ -698,7 +640,7 @@
             isConstant  = !isGetter && !isSetter;
 
         // Setting
-        if (isConstant && opt.promise) { opt.value = function () { return new Promise(arguments, func, this); }; }
+        if (isConstant && opt.promise) { opt.value = function () { return promise(arguments, func, this); }; }
         if (isGetter && !isSetter) { opt.set = function (val) { return val; }; }
         if (isSetter && !isGetter && !isValidated) { opt.validate = mock(); }
         if (isFunction(target) && !opt['static']) { target = target.prototype; }
@@ -842,9 +784,9 @@
         assertArgument(isPredicate(predicate), 2, 'Function, Object or string');
         assertArgument(isVoid(wrapper) || isString(wrapper), 3, 'string');
         if (wrapper) { collection = value(collection, wrapper); }
-        if (wrapper && !isCollection(collection)) { return undefined; }
-        return find(collection, predicate) || mapOne(collection, function (val) {
-            return isCollection(val) ? findDeep(val, predicate, wrapper) : undefined;
+        if (wrapper && !isCollection(collection)) { return; }
+        return find(collection, predicate) || reduce(collection, function (found, val) {
+            return found || (isCollection(val) ? findDeep(val, predicate, wrapper) : undefined);
         });
     };
 
@@ -853,7 +795,7 @@
         var casted = toDOMIdentity(identity);
         assertArgument(isElement(element), 1, 'Element');
         assertArgument(casted, 2, 'Element, Function, Object or string');
-        return find(filterElements(element.children, predicate), casted);
+        return find(filterElements(getNodes(element), predicate), casted);
     };
 
     // FINDELEMENTS
@@ -861,7 +803,7 @@
         var casted = toDOMPredicate(identity);
         assertArgument(isElement(element), 1, 'Element');
         assertArgument(casted, 2, 'Function, Object or string');
-        return filter(filterElements(element.children, predicate), casted);
+        return filter(filterElements(getNodes(element), predicate), casted);
     };
 
     // FINDINDEX
@@ -893,7 +835,7 @@
         var casted = toDOMIdentity(identity);
         assertArgument(isElement(element), 1, 'Element');
         assertArgument(casted, 2, 'Element, Function, Object or string');
-        return findLast(filterElements(element.children, predicate), casted);
+        return findLast(filterElements(getNodes(element), predicate), casted);
     };
 
     // FINDLASTINDEX
@@ -916,7 +858,7 @@
         var casted = toDOMIdentity(identity);
         assertArgument(isElement(element), 1, 'Element');
         assertArgument(casted, 2, 'Element, Function or string');
-        return find(filterElements(getAllNextElements(element), predicate), casted);
+        return find(filterElements(getNextElements(element), predicate), casted);
     };
 
     // FINDNEXTELEMENTS
@@ -924,7 +866,7 @@
         var casted = toDOMPredicate(identity);
         assertArgument(isElement(element), 1, 'Element');
         assertArgument(casted, 2, 'Function, Object or string');
-        return filter(filterElements(getAllNextElements(element), predicate), casted);
+        return filter(filterElements(getNextElements(element), predicate), casted);
     };
 
     // FINDPARENTELEMENT
@@ -942,7 +884,7 @@
         var casted = toDOMIdentity(identity);
         assertArgument(isElement(element), 1, 'Element');
         assertArgument(casted, 2, 'Element, Function or string');
-        return findLast(filterElements(getAllPreviousElements(element), predicate), casted);
+        return findLast(filterElements(getPreviousElements(element), predicate), casted);
     };
 
     // FINDPREVIOUSELEMENTS
@@ -950,7 +892,7 @@
         var casted = toDOMPredicate(identity);
         assertArgument(isElement(element), 1, 'Element');
         assertArgument(casted, 2, 'Function or string');
-        return filter(filterElements(getAllPreviousElements(element), predicate), casted);
+        return filter(filterElements(getPreviousElements(element), predicate), casted);
     };
 
     // FINDSIBLINGELEMENT
@@ -966,7 +908,7 @@
         var casted = toDOMPredicate(identity);
         assertArgument(isElement(element), 1, 'Element');
         assertArgument(casted, 2, 'Function, Object or string');
-        return filter(filterElements(getAllSiblingElements(element), predicate), casted);
+        return filter(filterElements(getSiblingElements(element), predicate), casted);
     };
 
     // FIRST
@@ -1055,6 +997,14 @@
         return _.forOwn(object, iteratee, thisArg);
     };
 
+    // FORMDATA
+    exp.formData = formData = function formData(element) {
+        assertArgument(isElement(element), 1, 'Element');
+        var result = forms.encode(element);
+        delete result[''];
+        return result;
+    };
+
     // FREEZE
     exp.freeze = freeze = function freeze(collection) {
         assertArgument(isBindable(collection, true), 1, 'Array, Function or Object');
@@ -1074,29 +1024,11 @@
         return isIndex(i) ? slice(array, i + 1) : [];
     };
 
-    // GETALLNEXTELEMENTS
-    exp.getAllNextElements = getAllNextElements = function getAllNextElements(element) {
-        assertArgument(isElement(element), 1, 'Element');
-        return getAllNext(getChildren(getParentElement(element)), element);
-    };
-
     // GETALLPREVIOUS
     exp.getAllPrevious = getAllPrevious = function getAllPrevious(array, value) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         var i = indexOf(array, value);
         return isIndex(i) ? slice(array, 0, i) : [];
-    };
-
-    // GETALLPREVIOUSELEMENTS
-    exp.getAllPreviousElements = getAllPreviousElements = function getAllPreviousElements(element) {
-        assertArgument(isElement(element), 1, 'Element');
-        return getAllPrevious(getChildren(getParentElement(element)), element);
-    };
-
-    // GETALLSIBLINGELEMENTS
-    exp.getAllSiblingElements = getAllSiblingElements = function getAllSiblingElements(element) {
-        assertArgument(isElement(element), 1, 'Element');
-        return getAllSiblings(getChildren(getParentElement(element)), element);
     };
 
     // GETALLSIBLINGS
@@ -1129,34 +1061,13 @@
         return {bottom: rect.bottom, height: rect.height, left: rect.left, right: rect.right, top: rect.top, width: rect.width};
     };
 
-    // GETCHILDREN
-    exp.getChildren = getChildren = function getChildren(element) {
-        assertArgument(isElement(element), 1, 'Element');
-        return toArray(element.children);
-    };
-
-    // GETDISTRIBUTEDELEMENT
-    exp.getDistributedElement = getDistributedElement = function getDistributedElement(element, identity, predicate) {
-        var casted = toDOMIdentity(identity);
-        assertArgument(isElement(element), 1, 'Element');
-        assertArgument(casted, 2, 'Element, Function or string');
-        return find(filterElements(element.getDistributedNodes(), predicate), casted);
-    };
-
-    // GETDISTRIBUTEDELEMENTS
-    exp.getDistributedElements = getDistributedElements = function getDistributedElements(element, identity, predicate) {
-        var casted = toDOMPredicate(identity);
-        assertArgument(isElement(element), 1, 'Element');
-        assertArgument(casted, 2, 'Function or string');
-        return filter(filterElements(element.getDistributedNodes(), predicate), casted);
-    };
-
     // GETELEMENT
     exp.getElement = getElement = function getElement(element, selector) {
         if (isSelector(element)) { selector = element; element = global.document; }
-        assertArgument(isElement(element) || isNode(element, 9), 1, 'Element or HTMLDocument');
+        assertArgument(isElement(element) || isNode(element, 9) || isNode(element, 10), 1, 'Element or HTMLDocument');
         assertArgument(isVoid(selector) || isSelector(selector), 2, 'string');
-        if (isSelector(selector)) { return element.querySelector(selector) || undefined; }
+        var method = element.queryEffectiveChildren ? 'queryEffectiveChildren' : 'querySelector';
+        if (isSelector(selector)) { return element[method](selector) || undefined; }
         if (isElement(element)) { return findElement(element, selector); }
         return findElement(element.body, selector);
     };
@@ -1172,9 +1083,10 @@
     // GETELEMENTS
     exp.getElements = getElements = function getElements(element, selector) {
         if (isSelector(element)) { selector = element; element = document; }
-        assertArgument(isElement(element) || isNode(element, 9), 1, 'Element or HTMLDocument');
+        assertArgument(isElement(element) || isNode(element, 9) || isNode(element, 10), 1, 'Element or HTMLDocument');
         assertArgument(isVoid(selector) || isSelector(selector), 2, 'string');
-        if (isSelector(selector)) { return toArray(element.querySelectorAll(selector)); }
+        var method = element.queryAllEffectiveChildren ? 'queryAllEffectiveChildren' : 'querySelectorAll';
+        if (isSelector(selector)) { return toArray(element[method](selector)); }
         if (isElement(element)) { return findElements(element, selector); }
         return findElements(element.body, selector);
     };
@@ -1208,20 +1120,26 @@
     // GETNEXTELEMENT
     exp.getNextElement = getNextElement = function getNextElement(element) {
         assertArgument(isElement(element), 1, 'Element');
-        return getNext(getChildren(getParentElement(element)), element);
+        return getNext(element.parentNode.children, element);
+    };
+
+    // GETNEXTELEMENTS
+    exp.getNextElements = getNextElements = function getNextElements(element) {
+        assertArgument(isElement(element), 1, 'Element');
+        return getAllNext(element.parentNode.children, element);
     };
 
     // GETNODE
     exp.getNode = getNode = function getNode(element, index) {
         assertArgument(isElement(element), 1, 'Element');
         assertArgument(isIndex(index), 2, 'number');
-        return (isContent(element) ? element.getDistributedNodes() : element.childNodes)[index];
+        return (element.getEffectiveChildNodes ? element.getEffectiveChildNodes() : element.childNodes)[index];
     };
 
     // GETNODES
     exp.getNodes = getNodes = function getNodes(element) {
         assertArgument(isElement(element), 1, 'Element');
-        return toArray(isContent(element) ? element.getDistributedNodes() : element.childNodes);
+        return toArray(element.getEffectiveChildNodes ? element.getEffectiveChildNodes() : element.childNodes);
     };
 
     // GETPADDING
@@ -1229,12 +1147,6 @@
         assertArgument(isElement(element), 1, 'Element');
         var _keys = ['bottom', 'left', 'right', 'top'], _prefix = 'padding-';
         return zipObject(_keys, map(getStyles(element, map(_keys, function (key) { return _prefix + key; })), ary(toNumber, 1)));
-    };
-
-    // GETPARENTELEMENT
-    exp.getParentElement = getParentElement = function getParentElement(node) {
-        assertArgument(isNode(node), 1, 'Node');
-        return node.parentNode;
     };
 
     // GETPREVIOUS
@@ -1246,13 +1158,19 @@
     // GETPREVIOUSELEMENT
     exp.getPreviousElement = getPreviousElement = function getPreviousElement(element) {
         assertArgument(isElement(element), 1, 'Element');
-        return getPrevious(getChildren(getParentElement(element)), element);
+        return getPrevious(element.parentNode.children, element);
+    };
+
+    // GETPREVIOUSELEMENTS
+    exp.getPreviousElements = getPreviousElements = function getPreviousElements(element) {
+        assertArgument(isElement(element), 1, 'Element');
+        return getAllPrevious(element.parentNode.children, element);
     };
 
     // GETSIBLINGELEMENTS
     exp.getSiblingElements = getSiblingElements = function getSiblingElements(element) {
         assertArgument(isElement(element), 1, 'Element');
-        return getSiblings(getChildren(getParentElement(element)), element);
+        return getAllSiblings(element.parentNode.children, element);
     };
 
     // GETSIBLINGS
@@ -1290,19 +1208,26 @@
     };
 
     // GETVALUE
-    exp.getValue = getValue = function getValue(element, casted) {
+    exp.getValue = getValue = function getValue(element, index) {
         assertArgument(isElement(element), 1, 'Element');
-        if (element.disabled || !element.name) { return undefined; }
-        if (element.type === 'checkbox') { return casted && element.value === 'on' ? !!element.checked : (element.checked ? element.value : undefined); }
-        if (element.type === 'radio') { return element.checked ? element.value : undefined; }
-        if (element.type === 'number' || element.type === 'range') { return casted ? (element.value ? toNumber(element.value) : null) : element.value; }
-        if (element.type !== 'file' && isString(element.value)) { return element.value; }
+        assertArgument(isVoid(index) || isIndex(index), 2, 'number');
+        if (element.type === 'checkbox') { return index >= 0 ? (element.checked ? element.value || null : undefined) : !!element.checked; }
+        if (element.type === 'radio') { return element.checked ? element.value || null : undefined; }
+        if (element.type === 'number') { return element.value ? toNumber(element.value) : null; }
+        if (element.type === 'range') { return element.value ? toNumber(element.value) : null; }
+        if (element.type !== 'file') { return toString(element.value) || null; }
     };
 
     // GETWIDTH
     exp.getWidth = getWidth = function getWidth(element) {
         assertArgument(isVoid(element) || isElement(element), 1, 'Element');
         return Math.floor(element ? getBoundings(element).width : global.innerWidth);
+    };
+
+    // GETTER
+    exp.getter = getter = function getter(string, underscore) {
+        assertArgument(isVoid(string) || isString(string), 1, 'string');
+        return string ? (underscore ? '_' : '') + camelCase('get-' + string) : '';
     };
 
     // GROUPBY
@@ -1326,12 +1251,14 @@
         return element.hasAttribute(name);
     };
 
-    // HASCHILD
-    exp.hasChild = hasChild = function hasChild(element, identity) {
-        var casted = toDOMIdentity(identity);
+    // HASCHILDREN
+    exp.hasChildren = hasChildren = function hasChildren(element) {
         assertArgument(isElement(element), 1, 'Element');
-        assertArgument(casted, 2, 'Element, Function or string');
-        return !!findElement(element, identity);
+        return !!findElement(element, function (node) {
+            if (node.nodeType === 1 && node.tagName === 'TEMPLATE') { return false; }
+            if (node.nodeType === 3 && !trim(node.textContent, '\r\n ')) { return false; }
+            return true;
+        });
     };
 
     // HASCLASS
@@ -1391,6 +1318,11 @@
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isFunction(methodName) || isString(methodName, true), 2, 'Function or string');
         return _.invoke.apply(_, concat([collection, methodName], slice(arguments, 2)));
+    };
+
+    // ISANY
+    exp.isAny = isAny = function isAny(value) {
+        return !isNullable(value);
     };
 
     // ISARGUMENTS
@@ -1453,18 +1385,6 @@
         return isArrayable(value, notEmpty) || isObject(value, notEmpty);
     };
 
-    // ISCONTENT
-    exp.isContent = isContent = function isContent(value, notEmpty) {
-        if (!isElement(value) || (value.node || value).tagName.toLowerCase() !== 'content') { return false; }
-        if (!isVoid(notEmpty) && xor(notEmpty, find(value.getDistributedNodes(), function (node) { return (node.nodeType === 1 && node.tagName.toLowerCase() !== 'template') || node.nodeType !== 3 || trim(node.textContent, '\r\n ');}))) { return false; }
-        return true;
-    };
-
-    // ISCUSTOMEVENT
-    exp.isCustomEvent = isCustomEvent = function isCustomEvent(value, type) {
-        return isEvent(value, type) && !!value.detail;
-    };
-
     // ISDATE
     exp.isDate = isDate = function isDate(value) {
         return _.isDate(value);
@@ -1478,7 +1398,7 @@
     // ISELEMENT
     exp.isElement = isElement = function isElement(value, notEmpty) {
         if (!_.isElement(value) && !isPolyfilled(value) && (!isShady(value) || value.node.nodeType !== 1)) { return false; }
-        if (!isVoid(notEmpty) && xor(notEmpty, find(value.childNodes, function (node) { return node.nodeType !== 1 || node.tagName.toLowerCase() !== 'template'; }))) { return false; }
+        if (!isVoid(notEmpty) && xor(notEmpty, find(value.childNodes, function (node) { return node.nodeType !== 1 || node.tagName !== 'TEMPLATE'; }))) { return false; }
         return true;
     };
 
@@ -1652,6 +1572,11 @@
         return _.isNull(value);
     };
 
+    // ISNULLABLE
+    exp.isNullable = isNullable = function isNullable(value) {
+        return isVoid(value) || isString(value, false) || isNaN(value);
+    };
+
     // ISNUMBER
     exp.isNumber = isNumber = function isNumber(value, notNegative) {
         return _.isNumber(value) && !isNaN(value) && (isVoid(notNegative) || xnor(value >= 0, notNegative));
@@ -1740,7 +1665,7 @@
 
     // ISTEMPLATE
     exp.isTemplate = isTemplate = function isTemplate(value) {
-        return isElement(value) && (value.node || value).tagName.toLowerCase() === 'template';
+        return isElement(value) && (value.node || value).tagName === 'TEMPLATE';
     };
 
     // ISTRUE
@@ -1862,6 +1787,19 @@
         return node;
     };
 
+    // LITERALOF
+    exp.literalOf = literalOf = function literalOf(collection, value, onlyPoints) {
+        var res;
+        (isArrayable(collection) ? forEach : forOwn)(collection, function (val, key) {
+            var sub = val !== value && isCollection(val) ? literalOf(val, value, onlyPoints) : undefined;
+            if (val !== value && !isDefined(sub)) { return; }
+            key = onlyPoints || !isNumber(key) ? key.toString() : '[' + key + ']';
+            res = key + (sub && sub[0] !== '[' ? '.' : '') + (sub || '');
+            return false;
+        });
+        return res;
+    };
+
     // LOCALIZE
     exp.localize = localize = function localize(string, locale) {
         assertArgument(isVoid(string) || isString(string) || isCollection(string), 1, 'Array, Object or string');
@@ -1886,15 +1824,6 @@
         assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
         assertArgument(isFunction(iteratee) || isObject(iteratee) || isString(iteratee), 2, 'Function, Object or string');
         return _.map(collection, iteratee, thisArg);
-    };
-
-    // MAPONE
-    exp.mapOne = mapOne = function mapOne(collection, iteratee) {
-        assertArgument(isCollection(collection = toArray(collection) || collection), 1, 'Arrayable or Object');
-        assertArgument(isFunction(iteratee) || isObject(iteratee) || isString(iteratee), 2, 'Function, Object or string');
-        var result;
-        forEach(collection, function (val, key, coll) { return !isDefined(result = iteratee(val, key, coll)); });
-        return result;
     };
 
     // MAPVALUES
@@ -1934,9 +1863,9 @@
     };
 
     // MERGE
-    exp.merge = merge = function merge(object, sources) {
+    exp.merge = merge = function merge(object, sources, customizer) {
         assertArgument(isObject(object), 1, 'Object');
-        return _.merge.apply(_, filter(arguments, ary(isObject, 1)));
+        return _.merge.apply(_, filter(arguments, ary(isBindable, 1)));
     };
 
     // MIN
@@ -2022,10 +1951,10 @@
     };
 
     // OVERWRITE
-    exp.overwrite = overwrite = function overwrite(array, other, splice) {
+    exp.overwrite = overwrite = function overwrite(array, other) {
         assertArgument(isArray(array), 1, 'Array');
         assertArgument(isArrayable(other), 2, 'Arrayable');
-        var differs = array.length !== other.length || mapOne(array, function (val, i) { return val !== other[i] ? true : undefined; });
+        var differs = array.length !== other.length || reduce(array, function (differs, val, i) { return differs || val !== other[i]; });
         if (differs) { Array.prototype.splice.apply(array, concat([0, array.length], other)); }
         return array;
     };
@@ -2168,6 +2097,40 @@
         return event;
     };
 
+    // PROMISE
+    exp.promise = promise = function (args, func, thisArg) {
+
+        // Asserting
+        assertArgument(args = toArray(args), 1, 'Arrayable');
+        assertArgument(isFunction(func), 2, 'Function');
+        assertArgument(isBindable(thisArg), 3, 'Array, Function or Object');
+
+        // Vars
+        var callback, i, n,
+            promise = new global.Promise(function (resolve, reject) {
+                if (!isArray(args = fit(args, func.length), true)) { return; }
+                for (n = args.length - 1, i = n; i >= 0; i -= 1) {
+                    if (!isFunction(args[i])) { continue; }
+                    for (callback = args[i]; i < n; i += 1) { args[i] = undefined; }
+                    break;
+                }
+                args[n] = function (error, data) { (error ? reject : resolve)(error || data); };
+            });
+
+        // Applying
+        func.apply(thisArg, args);
+
+        // Catching
+        promise.catch(function () { /* SILENT ERROR */ });
+
+        // Checking
+        if (!callback) { return promise; }
+
+        // Callback
+        promise.catch(function (error) { callback(error, null); });
+        promise.then(function (data) { callback(null, data); }).catch(function () { /* SILENT ERROR */ });
+    };
+
     // PULL
     exp.pull = pull = function pull(array, value) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
@@ -2304,9 +2267,12 @@
     exp.renameElement = renameElement = function renameElement(element, name) {
         assertArgument(isVoid(element) || isElement(element), 1, 'Element');
         assertArgument(isVoid(name) || isString(name), 2, 'string');
-        var target = element && name ? createElement(name, {attributes: getAttributes(element), children: getChildren(element)}) : undefined;
-        if (target) { replaceNode(element, target); }
-        return target || element;
+        if (!element || !name) { return element; }
+        var target = global.document.createElement(name);
+        setAttributes(target, getAttributes(element));
+        setNodes(target, getNodes(element));
+        replaceNode(element, target);
+        return target;
     };
 
     // REPEAT
@@ -2324,12 +2290,6 @@
         assertArgument(isVoid(node) || isNode(node), 1, 'Node');
         assertArgument(isVoid(target) || isNode(target), 2, 'Node');
         if (node && target) { return node.parentNode.replaceChild(target, node); }
-    };
-
-    // REQUESTANIMATIONFRAME
-    exp.requestAnimationFrame = requestAnimationFrame = function requestAnimationFrame(func) {
-        assertArgument(isFunction(func), 1, 'Function');
-        global.requestAnimationFrame(func);
     };
 
     // REST
@@ -2375,20 +2335,20 @@
         return element;
     };
 
-    // SETCHILDREN
-    exp.setChildren = setChildren = function setChildren(element, children) {
-        assertArgument(isVoid(element) || isElement(element), 1, 'Element');
-        assertArgument(isVoid(children) || isArrayable(children), 2, 'Arrayable');
-        if (element && children) { flush(element); forEach(children, function (child) { appendChild(element, child); }); }
-        return element;
-    };
-
     // SETHTML
     exp.setHTML = setHTML = function setHTML(element, value) {
         assertArgument(isVoid(element) || isElement(element), 1, 'Element');
         assertArgument(isVoid(value) || isString(value), 2, 'string');
         var instance = isTemplate(element) ? element.instanceRef_ : element;
         if (instance) { instance.innerHTML = value || ''; }
+        return element;
+    };
+
+    // SETNODES
+    exp.setNodes = setNodes = function setNodes(element, nodes) {
+        assertArgument(isVoid(element) || isElement(element), 1, 'Element');
+        assertArgument(isVoid(nodes) || isArrayable(nodes), 2, 'Arrayable');
+        if (element && nodes) { flush(element); forEach(nodes, function (node) { appendChild(element, node); }); }
         return element;
     };
 
@@ -2405,7 +2365,7 @@
     exp.setStyles = setStyles = function setStyles(element, styles) {
         assertArgument(isVoid(element) || isElement(element), 1, 'Element');
         assertArgument(isVoid(styles) || isObject(styles) || isString(styles), 2, 'Object or string');
-        var dummy = element ? createElement('div') : null;
+        var dummy = element ? global.document.createElement('div') : null;
         if (element && isObject(styles)) { forOwn(styles, function (value, name) { setStyle(element, name, value); }); }
         if (element && isString(styles)) { forEach(setAttribute(dummy, 'style', styles).style, function (name) { element.style[name] = dummy.style[name]; }); }
         return element;
@@ -2417,6 +2377,22 @@
         assertArgument(isVoid(value) || isString(value), 2, 'string');
         if (node && !isTemplate(node)) { node.textContent = value || ''; }
         return node;
+    };
+
+    // SETVALUE
+    exp.setValue = setValue = function setValue(element, value) {
+        assertArgument(isVoid(element) || isElement(element), 1, 'Element');
+        if (element && (element.type === 'checkbox')) { element.checked = isArray(value) ? value.indexOf(element.value) >= 0 : toBoolean(value, true); }
+        if (element && (element.type === 'radio')) { element.checked = element.value === toString(value); }
+        if (element && (element.type === 'number' || element.type === 'range')) { element.value = toString(toNumber(value)); }
+        if (element && (element.type !== 'file')) { element.value = toString(value); }
+        return element;
+    };
+
+    // SETTER
+    exp.setter = setter = function setter(string, underscore) {
+        assertArgument(isVoid(string) || isString(string), 1, 'string');
+        return string ? (underscore ? '_' : '') + camelCase('set-' + string) : '';
     };
 
     // SHRINK
@@ -2473,8 +2449,9 @@
     exp.split = split = function split(string, target, once) {
         assertArgument(isVoid(string) || isString(string), 1, 'string');
         assertArgument(isVoid(target) || isString(target), 2, 'string');
-        var index = string && target ? string.indexOf(target) : -1;
-        return index < 0 ? [string || ''] : (once ? [string.slice(0, index), string.slice(index + 1)] : string.split(target));
+        var result = [], parts = (string || '').split(target || '');
+        parts.forEach(function (part) { part = trim(part); return part && result.push(part); });
+        return once && result.length > 1 ? [result.shift(), result.join(target || '')] : result;
     };
 
     // STARTCASE
@@ -2606,25 +2583,25 @@
     // TOELAPSEDTIME
     exp.toElapsedTime = toElapsedTime = function toElapsedTime(target) {
 
-        // Checking
-        if (!isFinite(target)) { return; }
-
         // Vars
-        var elapsed = Math.floor((Date.now() - target) / 1000),
+        var elapsed = isFinite(target) ? Math.floor((Date.now() - target) / 1000) : -1,
             times   = [
-                {label: 'year', value: 31536000},
-                {label: 'month', value: 2592000},
-                {label: 'day', value: 86400},
-                {label: 'hour', value: 3600},
-                {label: 'minute', value: 60},
-                {label: 'second', value: 1}
+                {value: 31536000, label: 'year'},
+                {value: 2592000, label: 'month'},
+                {value: 86400, label: 'day'},
+                {value: 3600, label: 'hour'},
+                {value: 60, label: 'minute'},
+                {value: 1, label: 'second'}
             ];
 
+        // Checking
+        if (elapsed < 0) { return; }
+
         // Casting
-        return elapsed < 0 ? '' : (!elapsed ? 'now' : mapOne(times, function (time) {
-            var current = Math.floor(elapsed / time.value);
-            return current ? current + ' ' + time.label + (current > 1 ? 's' : '') + ' ago' : undefined;
-        }));
+        return !elapsed ? 'now' : reduce(times, function (reduced, time) {
+            var current = !reduced && Math.floor(elapsed / time.value);
+            return reduced || (current && current + ' ' + time.label + (current > 1 ? 's' : '') + ' ago');
+        });
     };
 
     // TOHEX
@@ -2667,6 +2644,11 @@
             if (!isVoid(json)) { return val; }
             if (!useful) { return null; }
         }, pretty ? '  ' : undefined);
+    };
+
+    // TONULL
+    exp.toNull = toNull = function toNull(target) {
+        if (isNullable(target)) { return null; }
     };
 
     // TONUMBER
@@ -2741,14 +2723,6 @@
         });
     };
 
-    // TOTEMPLATE
-    exp.toTemplate = toTemplate = function toTemplate(target, force) {
-        if (isVoid(target = isElement(target) ? target : (force ? createElement('div') : null))) { return; }
-        var child = target.firstChild, result = createElement('template');
-        while (child) { result.content.appendChild(child.cloneNode(true)); child = child.nextSibling; }
-        return result;
-    };
-
     // TOURL
     exp.toURL = toURL = function toURL(target) {
         if (isObject(target)) { return url.format(target); }
@@ -2756,7 +2730,7 @@
 
     // TOUSEFUL
     exp.toUseful = toUseful = function toUseful(target) {
-        if (!isVoid(target)) { return target; }
+        if (!isNull(target) && !isNaN(target)) { return target; }
     };
 
     // TOVALUE
@@ -2848,16 +2822,6 @@
     exp.unzip = unzip = function unzip(array) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
         return _.unzip(array);
-    };
-
-    // UPDATEELEMENT
-    exp.updateElement = updateElement = function updateElement(element, opt) {
-        assertArgument(isVoid(element) || isElement(element), 1, 'Element');
-        assertArgument(isVoid(opt) || isObject(opt), 2, 'Object');
-        if (element && opt && opt.attributes) { setAttributes(element, opt.attributes); }
-        if (element && opt && opt.properties) { assign(element, opt.properties); }
-        if (element && opt && opt.children) { setChildren(element, opt.children); }
-        return element;
     };
 
     // UPPERCASE

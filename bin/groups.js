@@ -2,10 +2,10 @@
 
 /**
  * @license
- * Copyright (c) 2015 The Expand JS Authors. All rights reserved.
- * This code may only be used under the BSD style license found at {{INS-LICENSE}}
- * The complete set of authors may be found at {{INS-AUTHORS}}
- * The complete set of contributors may be found at {{INS-CONTRIBUTORS}}
+ * Copyright (c) 2015 The ExpandJS authors. All rights reserved.
+ * This code may only be used under the BSD style license found at https://expandjs.github.io/LICENSE.txt
+ * The complete set of authors may be found at https://expandjs.github.io/AUTHORS.txt
+ * The complete set of contributors may be found at https://expandjs.github.io/CONTRIBUTORS.txt
  */
 (function () {
     "use strict";
