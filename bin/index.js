@@ -2767,7 +2767,7 @@
     // UNIQ
     exp.uniq = uniq = function uniq(array, iteratee, thisArg) {
         assertArgument(array = toArray(array), 1, 'Arrayable');
-        assertArgument(isFunction(iteratee) || isObject(iteratee) || isString(iteratee), 2, 'Function, Object or string');
+        assertArgument(isVoid(iteratee) || isFunction(iteratee) || isObject(iteratee) || isString(iteratee), 2, 'Function, Object or string');
         return _.uniq(array, iteratee, thisArg);
     };
 
