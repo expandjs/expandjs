@@ -6,7 +6,7 @@
     "use strict";
 
     // Vars
-    var AbstractError, AlreadyDefinedError, AlreadyUsedError, ArgumentError, Class, CustomError, DeniedError, ImmutableError, InvalidError, NotFoundError, RejectedError, RequiredError, UnavailableError, UndefinedError, UnknownError, ValidationError, addAttribute, addAttributes, addClass, after, alignElement, and, append, appendChild, apply, ary, assert, assertArgument, assertOption, assign, at, attempt, basicAuth, bearerAuth, before, call, camelCase, camelCaseRegex, capitalize, capitalizeRegex, chunk, clean, clone, cloneDeep, compact, concat, countBy, debounce, deburr, defaults, defineProperties, defineProperty, delay, difference, drop, dropRight, dropRightWhile, dropWhile, endsWith, escape, escapeRegExp, every, fileExtension, fileName, filter, filterElements, find, findDeep, findElement, findElements, findIndex, findKey, findLast, findLastElement, findLastIndex, findLastKey, findNextElement, findNextElements, findParentElement, findPreviousElement, findPreviousElements, findSiblingElement, findSiblingElements, first, fit, fixed, flatten, flattenDeep, flush, forEach, forEachRight, forIn, forInRight, forOwn, forOwnRight, formData, freeze, functions, getAllNext, getAllPrevious, getAllSiblings, getAttribute, getAttributes, getBoundings, getElement, getElementById, getElements, getHTML, getHeight, getMargin, getNext, getNextElement, getNextElements, getNode, getNodes, getPadding, getPrevious, getPreviousElement, getPreviousElements, getSiblingElements, getSiblings, getStyle, getStyles, getTag, getText, getValue, getWidth, getter, groupBy, has, hasAttribute, hasChildren, hasClass, includes, includesDeep, indexBy, indexOf, initial, intersection, invert, invoke, isAny, isArguments, isArray, isArrayable, isBase62, isBindable, isBoolean, isBrowser, isBuffer, isCamelCase, isCapitalize, isClean, isCollection, isDate, isDefined, isElement, isEmpty, isEnumerable, isEqual, isEquivalent, isError, isEscape, isEscapeRegExp, isEven, isEvent, isExotic, isFalse, isFalsy, isFinite, isFloat, isFunction, isHex, isIndex, isInfinite, isInput, isInstance, isInt, isInvalid, isKebabCase, isKeyCase, isLast, isLastIndex, isLowerCase, isNaN, isNative, isNegative, isNode, isNull, isNullable, isNumber, isNumeric, isObject, isObservable, isOdd, isPlainObject, isPolyfilled, isPositive, isPredicate, isPrevented, isPrimitive, isRegExp, isSelector, isShady, isSnakeCase, isStartCase, isString, isTemplate, isTrue, isTruthy, isUniq, isUpperCase, isUuid, isVoid, isWithin, iterate, join, kebabCase, kebabCaseRegex, keyCase, keyCaseRegex, keys, keysIn, last, lastIndexOf, listen, literalOf, localize, lowerCase, lowerCaseRegex, map, mapValues, match, matches, max, memoize, merge, min, mock, moveFirst, moveLast, nand, negate, nor, not, omit, onMutation, once, or, overwrite, pad, padLeft, padRight, pairs, parallel, parseBase62, parseHex, parseJSON, parseURL, partition, percentage, pick, pluck, prefix, prependChild, preventDefault, promise, pull, pullAt, push, random, range, ratio, readable, redirect, reduce, reduceRight, reject, remove, removeAttribute, removeAttributes, removeChild, removeClass, removeStyle, removeStyles, renameElement, repeat, replaceNode, rest, round, sample, seal, setAttribute, setAttributes, setHTML, setNodes, setStyle, setStyles, setText, setValue, setter, shrink, shuffle, size, slice, snakeCase, snakeCaseRegex, some, sortBy, split, startCase, startCaseRegex, startsWith, stop, stopPropagation, stretch, strip, suffix, take, takeRight, takeRightWhile, takeWhile, throttle, toArray, toBase62, toBoolean, toDOMIdentity, toDOMPredicate, toElapsedTime, toHex, toIndex, toInfinite, toInput, toInt, toJSON, toNull, toNumber, toObject, toPosition, toPrimitive, toQueryString, toRegExp, toString, toURL, toUseful, toValue, toggleAttribute, toggleClass, trim, trimLeft, trimRegex, trimRight, trunc, unescape, union, uniq, unlisten, unzip, upperCase, upperCaseRegex, uuid, uuidRegex, value, valueIn, values, valuesIn, waterfall, where, willBleedBottom, willBleedHorizontally, willBleedLeft, willBleedRight, willBleedTop, willBleedVertically, withdraw, within, without, words, wrap, xnor, xor, zip, zipObject, 
+    var AbstractError, AlreadyDefinedError, AlreadyUsedError, ArgumentError, Class, CustomError, DeniedError, ImmutableError, InvalidError, NotFoundError, RejectedError, RequiredError, UnavailableError, UndefinedError, UnknownError, ValidationError, addAttribute, addAttributes, addClass, after, alignElement, and, append, appendChild, apply, ary, assert, assertArgument, assertOption, assign, at, attempt, basicAuth, bearerAuth, before, call, camelCase, camelCaseRegex, capitalize, capitalizeRegex, chunk, clean, clone, cloneDeep, compact, concat, countBy, debounce, deburr, defaults, defineProperties, defineProperty, delay, difference, drop, dropRight, dropRightWhile, dropWhile, endsWith, escape, escapeRegExp, every, fileExtension, fileName, filter, filterElements, find, findDeep, findElement, findElements, findIndex, findKey, findLast, findLastElement, findLastIndex, findLastKey, findNextElement, findNextElements, findParentElement, findPreviousElement, findPreviousElements, findSiblingElement, findSiblingElements, first, fit, fixed, flatten, flattenDeep, flush, forEach, forEachRight, forIn, forInRight, forOwn, forOwnRight, formData, freeze, functions, getAllNext, getAllPrevious, getAllSiblings, getAttribute, getAttributes, getBoundings, getElement, getElementById, getElements, getHeight, getMargin, getNext, getNextElement, getNextElements, getNode, getNodes, getPadding, getPrevious, getPreviousElement, getPreviousElements, getSiblingElements, getSiblings, getStyle, getStyles, getValue, getWidth, getter, groupBy, has, hasAttribute, hasChildren, hasClass, includes, includesDeep, indexBy, indexOf, initial, intersection, invert, invoke, isAny, isArguments, isArray, isArrayable, isBase62, isBindable, isBoolean, isBrowser, isBuffer, isCamelCase, isCapitalize, isClean, isCollection, isDate, isDefined, isElement, isEmpty, isEnumerable, isEqual, isEquivalent, isError, isEscape, isEscapeRegExp, isEven, isEvent, isExotic, isFalse, isFalsy, isFinite, isFloat, isFunction, isHex, isIndex, isInfinite, isInput, isInstance, isInt, isInvalid, isKebabCase, isKeyCase, isLast, isLastIndex, isLowerCase, isNaN, isNative, isNegative, isNode, isNull, isNullable, isNumber, isNumeric, isObject, isObservable, isOdd, isPlainObject, isPolyfilled, isPositive, isPredicate, isPrevented, isPrimitive, isRegExp, isSelector, isShady, isSnakeCase, isStartCase, isString, isTemplate, isTrue, isTruthy, isUniq, isUpperCase, isUuid, isVoid, isWithin, iterate, join, kebabCase, kebabCaseRegex, keyCase, keyCaseRegex, keys, keysIn, last, lastIndexOf, listen, literalOf, localize, lowerCase, lowerCaseRegex, map, mapValues, match, matches, max, memoize, merge, min, mock, moveFirst, moveLast, nand, negate, nor, not, omit, onMutation, once, or, overwrite, pad, padLeft, padRight, pairs, parallel, parseBase62, parseHex, parseJSON, parseURL, partition, percentage, pick, pluck, prefix, prependChild, preventDefault, promise, pull, pullAt, push, random, range, ratio, readable, redirect, reduce, reduceRight, reject, remove, removeAttribute, removeAttributes, removeChild, removeClass, removeStyle, removeStyles, renameElement, repeat, replaceNode, rest, round, sample, seal, setAttribute, setAttributes, setNodes, setStyle, setStyles, setValue, setter, shrink, shuffle, size, slice, snakeCase, snakeCaseRegex, some, sortBy, split, startCase, startCaseRegex, startsWith, stop, stopPropagation, stretch, strip, suffix, take, takeRight, takeRightWhile, takeWhile, throttle, toArray, toBase62, toBoolean, toDOMIdentity, toDOMPredicate, toElapsedTime, toHex, toIndex, toInfinite, toInput, toInt, toJSON, toNull, toNumber, toObject, toPosition, toPrimitive, toQueryString, toRegExp, toString, toURL, toUseful, toValue, toggleAttribute, toggleClass, trim, trimLeft, trimRegex, trimRight, trunc, unescape, union, uniq, unlisten, unzip, upperCase, upperCaseRegex, uuid, uuidRegex, value, valueIn, values, valuesIn, waterfall, where, willBleedBottom, willBleedHorizontally, willBleedLeft, willBleedRight, willBleedTop, willBleedVertically, withdraw, within, without, words, wrap, xnor, xor, zip, zipObject, 
         forms  = _dereq_("html-json-forms"),
         lodash = _dereq_("lodash"),
         url    = _dereq_("url"),
@@ -793,19 +793,19 @@
     };
 
     // FINDELEMENT
-    exp.findElement = findElement = function findElement(element, identity, predicate) {
+    exp.findElement = findElement = function findElement(node, identity, predicate) {
         var casted = toDOMIdentity(identity);
-        assertArgument(isElement(element), 1, 'Element');
+        assertArgument(isNode(node), 1, 'Node');
         assertArgument(casted, 2, 'Element, Function, Object or string');
-        return find(filterElements(getNodes(element), predicate), casted);
+        return find(filterElements(getNodes(node), predicate), casted);
     };
 
     // FINDELEMENTS
-    exp.findElements = findElements = function findElements(element, identity, predicate) {
+    exp.findElements = findElements = function findElements(node, identity, predicate) {
         var casted = toDOMPredicate(identity);
-        assertArgument(isElement(element), 1, 'Element');
+        assertArgument(isNode(node), 1, 'Element');
         assertArgument(casted, 2, 'Function, Object or string');
-        return filter(filterElements(getNodes(element), predicate), casted);
+        return filter(filterElements(getNodes(node), predicate), casted);
     };
 
     // FINDINDEX
@@ -833,11 +833,11 @@
     };
 
     // FINDLASTELEMENT
-    exp.findLastElement = findLastElement = function findLastElement(element, identity, predicate) {
+    exp.findLastElement = findLastElement = function findLastElement(node, identity, predicate) {
         var casted = toDOMIdentity(identity);
-        assertArgument(isElement(element), 1, 'Element');
+        assertArgument(isNode(node), 1, 'Element');
         assertArgument(casted, 2, 'Element, Function, Object or string');
-        return findLast(filterElements(getNodes(element), predicate), casted);
+        return findLast(filterElements(getNodes(node), predicate), casted);
     };
 
     // FINDLASTINDEX
@@ -856,19 +856,19 @@
     };
 
     // FINDNEXTELEMENT
-    exp.findNextElement = findNextElement = function findNextElement(element, identity, predicate) {
+    exp.findNextElement = findNextElement = function findNextElement(node, identity, predicate) {
         var casted = toDOMIdentity(identity);
-        assertArgument(isElement(element), 1, 'Element');
+        assertArgument(isNode(node), 1, 'Element');
         assertArgument(casted, 2, 'Element, Function or string');
-        return find(filterElements(getNextElements(element), predicate), casted);
+        return find(filterElements(getNextElements(node), predicate), casted);
     };
 
     // FINDNEXTELEMENTS
-    exp.findNextElements = findNextElements = function findNextElements(element, identity, predicate) {
+    exp.findNextElements = findNextElements = function findNextElements(node, identity, predicate) {
         var casted = toDOMPredicate(identity);
-        assertArgument(isElement(element), 1, 'Element');
+        assertArgument(isNode(node), 1, 'Element');
         assertArgument(casted, 2, 'Function, Object or string');
-        return filter(filterElements(getNextElements(element), predicate), casted);
+        return filter(filterElements(getNextElements(node), predicate), casted);
     };
 
     // FINDPARENTELEMENT
@@ -882,35 +882,35 @@
     };
 
     // FINDPREVIOUSELEMENT
-    exp.findPreviousElement = findPreviousElement = function findPreviousElement(element, identity, predicate) {
+    exp.findPreviousElement = findPreviousElement = function findPreviousElement(node, identity, predicate) {
         var casted = toDOMIdentity(identity);
-        assertArgument(isElement(element), 1, 'Element');
+        assertArgument(isNode(node), 1, 'Element');
         assertArgument(casted, 2, 'Element, Function or string');
-        return findLast(filterElements(getPreviousElements(element), predicate), casted);
+        return findLast(filterElements(getPreviousElements(node), predicate), casted);
     };
 
     // FINDPREVIOUSELEMENTS
-    exp.findPreviousElements = findPreviousElements = function findPreviousElements(element, identity, predicate) {
+    exp.findPreviousElements = findPreviousElements = function findPreviousElements(node, identity, predicate) {
         var casted = toDOMPredicate(identity);
-        assertArgument(isElement(element), 1, 'Element');
+        assertArgument(isNode(node), 1, 'Element');
         assertArgument(casted, 2, 'Function or string');
-        return filter(filterElements(getPreviousElements(element), predicate), casted);
+        return filter(filterElements(getPreviousElements(node), predicate), casted);
     };
 
     // FINDSIBLINGELEMENT
-    exp.findSiblingElement = findSiblingElement = function findSiblingElement(element, identity, predicate) {
+    exp.findSiblingElement = findSiblingElement = function findSiblingElement(node, identity, predicate) {
         var casted = toDOMIdentity(identity);
-        assertArgument(isElement(element), 1, 'Element');
+        assertArgument(isNode(node), 1, 'Element');
         assertArgument(casted, 2, 'Element, Function or string');
-        return findPreviousElement(element, identity, predicate) || findNextElement(element, identity, predicate);
+        return findPreviousElement(node, identity, predicate) || findNextElement(node, identity, predicate);
     };
 
     // FINDSIBLINGELEMENTS
-    exp.findSiblingElements = findSiblingElements = function findSiblingElements(element, identity, predicate) {
+    exp.findSiblingElements = findSiblingElements = function findSiblingElements(node, identity, predicate) {
         var casted = toDOMPredicate(identity);
-        assertArgument(isElement(element), 1, 'Element');
+        assertArgument(isNode(node), 1, 'Element');
         assertArgument(casted, 2, 'Function, Object or string');
-        return filter(filterElements(getSiblingElements(element), predicate), casted);
+        return filter(filterElements(getSiblingElements(node), predicate), casted);
     };
 
     // FIRST
@@ -1083,20 +1083,14 @@
     };
 
     // GETELEMENTS
-    exp.getElements = getElements = function getElements(element, selector) {
-        if (isSelector(element)) { selector = element; element = document; }
-        assertArgument(isElement(element) || isNode(element, 9) || isNode(element, 10), 1, 'Element or HTMLDocument');
+    exp.getElements = getElements = function getElements(node, selector) {
+        if (isSelector(node)) { selector = node; node = document; }
+        assertArgument(isNode(node), 1, 'Node');
         assertArgument(isVoid(selector) || isSelector(selector), 2, 'string');
-        var method = element.queryAllEffectiveChildren ? 'queryAllEffectiveChildren' : 'querySelectorAll';
-        if (isSelector(selector)) { return toArray(element[method](selector)); }
-        if (isElement(element)) { return findElements(element, selector); }
-        return findElements(element.body, selector);
-    };
-
-    // GETHTML
-    exp.getHTML = getHTML = function getHTML(element) {
-        assertArgument(isElement(element), 1, 'Element');
-        return (isTemplate(element) ? element.instanceRef_ : element).innerHTML;
+        var method = node.queryAllEffectiveChildren ? 'queryAllEffectiveChildren' : 'querySelectorAll';
+        if (isSelector(selector)) { return toArray(node[method](selector)); }
+        if (isNode(node)) { return findElements(node, selector); }
+        return findElements(node.body, selector);
     };
 
     // GETHEIGHT
@@ -1120,28 +1114,28 @@
     };
 
     // GETNEXTELEMENT
-    exp.getNextElement = getNextElement = function getNextElement(element) {
-        assertArgument(isElement(element), 1, 'Element');
-        return getNext(element.parentNode.children, element);
+    exp.getNextElement = getNextElement = function getNextElement(node) {
+        assertArgument(isNode(node), 1, 'Element');
+        return getNext(node.parentNode.children, node);
     };
 
     // GETNEXTELEMENTS
-    exp.getNextElements = getNextElements = function getNextElements(element) {
-        assertArgument(isElement(element), 1, 'Element');
-        return getAllNext(element.parentNode.children, element);
+    exp.getNextElements = getNextElements = function getNextElements(node) {
+        assertArgument(isNode(node), 1, 'Element');
+        return getAllNext(node.parentNode.children, node);
     };
 
     // GETNODE
-    exp.getNode = getNode = function getNode(element, index) {
-        assertArgument(isElement(element), 1, 'Element');
+    exp.getNode = getNode = function getNode(node, index) {
+        assertArgument(isNode(node), 1, 'Element');
         assertArgument(isIndex(index), 2, 'number');
-        return (element.getEffectiveChildNodes ? element.getEffectiveChildNodes() : element.childNodes)[index];
+        return (node.getEffectiveChildNodes ? node.getEffectiveChildNodes() : node.childNodes)[index];
     };
 
     // GETNODES
-    exp.getNodes = getNodes = function getNodes(element) {
-        assertArgument(isElement(element), 1, 'Element');
-        return toArray(element.getEffectiveChildNodes ? element.getEffectiveChildNodes() : element.childNodes);
+    exp.getNodes = getNodes = function getNodes(node) {
+        assertArgument(isNode(node), 1, 'Element');
+        return toArray(node.getEffectiveChildNodes ? node.getEffectiveChildNodes() : node.childNodes);
     };
 
     // GETPADDING
@@ -1158,21 +1152,21 @@
     };
 
     // GETPREVIOUSELEMENT
-    exp.getPreviousElement = getPreviousElement = function getPreviousElement(element) {
-        assertArgument(isElement(element), 1, 'Element');
-        return getPrevious(element.parentNode.children, element);
+    exp.getPreviousElement = getPreviousElement = function getPreviousElement(node) {
+        assertArgument(isNode(node), 1, 'Element');
+        return getPrevious(node.parentNode.children, node);
     };
 
     // GETPREVIOUSELEMENTS
-    exp.getPreviousElements = getPreviousElements = function getPreviousElements(element) {
-        assertArgument(isElement(element), 1, 'Element');
-        return getAllPrevious(element.parentNode.children, element);
+    exp.getPreviousElements = getPreviousElements = function getPreviousElements(node) {
+        assertArgument(isNode(node), 1, 'Element');
+        return getAllPrevious(node.parentNode.children, node);
     };
 
     // GETSIBLINGELEMENTS
-    exp.getSiblingElements = getSiblingElements = function getSiblingElements(element) {
-        assertArgument(isElement(element), 1, 'Element');
-        return getAllSiblings(element.parentNode.children, element);
+    exp.getSiblingElements = getSiblingElements = function getSiblingElements(node) {
+        assertArgument(isNode(node), 1, 'Element');
+        return getAllSiblings(node.parentNode.children, node);
     };
 
     // GETSIBLINGS
@@ -1195,18 +1189,6 @@
         assertArgument(isVoid(names) || isArrayable(names), 2, 'Arrayable');
         var styles = global.getComputedStyle(element);
         return names ? pick(styles, names) : assign({}, styles);
-    };
-
-    // GETTAG
-    exp.getTag = getTag = function getTag(element) {
-        assertArgument(isElement(element), 1, 'Element');
-        return element.tagName.toLowerCase();
-    };
-
-    // GETTEXT
-    exp.getText = getText = function getText(node) {
-        assertArgument(isNode(node), 1, 'Node');
-        return isTemplate(node) ? '' : node.textContent;
     };
 
     // GETVALUE
@@ -1254,9 +1236,9 @@
     };
 
     // HASCHILDREN
-    exp.hasChildren = hasChildren = function hasChildren(element) {
-        assertArgument(isElement(element), 1, 'Element');
-        return !!findElement(element, function (node) {
+    exp.hasChildren = hasChildren = function hasChildren(node) {
+        assertArgument(isNode(node), 1, 'Element');
+        return !!findElement(node, function (node) {
             if (node.nodeType === 1 && node.tagName === 'TEMPLATE') { return false; }
             if (node.nodeType === 3 && !trim(node.textContent, '\r\n ')) { return false; }
             return true;
@@ -2337,15 +2319,6 @@
         return element;
     };
 
-    // SETHTML
-    exp.setHTML = setHTML = function setHTML(element, value) {
-        assertArgument(isVoid(element) || isElement(element), 1, 'Element');
-        assertArgument(isVoid(value) || isString(value), 2, 'string');
-        var instance = isTemplate(element) ? element.instanceRef_ : element;
-        if (instance) { instance.innerHTML = value || ''; }
-        return element;
-    };
-
     // SETNODES
     exp.setNodes = setNodes = function setNodes(element, nodes) {
         assertArgument(isVoid(element) || isElement(element), 1, 'Element');
@@ -2371,14 +2344,6 @@
         if (element && isObject(styles)) { forOwn(styles, function (value, name) { setStyle(element, name, value); }); }
         if (element && isString(styles)) { forEach(setAttribute(dummy, 'style', styles).style, function (name) { element.style[name] = dummy.style[name]; }); }
         return element;
-    };
-
-    // SETTEXT
-    exp.setText = setText = function setText(node, value) {
-        assertArgument(isVoid(node) || isNode(node), 1, 'Node');
-        assertArgument(isVoid(value) || isString(value), 2, 'string');
-        if (node && !isTemplate(node)) { node.textContent = value || ''; }
-        return node;
     };
 
     // SETVALUE
