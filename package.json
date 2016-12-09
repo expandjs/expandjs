@@ -1,37 +1,30 @@
 {
   "name": "expandjs",
+  "description": "A set of functions designed to enhance your JavaScript programming experience",
+  "version": "1.0.0",
   "license": "BSD-3-Clause",
-  "description": "This is a set of functions, designed to enhance your JavaScript programming experience.",
-  "version": "0.10.0",
-  "homepage": "https://github.com/ExpandJS/expandjs",
-  "author": "ExpandJS <dev@expandjs.com> (http://expandjs.com)",
+  "homepage": "https://expandjs.com",
+  "author": "expandjs <dev@expandjs.com> (https://expandjs.com)",
+
   "contributors": [
     "Giuliano Rullo <g.rullo@expandjs.com>",
     "Maurizio Stefàno <m.stefano@expandjs.com>",
     "Robert Manolea <r.manolea@expandjs.com>"
   ],
+
   "repository": {
     "type": "git",
-    "url": "https://github.com/ExpandJS/expandjs.git"
+    "url": "https://github.com/expandjs/expandjs.git"
   },
+
   "dependencies": {
-    "html-json-forms": "git+https://git@github.com/cezary/JSONForms.git",
-    "lodash": "^3.10.0",
-    "uuid": "^2.0.0"
+    "html-json-forms": "Pupix/JSONForms",
+    "lodash": "^4.17.0",
+    "path-to-regexp": "^1.7.0",
+    "uuid": "^3.0.0"
   },
-  "devDependencies": {
-    "browserify": "*",
-    "derequire": "*",
-    "minifyify": "*"
-  },
+
   "scripts": {
-    "build": "node bin/build && npm run build:browserify && npm run build:minify && node noconflict",
-    "build:browserify": "browserify bin --standalone XP | derequire > dist/expandjs.js",
-    "build:minify": "browserify -d bin --standalone XP -p [minifyify --map expandjs.min.map --output dist/expandjs.min.map] | derequire > dist/expandjs.min.js"
-  },
-  "keywords": [
-      "expandjs",
-      "web app",
-      "stdlib"
-  ]
+    "build": "webpack"
+  }
 }

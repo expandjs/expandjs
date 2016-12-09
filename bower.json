@@ -1,23 +1,19 @@
 {
   "name": "expandjs",
+  "description": "A set of functions designed to enhance your JavaScript programming experience",
+  "version": "1.0.0",
   "license": "BSD-3-Clause",
-  "version": "0.10.0",
-  "main": "expandjs.html",
-  "description": "This module is used to import the ExpandJS utilities",
-  "homepage": "http://expandjs.com/utilities",
+  "homepage": "https://expandjs.com/utilities",
+
   "authors": [
     "Giuliano Rullo <g.rullo@expandjs.com>",
     "Maurizio Stefàno <m.stefano@expandjs.com>",
     "Robert Manolea <r.manolea@expandjs.com>"
   ],
+
   "keywords": [
     "expandjs",
-    "stdlib",
     "nodejs",
-    "web app",
-    "javascript"
-  ],
-  "ignore": [
-    "**/.*"
+    "stdlib"
   ]
 }
