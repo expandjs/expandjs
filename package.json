@@ -1,7 +1,7 @@
 {
   "name": "expandjs",
   "description": "A set of functions designed to enhance your JavaScript programming experience",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "license": "BSD-3-Clause",
   "homepage": "https://expandjs.com/utilities",
   "author": "expandjs <dev@expandjs.com> (https://expandjs.com)",
@@ -21,7 +21,12 @@
     "html-json-forms": "Pupix/JSONForms",
     "lodash": "^4.17.0",
     "path-to-regexp": "^1.7.0",
-    "uuid": "^3.0.0"
+    "uuid": "^3.1.0"
+  },
+
+  "devDependencies": {
+    "uglifyjs-webpack-plugin": "^1.1.0",
+    "webpack": "^3.10.0"
   },
 
   "scripts": {
